@@ -2,6 +2,8 @@
 
 Lamb Learner Success Center Student Services Management System
 
+Structure:
+
 controllers: Define your app route handlers and business logic.
 util: Writes utility/helper functions here which can be used by any controllers.
 middlewares: You can write middlewares to interpret all incoming requests before moving to the route handler.
