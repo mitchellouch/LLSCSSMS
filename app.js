@@ -16,7 +16,7 @@ app.listen(3000);
 
 //localhost:3000
 app.get("/", (req, res) => {
-  res.send("Home Page");
+  res.send("This is the login page");
 });
 
 //app.post("/", (req, res) => {});
