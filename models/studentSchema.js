@@ -4,12 +4,19 @@ const mongoose = require("mongoose");
 
 const studentSchema = mongoose.Schema({
   studentID: {
-    type: Number,
-    required: true,
-  },
-  studentName: {
     type: String,
     required: true,
+    trim: true
+  },
+  firstName: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  lastName: {
+    type: String,
+    required: true,
+    trim: true
   },
   studentPhone: String,
   studentEmail: String,
