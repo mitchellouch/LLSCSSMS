@@ -1,7 +1,7 @@
 //define app routes with HTTP methods
 const express = require("express");
 const router = express.Router();
-const Student = require("../models/student");
+const Student = require("../models/studentSchema");
 
 router.get("/", (req, res) => {
   res.send("Student Page");
