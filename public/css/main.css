@@ -3,3 +3,22 @@ body {
     background-size: cover;
 }
 
+ul {
+    list-style-type: none;
+    overflow: hidden;
+    background-color: rgb(83, 77, 77);
+}
+  
+li {
+    float: left;
+}
+  
+li a {
+    display: block;
+    color: white;
+    text-align: right;
+    font-size: 19px;
+    padding: 21px 21px;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+}

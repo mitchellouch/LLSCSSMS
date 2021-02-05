@@ -24,9 +24,11 @@ app.use(bodyParser.json());
 const studentRoute = require("./routes/studentRoutes");
 const loginRoute = require("./routes/loginRoutes");
 const registerRoute = require("./routes/registerRoutes");
+const mainpageRoute = require("./routes/mainpageRoutes");
 app.use("/student", studentRoute);
 app.use("/login", loginRoute);
 app.use("/register", registerRoute);
+app.use("/mainpage", mainpageRoute);
 
 //start listening & setup route
 app.listen(3000);
@@ -34,7 +36,7 @@ app.listen(3000);
 //localhost:3000
 app.get("/", (req, res) => {
   res.send(
-    "This is the main page <br/> <a href='/login'>Move to Login Page</a>"
+    "This is the main page <br/> <a href='/login'>Move to Login Page</a> <br/> <a href='/mainpage'>Move to Main Page</a>"
   );
 });
 
