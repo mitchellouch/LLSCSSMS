@@ -2,64 +2,61 @@ const express = require('express');
 const app = express();
 const router = express.Router();
 const bodyParser = require('body-parser');
-const Student = require("../models/studentSchema");
+const User = require("../models/userSchema");
+const bcrypt = require('bcrypt');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
 router.get("/", (req, res, next) => {
-    res.status(200).render("register");
+    res.status(200).render("users/userRegister.html");
 });
 
 router.post("/", async (req, res, next) => {
     
     // listed data below are just sample data to create it, need to change dynamically
-    var studentID = "000999990";
-    var firstName = "testFName";    //req.body.firstName.trim();
-    var lastName = "testFName"; //req.body.lastName.trim();
-    var studentPhone = "testPhone";
-    var studentEmail = "testEmail@sait.ca";
-    var personalEmail = "testEmail@gmail.com";
-    var academicStatus = "testStatus";
+    var id = req.body.saitId.trim();
+    var firstName = req.body.firstName.trim();
+    var lastName = req.body.lastName.trim();
+    var email = req.body.email.trim();
+    var phone = req.body.phone.trim();
+    var password = req.body.password;
 
-    if(studentID && firstName && lastName){
-        var user = await Student.findOne(
-                { studentID: studentID }
+    var payload = req.body;
+
+    if(id && firstName && lastName && email && password){
+
+        var user = await User.findOne(
+                {saitId: id}
         )
         .catch((err) => {
+            console.log("#1");
             console.log(err);
+            payload.errorMessage = "Something went wrong.";
+            res.status(200).render("users/userRegister.html", payload);
         });
 
         if(user == null){
             // No user found
-            var data = {
-                studentID: studentID,
-                firstName: firstName,
-                lastName: lastName,
-                studentPhone: studentPhone,
-                studentEmail: studentEmail,
-                personalEmail: personalEmail,
-                academicStatus: academicStatus
-            };  //req.body;
+            var data = req.body;
 
-            Student.create(data)
+            data.password = await bcrypt.hash(password, 10);
+
+            User.create(data)
             .then((user) => {
-                console.log("test student creation succeded");
+                req.session.user = user;
                 return res.redirect("/");
-            })
-            .catch(error => {
-                console.log("test student creation failed");
-                console.log(error);
             });
         }
         else {
-            // User found
-            console.log("Test student is already created");
+            // User found       
+            payload.errorMessage = "This SAIT ID is already in use.";
+            res.status(200).render("users/userRegister.html", payload);
         }
         
     }
     else {
-        alert("unexpected error");
-        res.status(200).render("/");
+        payload.errorMessage = "Make sure each field has a valid value.";
+        res.status(200).render("users/userRegister.html", payload);
     }
 
     

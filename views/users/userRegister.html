@@ -1,0 +1,113 @@
+<!-- This register page is temporary page to test user login,
+    should be moved into Admin page later in order to prevent not allowed user registeration
+    Jin, -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="
+    /css/main.css" />
+    <title>LLSC SSMS Temp register Page</title>
+</head>
+<body>
+    <div id="main" class="container">
+        <br />
+        <br />
+        <h1 color="white">Lamb Learner Success Center</h1>
+        <h2>Student Services Management System</h2>
+        <br />
+        <form method="POST" id="registerForm" onsubmit="validateForm(event);">
+            <input
+                type="text"
+                placeholder="SAIT ID (ex.000919293)"
+                class="form-control"
+                name="saitId"
+                required
+            />
+            <br />
+            <input
+                type="text"
+                placeholder="First name"
+                class="form-control"
+                name="firstName"
+                required
+            />
+            <br />
+            <input
+                type="text"
+                placeholder="Last name"
+                class="form-control"
+                name="lastName"
+                required
+            />
+            <br />
+            <input
+                type="email"
+                placeholder="Email"
+                class="form-control"
+                name="email"
+                required
+            />
+            <br />
+            <input
+                type="text"
+                placeholder="Phone (ex. 4037778888)"
+                class="form-control"
+                name="phone"
+            />
+            <br />
+            <input
+                type="password"
+                placeholder="Password"
+                class="form-control"
+                id="password"
+                name="password"
+                required
+            />
+            <br />
+            <input
+                type="password"
+                placeholder="Confirm Password"
+                class="form-control"
+                id="passwordConf"
+                name="passwordConf"
+                required
+            />
+            <br />
+            <input
+                type="submit"
+                class=""
+                value="Register"
+            />
+        </form>
+        <a href="/login">Already have an account? Login here</a>
+    </div>
+
+    <script>
+        var passwordField = document.getElementById("password");
+        var passwordConfField = document.getElementById("passwordConf");
+        var form = document.getElementById("registerForm");
+
+
+        function validateForm(event){
+            event.preventDefault();
+
+            if(passwordField.value != passwordConfField.value) {
+                alert("Passwords do not match. Please try again");
+            }
+            else {
+                form.submit();
+            }
+        }
+    </script>
+</body>
+</html>

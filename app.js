@@ -4,11 +4,12 @@
 
 const express = require("express");
 const app = express();
-//const mongoose = require("mongoose");
 const path = require("path");
 const bodyParser = require("body-parser");
-const mongoose = require('./database');
+const mongoose = require("./database");
 require("dotenv/config");
+const middleware = require("./middleware/auth");
+const session = require("express-session");
 
 // HTML default setting
 app.set("view engine", "ejs");
@@ -19,6 +20,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(bodyParser.json());
+app.use(session({
+  secret: "capstone llsc 2021",  //secret keyword
+  resave: true,
+  saveUninitialized: false
+}))
 
 //exported route from other.js
 const studentRoute = require("./routes/studentRoutes");
@@ -34,10 +40,13 @@ app.use("/mainpage", mainpageRoute);
 app.listen(3000);
 
 //localhost:3000
-app.get("/", (req, res) => {
-  res.send(
-    "This is the main page <br/> <a href='/login'>Move to Login Page</a> <br/> <a href='/mainpage'>Move to Main Page</a>"
-  );
+app.get("/", middleware.requireLogin, (req, res, next) => {
+
+  var payload = {
+    pageTitle: "Main Page",
+    userLoggedIn: req.session.user
+  }
+  res.status(200).render("users/mainpage.html", payload);
 });
 
 //app.post("/", (req, res) => {});
