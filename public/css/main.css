@@ -22,3 +22,7 @@ li a {
     text-decoration: none;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+h1, h2 {
+    color: white;
+}
