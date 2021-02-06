@@ -13,18 +13,20 @@ const session = require("express-session");
 
 // HTML default setting
 app.set("view engine", "ejs");
-app.engine("html", require("ejs").renderFile);
+app.engine("pug", require("ejs").renderFile);
 
 // application uses
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(bodyParser.json());
-app.use(session({
-  secret: "capstone llsc 2021",  //secret keyword
-  resave: true,
-  saveUninitialized: false
-}))
+app.use(
+  session({
+    secret: "capstone llsc 2021", //secret keyword
+    resave: true,
+    saveUninitialized: false,
+  })
+);
 
 //exported route from other.js
 const studentRoute = require("./routes/studentRoutes");
@@ -41,11 +43,10 @@ app.listen(3000);
 
 //localhost:3000
 app.get("/", middleware.requireLogin, (req, res, next) => {
-
   var payload = {
     pageTitle: "Main Page",
-    userLoggedIn: req.session.user
-  }
+    userLoggedIn: req.session.user,
+  };
   res.status(200).render("users/mainpage.html", payload);
 });
 

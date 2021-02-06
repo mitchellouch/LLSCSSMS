@@ -1,0 +1,26 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
+  link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous')
+  link(rel='stylesheet' href='/css/main.css')
+  title LLSC SSMS Login Page
+#main.container
+  br
+  br
+  h1 Lamb Learner Success Center
+  h2 Student Services Management System
+  // <p>${payload.errorMessage}</p>
+  br
+  form(method='POST')
+    input#logId.form-control(type='text' placeholder='Enter SAIT ID' name='logId')
+    br
+    input#logPassword.form-control(type='password' placeholder='Enter Password' name='logPassword')
+    br
+    input(type='submit' value='Login')
+  a(href='/register') Need an account? Register here.
+  //
+    <form action='/register' method="POST">
+    <input type="submit" value="testbutton for DB">
+    </form>
