@@ -26,3 +26,8 @@ li a {
 h1, h2 {
     color: white;
 }
+
+.errorMessage {
+    color: red;
+    font-weight: 500;
+}

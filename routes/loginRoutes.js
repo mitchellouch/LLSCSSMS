@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 app.use(bodyParser.urlencoded({ extended: false }));
 
 router.get("/", (req, res) => {
-  res.status(200).render("users/login.html");
+  res.status(200).render("users/login");
 });
 
 router.post("/", async (req, res, next) => {
@@ -21,7 +21,7 @@ router.post("/", async (req, res, next) => {
     .catch(err => {
       console.log(err);
       payload.errorMessage = "Failed connection to database.";
-      res.status(200).render("users/login.html", payload);
+      res.status(200).render("users/login", payload);
     });
     
     if(user != null){
@@ -34,12 +34,12 @@ router.post("/", async (req, res, next) => {
     }
     else {
       payload.errorMessage = "Login credentials incorrect.";
-      return res.status(200).render("users/login.html", payload);
+      return res.status(200).render("users/login", payload);
     }
   }
   else {
     payload.errorMessage = "Make sure each field has a valid value.";
-    res.status(200).render("users/login.html", payload);
+    res.status(200).render("users/login", payload);
   }
 
 });

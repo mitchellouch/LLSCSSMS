@@ -1,0 +1,53 @@
+doctype html
+//
+  This register page is temporary page to test user login,
+  should be moved into Admin page later in order to prevent not allowed user registeration
+  Jin,
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
+    link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous')
+    link(rel='stylesheet' href='\
+    /css/main.css')
+    title LLSC SSMS Temp register Page
+  body
+    #main.container
+      br
+      br
+      h1(color='white') Lamb Learner Success Center
+      h2 Student Services Management System
+      p.errorMessage #{errorMessage}
+      form#registerForm(method='POST' onsubmit='validateForm(event);')
+        input.form-control(type='text' placeholder='SAIT ID (ex.000919293)' name='saitId' required='')
+        br
+        input.form-control(type='text' placeholder='First name' name='firstName' required='')
+        br
+        input.form-control(type='text' placeholder='Last name' name='lastName' required='')
+        br
+        input.form-control(type='email' placeholder='Email' name='email' required='')
+        br
+        input.form-control(type='text' placeholder='Phone (ex. 4037778888)' name='phone')
+        br
+        input#password.form-control(type='password' placeholder='Password' name='password' required='')
+        br
+        input#passwordConf.form-control(type='password' placeholder='Confirm Password' name='passwordConf' required='')
+        br
+        input(type='submit' value='Register')
+      a(href='/login') Already have an account? Login here
+
+    script.
+      var passwordField = document.getElementById("password");
+      var passwordConfField = document.getElementById("passwordConf");
+      var form = document.getElementById("registerForm");
+      
+      function validateForm(event){
+        event.preventDefault();
+        if(passwordField.value != passwordConfField.value) {
+            alert("Passwords do not match. Please try again");
+        }
+        else {
+            form.submit();
+        }
+      }

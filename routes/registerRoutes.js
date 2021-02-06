@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 app.use(bodyParser.urlencoded({ extended: false }));
 
 router.get("/", (req, res, next) => {
-    res.status(200).render("users/userRegister.html");
+    res.status(200).render("users/userRegister");
 });
 
 router.post("/", async (req, res, next) => {
@@ -29,10 +29,9 @@ router.post("/", async (req, res, next) => {
                 {saitId: id}
         )
         .catch((err) => {
-            console.log("#1");
             console.log(err);
             payload.errorMessage = "Something went wrong.";
-            res.status(200).render("users/userRegister.html", payload);
+            res.status(200).render("users/userRegister", payload);
         });
 
         if(user == null){
@@ -50,13 +49,13 @@ router.post("/", async (req, res, next) => {
         else {
             // User found       
             payload.errorMessage = "This SAIT ID is already in use.";
-            res.status(200).render("users/userRegister.html", payload);
+            res.status(200).render("users/userRegister", payload);
         }
         
     }
     else {
         payload.errorMessage = "Make sure each field has a valid value.";
-        res.status(200).render("users/userRegister.html", payload);
+        res.status(200).render("users/userRegister", payload);
     }
 
     
