@@ -1,33 +1,35 @@
 body {
-    background: url("https://www.sait.ca/images/News%20and%20Events/2020/SADT-lights.jpg") fixed center;
-    background-size: cover;
+  background: url("https://www.sait.ca/images/News%20and%20Events/2020/SADT-lights.jpg")
+    fixed center;
+  background-size: cover;
 }
 
 ul {
-    list-style-type: none;
-    overflow: hidden;
-    background-color: rgb(83, 77, 77);
-}
-  
-li {
-    float: left;
-}
-  
-li a {
-    display: block;
-    color: white;
-    text-align: right;
-    font-size: 19px;
-    padding: 21px 21px;
-    text-decoration: none;
-    font-family: Arial, Helvetica, sans-serif;
+  list-style-type: none;
+  overflow: hidden;
+  background-color: rgb(83, 77, 77);
 }
 
-h1, h2 {
-    color: white;
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: right;
+  font-size: 19px;
+  padding: 21px 21px;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1,
+h2 {
+  color: white;
 }
 
 .errorMessage {
-    color: red;
-    font-weight: 500;
+  color: red;
+  font-weight: 500;
 }

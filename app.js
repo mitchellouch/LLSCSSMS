@@ -59,4 +59,3 @@ app.get("/", middleware.requireLogin, (req, res, next) => {
 //app.delete("/", (req, res) => {});
 
 //app.patch("/", (req, res) => {});
-
