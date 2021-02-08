@@ -23,6 +23,10 @@ li a {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+input {
+    color: white;
+}
+
 h1, h2 {
     color: white;
 }
