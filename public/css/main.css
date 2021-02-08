@@ -32,4 +32,15 @@ h2 {
 .errorMessage {
   color: red;
   font-weight: 500;
+input {
+    color: white;
+}
+
+h1, h2 {
+    color: white;
+}
+
+.errorMessage {
+    color: red;
+    font-weight: 500;
 }
