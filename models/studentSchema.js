@@ -22,6 +22,6 @@ const studentSchema = mongoose.Schema({
   studentEmail: String,
   personalEmail: String,
   academicStatus: String,
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model("Student", studentSchema);
