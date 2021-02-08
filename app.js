@@ -1,43 +1,58 @@
 //main
 
 //commit test by Jinseok Lee, Jan 26. Hi2
+//commit test by Sungjoon An, Feb 09. "Hii"
 
 const express = require("express");
 const app = express();
-//const mongoose = require("mongoose");
 const path = require("path");
 const bodyParser = require("body-parser");
-const mongoose = require('./database');
+const mongoose = require("./database");
 require("dotenv/config");
+const middleware = require("./middleware/auth");
+const session = require("express-session");
 
-// HTML default setting
-app.set("view engine", "ejs");
-app.engine("html", require("ejs").renderFile);
+// Pug default setting
+app.set("view engine", "pug");
+app.set("views", "views");
 
 // application uses
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(bodyParser.json());
+app.use(
+  session({
+    secret: "capstone llsc 2021", //secret keyword
+    resave: true,
+    saveUninitialized: false,
+  })
+);
 
 //exported route from other.js
 const studentRoute = require("./routes/studentRoutes");
 const loginRoute = require("./routes/loginRoutes");
 const registerRoute = require("./routes/registerRoutes");
 const mainpageRoute = require("./routes/mainpageRoutes");
+const { CLIENT_RENEG_LIMIT } = require("tls");
 app.use("/student", studentRoute);
 app.use("/login", loginRoute);
 app.use("/register", registerRoute);
 app.use("/mainpage", mainpageRoute);
 
 //start listening & setup route
-app.listen(3000);
+const port = 3000;
+app.listen(port, () => {
+  console.log("Server listening on port " + port);
+});
 
 //localhost:3000
-app.get("/", (req, res) => {
-  res.send(
-    "This is the main page <br/> <a href='/login'>Move to Login Page</a> <br/> <a href='/mainpage'>Move to Main Page</a>"
-  );
+app.get("/", middleware.requireLogin, (req, res, next) => {
+  var payload = {
+    pageTitle: "Main Page",
+    userLoggedIn: req.session.user,
+  };
+  res.status(200).render("users/mainpage", payload);
 });
 
 //app.post("/", (req, res) => {});
@@ -45,8 +60,3 @@ app.get("/", (req, res) => {
 //app.delete("/", (req, res) => {});
 
 //app.patch("/", (req, res) => {});
-
-//hardcode db connection
-// mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, () => {
-//   console.log("Connected to db...");
-// });
