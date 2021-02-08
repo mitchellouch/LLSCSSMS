@@ -3,6 +3,21 @@ body {
     background-size: cover;
 }
 
+.center{
+    margin-top: 30px;
+    margin-bottom: 10px;
+    margin-right: 100px;    
+    margin-left: 100px;
+}
+
+a{
+    margin-right: 35px;    
+}
+
+i {
+    float: right;
+}
+
 ul {
     list-style-type: none;
     overflow: hidden;
