@@ -1,62 +1,105 @@
-body {
-  background: url("https://www.sait.ca/images/News%20and%20Events/2020/SADT-lights.jpg")
-    fixed center;
-  background-size: cover;
+:root {
+  --blue: #006fbf;
+  --darkBlue: #004489;
+  --gray: #494c4e;
 }
 
-.center{
-    margin-top: 30px;
-    margin-bottom: 10px;
-    margin-right: 100px;    
-    margin-left: 100px;
+.wrapper {
+  display: flex;
+  flex-direction: column;
 }
 
-a{
-    margin-right: 35px;    
+.nav-header {
+  display: flex;
+  height: 90px;
+  align-items: center;
+  padding: 0 20px;
 }
 
-i {
-    float: right;
+.nav-header .logoContainer {
+  flex: 1;
 }
 
-ul {
-  list-style-type: none;
-  overflow: hidden;
-  background-color: rgb(83, 77, 77);
+.userProfileContainer {
+  display: flex;
+  height: 42px;
+  align-items: center;
+  padding: 10px;
 }
 
-li {
-  float: left;
+.userProfileContainer img {
+  height: 40px;
+  margin-right: 10px;
 }
 
-li a {
-  display: block;
-  color: white;
-  text-align: right;
+.nav-footer {
+  display: flex;
+  background-color: var(--gray);
+  height: 60px;
+}
+
+.nav-footer .navFooterContainer{
+  display: flex;
+  margin: 5px 50px;
+  align-items: center;
+}
+
+.navFooterItem {
+  margin: 0 35px;
   font-size: 19px;
-  padding: 21px 21px;
-  text-decoration: none;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
-h1,
-h2 {
+.navFooterItem a{
+  font-size: 100%;
   color: white;
 }
 
-.errorMessage {
-  color: red;
-  font-weight: 500;
-}
-input {
-    color: white;
+.heading {
+  font-size: 40px;
+  color: var(--gray);
+  margin-bottom: 30px;
 }
 
-h1, h2 {
-    color: white;
+.studentInfoWrapper{
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 20px auto;
 }
 
-.errorMessage {
-    color: red;
-    font-weight: 500;
+.searchBarContainer {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  border: 1px solid var(--gray);
+  border-radius: 10px;
+  width: 90%;
+  margin: auto;
+  max-width: 1000px;
+}
+
+.searchBarContainer input {
+  height: 100%;
+  border: none;
+  background-color: inherit;
+  flex: 1;
+  padding: 5px 20px;
+  color: var(--gray);
+}
+
+.searchBarContainer input:focus {
+  outline: none;
+}
+
+.searchBarContainer .iconContainer {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+.searchBarContainer i {
+  font-size: 20px;
+  color: var(--gray);
 }

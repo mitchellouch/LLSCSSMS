@@ -1,24 +1,5 @@
-doctype html
-html(lang='en')
-  head
-    meta(charset='UTF-8')
-    meta(name='viewport' content='width=device-width, initial-scale=1.0')
-    link(rel='stylesheet' href='/css/main.css')
-    link(rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons')
-    title LLSC SSMS Main Page
-  body
-    .center
-      img(src='https://learn.sait.ca/d2l/lp/navbars/6605/theme/viewimage/3208789/view?v=20.21.1.27113-201' height='80px' width='240px' alt='SAIT LOGO')
-      i.material-icons(style='font-size: 25px;color: white') USERNAME
-      i.material-icons(style='font-size: 50px;color: white') circle
-      i.material-icons(style='font-size: 50px;color: white;transform: rotate(90deg);') remove
-      i.material-icons(style='font-size: 50px;color: white') notifications
-      i.material-icons(style='font-size: 50px;color: white') message
-      i.material-icons(style='font-size: 50px;color: white') mail
-  ul
-    li
-      a(href='#home') INSTRUCTOR HOME
-    li
-      a(href='#info') MANAGE INFO
-    li
-      a(href='#appointments') MANAGE APPOINTMENTS
+extends layouts/main-layout.pug
+
+block content 
+  .studentInfoWrapper 
+    h1 Hello this page would be home page

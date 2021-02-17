@@ -30,15 +30,16 @@ app.use(
 );
 
 //exported route from other.js
-const studentRoute = require("./routes/studentRoutes");
+const studentInfoRoute = require("./routes/studentInfoRoutes");
 const loginRoute = require("./routes/loginRoutes");
 const registerRoute = require("./routes/registerRoutes");
 const mainpageRoute = require("./routes/mainpageRoutes");
 const { CLIENT_RENEG_LIMIT } = require("tls");
-app.use("/student", studentRoute);
+
 app.use("/login", loginRoute);
 app.use("/register", registerRoute);
 app.use("/mainpage", mainpageRoute);
+app.use("/student", middleware.requireLogin, studentInfoRoute);
 
 //start listening & setup route
 const port = 3000;
