@@ -12,8 +12,13 @@ router.get("/", (req, res, next) => {
     res.status(200).render("users/studentInfo", payload);
 });
 
+router.get("/register", (req, res, next) => {
+    var payload = createPayload(req.session.user);
+    res.status(200).render("users/studentRegistration", payload);
+});
+
 router.post("/", async (req, res, next) => {
- 
+    res.send("Hello this post is working");
 });
 
 function createPayload(userLoggedIn) {
