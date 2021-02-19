@@ -33,7 +33,7 @@ router.post("/register", async (req, res, next) => {
         var student = await Student.findOne({ saitId: saitId })
         .catch(err => {
             console.log(err);
-            payload.result = "fail"
+            payload.success = false;
             payload.message = "Something went wrong.";
             res.status(200).render("users/studentRegister", payload);
         });
@@ -45,20 +45,20 @@ router.post("/register", async (req, res, next) => {
             Student.create(data)
             .then(student => {
                 payload = {
-                    result: "success",
+                    success: true,
                     message: `New student #${saitId} successfully added.`
                 }
                 res.status(200).render("users/studentRegister", payload);
             });
         }
         else {
-            payload.result = "fail";
+            payload.success = false;
             payload.message = `Provided SAIT ID #${saitId} is already registered.`;
             res.status(200).render("users/studentRegister", payload);
         }
     }
     else {
-        payload.result = "fail";
+        payload.success = false;
         payload.message = "Make sure each field has a valid value.";
     }
 });
