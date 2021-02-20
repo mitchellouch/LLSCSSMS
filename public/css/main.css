@@ -29,6 +29,13 @@
   padding: 10px;
 }
 
+.userProfileContainer i {
+  height: 40px;
+  font-size: 45px;
+  color: rgb(143, 143, 143);
+  margin-right: 10px;
+}
+
 .userProfileContainer img {
   height: 40px;
   margin-right: 10px;
@@ -75,7 +82,7 @@
   height: 42px;
   border: 1px solid var(--gray);
   border-radius: 10px;
-  width: 90%;
+  width: 35%;
   margin: auto;
   margin-bottom: 2rem;
   max-width: 1000px;
