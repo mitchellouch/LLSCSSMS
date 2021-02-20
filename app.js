@@ -33,6 +33,7 @@ app.use(
 const studentInfoRoute = require("./routes/studentInfoRoutes");
 const loginRoute = require("./routes/loginRoutes");
 const registerRoute = require("./routes/registerRoutes");
+const appointmentRoute = require("./routes/appointmentRoutes");
 const mainpageRoute = require("./routes/mainpageRoutes");
 const { CLIENT_RENEG_LIMIT } = require("tls");
 
@@ -42,6 +43,7 @@ const studentsApiRoute = require('./routes/api/students');
 app.use("/login", loginRoute);
 app.use("/register", registerRoute);
 app.use("/mainpage", mainpageRoute);
+app.use("/appointment", appointmentRoute);
 app.use("/student", middleware.requireLogin, studentInfoRoute);
 
 app.use("/api/students", middleware.requireLogin, studentsApiRoute);
