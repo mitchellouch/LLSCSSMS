@@ -1,189 +1,62 @@
-:root {
-  --blue: #006fbf;
-  --darkBlue: #004489;
-  --gray: #494c4e;
-  --lightGray: #e3e9f1;
-  --lightGrayHover: #cdd5dc;
+body {
+  background: url("https://www.sait.ca/images/News%20and%20Events/2020/SADT-lights.jpg")
+    fixed center;
+  background-size: cover;
 }
 
-.wrapper {
-  display: flex;
-  flex-direction: column;
+.center{
+    margin-top: 30px;
+    margin-bottom: 10px;
+    margin-right: 100px;    
+    margin-left: 100px;
 }
 
-.nav-header {
-  display: flex;
-  height: 90px;
-  align-items: center;
-  padding: 0 20px;
+a{
+    margin-right: 35px;    
 }
 
-.nav-header .logoContainer {
-  flex: 1;
+i {
+    float: right;
 }
 
-.userProfileContainer {
-  display: flex;
-  height: 42px;
-  align-items: center;
-  padding: 10px;
+ul {
+  list-style-type: none;
+  overflow: hidden;
+  background-color: rgb(83, 77, 77);
 }
 
-.userProfileContainer i {
-  height: 40px;
-  font-size: 45px;
-  color: rgb(143, 143, 143);
-  margin-right: 10px;
+li {
+  float: left;
 }
 
-.userProfileContainer img {
-  height: 40px;
-  margin-right: 10px;
-}
-
-.nav-footer {
-  display: flex;
-  background-color: var(--gray);
-  height: 60px;
-}
-
-.nav-footer .navFooterContainer{
-  display: flex;
-  margin: 5px 50px;
-  align-items: center;
-}
-
-.navFooterItem {
-  margin: 0 35px;
-  font-size: 19px;
-}
-
-.navFooterItem a{
-  font-size: 100%;
+li a {
+  display: block;
   color: white;
+  text-align: right;
+  font-size: 19px;
+  padding: 21px 21px;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.heading {
-  font-size: 40px;
-  color: var(--gray);
-  margin-bottom: 30px;
-}
-
-.studentInfoWrapper{
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-  margin: 20px auto;
-}
-
-.searchBarContainer {
-  display: flex;
-  align-items: center;
-  height: 42px;
-  border: 1px solid var(--gray);
-  border-radius: 10px;
-  width: 35%;
-  margin: auto;
-  margin-bottom: 2rem;
-  max-width: 1000px;
-}
-
-.searchBarContainer input {
-  height: 100%;
-  border: none;
-  background-color: inherit;
-  flex: 1;
-  padding: 5px 20px;
-  color: var(--gray);
-  outline: none;
-}
-
-.searchBarContainer .iconContainer {
-  display: flex;
-  align-items: center;
-  margin-right: 10px;
-  width: 20px;
-  height: 20px;
-}
-
-.searchBarContainer i {
-  font-size: 20px;
-  color: var(--gray);
-}
-
-.studentInfoWrapper .buttonsContainer {
-  display: flex;
-  height: 42px;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-.buttonsContainer button,
-.buttonsContainer input[type="button"],
-.buttonsContainer input[type="reset"],
-.buttonsContainer input[type="submit"] {
-  height: 42px;
-  padding: 0 30px;
-  border: none;
-  border-radius: 0.3rem;
-  cursor: pointer;
-  font-weight: 600;
-  color: var(--gray);
-  font-size: 15px;
-  background-color: var(--lightGray);
-  margin: 0 5px;
-}
-
-.buttonsContainer button:hover,
-.buttonsContainer input[type="button"]:hover,
-.buttonsContainer input[type="reset"]:hover,
-.buttonsContainer input[type="submit"]:hover {
-  background-color: var(--lightGrayHover);
-}
-
-.studentRegContainer {
-  display: flex;
-}
-
-.studentInfoContainer {
-  display:flex;
-  flex-direction: column;
-  width: 60%;
-  padding: 1.5rem 0;
-}
-
-.rowContainer {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.rowContainer input {
-  width: 70%;
-  height: 2rem;
-  margin-left: 10px;
-  margin-bottom: 5px;
-}
-
-.label {
-  color: var(--gray);
-  font-weight: 500;
-}
-
-.studentRegContainer .commentsContainer {
-  margin-left: 20px;
-}
-
-.buttonsAlign-right {
-  justify-content: flex-end;
+h1,
+h2 {
+  color: white;
 }
 
 .errorMessage {
   color: red;
   font-weight: 500;
 }
+input {
+    color: white;
+}
 
-.successMessage {
-  color: green;
-  font-weight: 500;
+h1, h2 {
+    color: white;
+}
+
+.errorMessage {
+    color: red;
+    font-weight: 500;
 }
