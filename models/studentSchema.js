@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 const studentSchema = mongoose.Schema(
   {
-    studentID: {
+    saitId: {
       type: String,
       required: true,
       trim: true,
@@ -23,6 +23,7 @@ const studentSchema = mongoose.Schema(
     studentEmail: String,
     personalEmail: String,
     academicStatus: String,
+    comments: String
   },
   { timestamps: true }
 );
