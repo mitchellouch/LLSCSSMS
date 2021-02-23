@@ -1,19 +1,65 @@
 extends layouts/main-layout.pug
 
 block content 
-  .studentInfoWrapper 
-    h1.heading  Student Information
 
-    .buttonsContainer
-        a(href="/student/register") 
-            button Add New Student
-        
-    .searchBarContainer
-        input#searchBox(type="text", name="searchBox", placeholder="Search by SAIT ID or Name then press Enter")
-        .iconContainer
-            i.fas.fa-search
-      
-    .resultsContainer 
+
+    form.studentInfoWrapper(action=`/student/info/${saitId}`, method="POST") 
+        h1.heading  #{pageTitle}
+        h1.subHeading  #{profileStudent ? `${profileStudent.firstName} ${profileStudent.lastName}` : "Student not found."}
+        //- h1.subHeading  #{fullName}
+
+        if success == true
+            span.successMessage #{message}
+        else 
+            span.errorMessage #{message}
+
+        if !profileStudent
+            span.errorMessage Check the url you are trying to access 
+        else
+
+            .studentRegContainer 
+                .studentInfoContainer 
+                    .rowContainer
+                        span.label SAIT Student ID:
+                        input.form-control(type="text" name="saitId" placeholder="ex) 000123456" value=profileStudent.saitId, required, disabled)
+                    .rowContainer
+                        span.label First Name:
+                        input.form-control(type="text" name="firstName" value=profileStudent.firstName, required)
+                    .rowContainer
+                        span.label Last Name:
+                        input.form-control(type="text" name="lastName" value=profileStudent.lastName, required)
+                    .rowContainer
+                        span.label Contact Phone:
+                        input.form-control(type="text" name="studentPhone" placeholder="ex) 4037778888" value=profileStudent.studentPhone)
+                    .rowContainer
+                        span.label Contact Email:
+                        input.form-control(type="email" name="studentEmail" value=profileStudent.studentEmail)
+                    .rowContainer
+                        span.label Personal Email:
+                        input.form-control(type="email" name="personalEmail" value=profileStudent.personalEmail)
+                    .rowContainer
+                        span.label Academic Status:
+                        input.form-control(type="text" name="academicStatus" value=profileStudent.academicStatus)
+                .commentsContainer 
+                    span.label Comments:
+                    textarea.form-control(name="comments" cols="40" rows="10") #{profileStudent.comments} 
+
+            .buttonsContainer.buttonsAlign-right
+                input#updateStudentButton(type="submit" value="Update")
+                button#deleteStudentButton(type="button", data-toggle="modal", data-target="#deleteStudentModal") Delete
+
+    #deleteStudentModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='deleteStudentModalLabel', aria-hidden='true')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                    h5#deleteStudentModalLabel.modal-title Delete student #{profileStudent.firstName} #{profileStudent.lastName}?
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') &times;
+                .modal-body
+                    p You cannot restore the data after deletion.
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+                    button#deleteStudentConfButton.btn.btn-primary(type='button') Delete
 
 block scripts
     script(src="/js/studentInfo.js") 

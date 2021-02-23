@@ -27,8 +27,88 @@ $("#searchBox").keydown((event) => {
     }
 })
 
+//Reset all values
+$("#resetButton").click((event) => {
+    $("[name=saitId]").attr("value", null);
+    $("[name=firstName]").attr("value", null);
+    $("[name=lastName]").attr("value", null);
+    $("[name=studentPhone]").attr("value", null);
+    $("[name=studentEmail]").attr("value", null);
+    $("[name=personalEmail]").attr("value", null);
+    $("[name=academicStatus]").attr("value", null);
+    $("[name=comments]").val(null);
+})
+
+$("#deleteStudentModal").on("show.bs.modal", (event) => {
+    var button = $(event.relatedTarget);
+    console.log("log")
+    var saitId = $("[name=saitId]").val();
+    $("#deleteStudentConfButton").data("saitId", saitId);
+})
+
+$("#deleteStudentConfButton").click((event) => {
+    var saitId = $(event.target).data("saitId");
+
+    $.ajax({
+        url: `/api/students/${saitId}`,
+        type: "DELETE",
+        success: (data, status, xhr) => {
+
+            if(xhr.status != 202) {
+                alert("could not delete student");
+                return;
+            }
+            
+            alert(`#${saitId} is successfully deleted.`);
+            window.location.replace("/student");
+        }
+    })
+})
+/*
+$("#updateStudentButton").click(event => {
+    
+    const saitId = $("[name=saitId]").val();
+    const firstName = $("[name=firstName]").val();
+    const lastName = $("[name=lastName]").val();
+    const studentPhone = $("[name=studentPhone]").val();
+    const studentEmail = $("[name=studentEmail]").val();
+    const personalEmail = $("[name=personalEmail]").val();
+    const academicStatus = $("[name=academicStatus]").val();
+    const comments = $("[name=comments]").val().trim();
+    var condition = {};
+
+    $.get("/api/students", { saitId: saitId }, results => {
+        const result = results[0];
+
+        if(result.firstName !== firstName)
+            condition.firstName = firstName;
+        if(result.lastName !== lastName)
+            condition.lastName = lastName;
+        if(result.studentPhone !== studentPhone)
+            condition.studentPhone = studentPhone;
+        if(result.studentEmail !== studentEmail)
+            condition.studentEmail = studentEmail;
+        if(result.personalEmail !== personalEmail)
+            condition.personalEmail = personalEmail;
+        if(result.academicStatus !== academicStatus)
+            condition.academicStatus = academicStatus;
+        if(result.comments !== comments)
+            condition.comments = comments;
+            console.log("#1", condition);
+
+    });
+
+    $.ajax({
+        url: `/student/info/${saitId}`,
+        type: "PUT",
+        data: condition,
+        success: () => location.reload()
+    })
+    
+})*/
+
 function outputAllStudents(){
-    $.get("api/students", {}, results => {
+    $.get("/api/students", {}, results => {
         outputStudents(results, $(".resultsContainer"));
     })
 }

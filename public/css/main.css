@@ -4,6 +4,8 @@
   --gray: #494c4e;
   --lightGray: #e3e9f1;
   --lightGrayHover: #cdd5dc;
+  --red: #da291c;
+  --darkRed: #ba2318;
 }
 
 .wrapper {
@@ -82,7 +84,7 @@
   height: 42px;
   border: 1px solid var(--gray);
   border-radius: 10px;
-  width: 35%;
+  width: 40%;
   margin: auto;
   margin-bottom: 2rem;
   max-width: 1000px;
@@ -186,4 +188,33 @@
 .successMessage {
   color: green;
   font-weight: 500;
+}
+
+.subHeading {
+    font-size: 36px;
+    color: var(--gray);
+}
+
+#updateStudentButton {
+  background-color: var(--blue);
+  color: white;
+}
+
+#updateStudentButton:hover {
+  background-color: var(--darkBlue);
+}
+
+#deleteStudentButton,
+#deleteStudentConfButton {
+  background-color: var(--red);
+  color: white;
+}
+
+#deleteStudentButton:hover,
+#deleteStudentConfButton:hover {
+  background-color: var(--darkRed);
+}
+
+.btn {
+  border: none;
 }

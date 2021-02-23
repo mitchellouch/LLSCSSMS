@@ -7,7 +7,7 @@ block content
     //-     var success = !{success};
 
     form.studentInfoWrapper(action="/student/register" method="POST")
-        h1.heading  Student Registration
+        h1.heading  #{pageTitle}
 
         if success == true
             span.successMessage #{message}
@@ -18,32 +18,32 @@ block content
             .studentInfoContainer 
                 .rowContainer
                     span.label SAIT Student ID:
-                    input.form-control(type="text" name="saitId" placeholder="ex) 000123456", required)
+                    input.form-control(type="text" name="saitId" placeholder="ex) 000123456" value=saitId, required)
                 .rowContainer
                     span.label First Name:
-                    input.form-control(type="text" name="firstName", required)
+                    input.form-control(type="text" name="firstName" value=firstName, required)
                 .rowContainer
                     span.label Last Name:
-                    input.form-control(type="text" name="lastName", required)
+                    input.form-control(type="text" name="lastName" value=lastName, required)
                 .rowContainer
                     span.label Contact Phone:
-                    input.form-control(type="text" name="studentPhone" placeholder="ex) 4037778888")
+                    input.form-control(type="text" name="studentPhone" placeholder="ex) 4037778888" value=studentPhone)
                 .rowContainer
                     span.label Contact Email:
-                    input.form-control(type="email" name="studentEmail")
+                    input.form-control(type="email" name="studentEmail" value=studentEmail)
                 .rowContainer
                     span.label Personal Email:
-                    input.form-control(type="email" name="personalEmail")
+                    input.form-control(type="email" name="personalEmail" value=personalEmail)
                 .rowContainer
                     span.label Academic Status:
-                    input.form-control(type="text" name="academicStatus")
+                    input.form-control(type="text" name="academicStatus" value=academicStatus)
             .commentsContainer 
                 span.label Comments:
-                textarea.form-control(name="comments" cols="40" rows="10") 
+                textarea.form-control(name="comments" cols="40" rows="10") #{comments} 
 
         .buttonsContainer.buttonsAlign-right
             input(type="submit" value="Register")
-            input(type="reset" value="Reset")
+            input#resetButton(type="reset" value="Reset")
 
 block scripts
     script(src="/js/studentInfo.js") 
