@@ -1,12 +1,7 @@
 extends layouts/main-layout.pug
 
 block content 
-
-
-    //- script.
-    //-     var success = !{success};
-
-    form.studentInfoWrapper(action="/student/register" method="POST")
+    form.studentInfoWrapper(action="/student/appointment" method="POST")
         h1.heading  New Appointment 
         
         if success == true
@@ -14,36 +9,43 @@ block content
         else 
             span.errorMessage #{message}
 
-        .studentRegContainer 
+        .studentRegContainer
             .studentInfoContainer 
                 .rowContainer
                     span.label SAIT Student ID:
-                    input.form-control(type="text" name="saitId" placeholder="ex) 000123456", required)
+                    input.form-control(type="text" name="saitId" readonly, required)
                 .rowContainer
                     span.label First Name:
-                    input.form-control(type="text" name="firstName", required)
+                    input.form-control(type="text" name="firstName" readonly, required)
                 .rowContainer
                     span.label Last Name:
-                    input.form-control(type="text" name="lastName", required)
+                    input.form-control(type="text" name="lastName" readonly, required)
                 .rowContainer
                     span.label Contact Phone:
-                    input.form-control(type="text" name="studentPhone" placeholder="ex) 4037778888")
+                    input.form-control(type="text" name="studentPhone" readonly)
                 .rowContainer
                     span.label Contact Email:
-                    input.form-control(type="email" name="studentEmail")
+                    input.form-control(type="email" name="studentEmail" readonly)
                 .rowContainer
                     span.label Personal Email:
-                    input.form-control(type="email" name="personalEmail")
+                    input.form-control(type="email" name="personalEmail" readonly)
                 .rowContainer
                     span.label Academic Status:
-                    input.form-control(type="text" name="academicStatus")
+                    input.form-control(type="text" name="academicStatus" readonly)
+                .rowContainer
+                    span.label Appointment Type:
+                    //input.form-control(type="text" name="academicStatus" readonly)
+                    select#type.form-control
+                        option(value='Academic') Academic
+                        option(value='Personal') Personal
+                        option(value='Financial') Financial
             .commentsContainer 
-                span.label Comments:
-                textarea.form-control(name="comments" cols="40" rows="10") 
-
+                span.label Available Times:
+                textarea.form-control(name="availability" cols="40" rows="12")
         .buttonsContainer.buttonsAlign-right
             input(type="submit" value="Register")
             input(type="reset" value="Reset")
 
 block scripts
     script(src="/js/studentInfo.js") 
+    

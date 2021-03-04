@@ -17,6 +17,11 @@ router.get("/register", (req, res, next) => {
     res.status(200).render("users/studentRegister", payload);
 });
 
+router.get("/appointment", (req, res, next) => {
+    var payload = createPayload(req.session.user);
+    res.status(200).render("users/appointmentNew", payload);
+});
+
 router.post("/register", async (req, res, next) => {
     var saitId = req.body.saitId.trim();
     var firstName = req.body.firstName.trim();
