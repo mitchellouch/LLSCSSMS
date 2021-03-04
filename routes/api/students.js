@@ -35,6 +35,16 @@ router.get("/", (req, res, next) => {
     
 });
 
+router.delete("/:studentId", (req, res, next) => {
+    
+    Student.findOneAndDelete({saitId: req.params.studentId})
+    .then(() => res.sendStatus(202))
+    .catch(error => {
+        console.log(error);
+        res.sendStatus(400);
+    })
+})
+
 
 
 module.exports = router;
