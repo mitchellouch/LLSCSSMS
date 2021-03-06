@@ -1,7 +1,8 @@
 extends layouts/main-layout.pug
 
 block content 
-
+    script.
+        programSelected="#{profileStudent.program}";
 
     form.studentInfoWrapper(action=`/student/info/${saitId}`, method="POST") 
         h1.heading  #{pageTitle}
@@ -39,7 +40,26 @@ block content
                         input.form-control(type="email" name="personalEmail" value=profileStudent.personalEmail)
                     .rowContainer
                         span.label Academic Status:
-                        input.form-control(type="text" name="academicStatus" value=profileStudent.academicStatus)
+                        select.form-select.form-control(name="academicStatus" value=profileStudent.academicStatus)
+                            option(selected=true) Good Standing
+                            option(selected= profileStudent.academicStatus==="Academic Warning") Academic Warning
+                            option(selected= profileStudent.academicStatus==="Academic Probation") Academic Probation 
+                            option(selected= profileStudent.academicStatus==="Academic Suspension") Academic Suspension
+                    .rowContainer.saitProgramsContainer 
+                        span.label Program:
+                        //- select will be created by studentInfo.js
+                    .rowContainer.semesterContainer
+                        span.label Semester:
+                        select.form-select.form-control(name="semester" value=profileStudent.semester)
+                            option(selected) 1
+                            option(selected = profileStudent.semester==2) 2
+                            option(selected = profileStudent.semester==3) 3
+                            option(selected = profileStudent.semester==4) 4
+                            option(selected = profileStudent.semester==5) 5
+                            option(selected = profileStudent.semester==6) 6
+                            option(selected = profileStudent.semester==7) 7
+                            option(selected = profileStudent.semester==8) 8
+                        
                 .commentsContainer 
                     span.label Comments:
                     textarea.form-control(name="comments" cols="40" rows="10") #{profileStudent.comments} 

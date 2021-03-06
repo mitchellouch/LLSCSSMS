@@ -4,7 +4,11 @@ var rowNum;
 $(document).ready(() => {
     //alert(success);
 
-    outputAllStudents();
+    if($(".resultsContainer").length >= 1)
+        outputAllStudents();
+    else if($(".saitProgramsContainer").length >= 1) {
+        setAllSaitPrograms($(".saitProgramsContainer"));
+    }
 })
 
 $("#searchBox").keydown((event) => {
@@ -171,6 +175,44 @@ function createStudentsTableRowHtml(postData){
                 <td>${postData.lastName}</td>
             </tr>`;
 }
+
+function setAllSaitPrograms(container) {
+    //container.html("");
+
+    $.get("/api/saitPrograms", results => {
+        //Make single result to Array
+        if(!Array.isArray(results)) {
+            results = [results];    
+        }
+
+        var html = `<select class="form-select form-control" name="program">
+                        <option value="">--Select program--</option>`;
+        
+        try{    //Student update page have programSelected variable (studentInfo.pug)
+            results.forEach(result => {
+                html += `<option ${result.name === programSelected ? "selected" : ""}>
+                    ${result.name}
+                </option>`;
+            });
+        }
+        catch (e) { //Student register page have no programSelected variable (studentRegister.pug)
+            results.forEach(result => {
+                html += `<option>${result.name}</option> `
+            });
+        }
+        html += "</select>";
+        
+        container.append(html);
+
+        if(results.length == 0) {
+            container.append(`<select class="form-select form-control" name="program" disabled></select>`);
+        }
+    });
+
+    
+
+    
+} 
 
 
 

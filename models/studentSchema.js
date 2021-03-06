@@ -1,5 +1,3 @@
-//test schema for student
-
 const mongoose = require("mongoose");
 
 const studentSchema = mongoose.Schema(
@@ -23,7 +21,9 @@ const studentSchema = mongoose.Schema(
     studentEmail: String,
     personalEmail: String,
     academicStatus: String,
-    comments: String
+    program: String,
+    comments: String,
+    semester: Number
   },
   { timestamps: true }
 );

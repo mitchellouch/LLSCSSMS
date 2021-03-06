@@ -36,7 +36,24 @@ block content
                     input.form-control(type="email" name="personalEmail" value=personalEmail)
                 .rowContainer
                     span.label Academic Status:
-                    input.form-control(type="text" name="academicStatus" value=academicStatus)
+                    select.form-select.form-control(name="academicStatus" value=academicStatus)
+                        option(selected) Good Standing
+                        option(selected = academicStatus==="Academic Warning") Academic Warning
+                        option(selected = academicStatus==="Academic Probation") Academic Probation 
+                        option(selected = academicStatus==="Academic Suspension") Academic Suspension
+                .rowContainer.saitProgramsContainer 
+                    span.label Program:
+                .rowContainer.semesterContainer
+                    span.label Semester:
+                    select.form-select.form-control(name="semester" value=semester)
+                        option(selected) 1
+                        option(selected = semester==2) 2
+                        option(selected = semester==3) 3
+                        option(selected = semester==4) 4
+                        option(selected = semester==5) 5
+                        option(selected = semester==6) 6
+                        option(selected = semester==7) 7
+                        option(selected = semester==8) 8
             .commentsContainer 
                 span.label Comments:
                 textarea.form-control(name="comments" cols="40" rows="10") #{comments} 

@@ -160,7 +160,8 @@
   justify-content: flex-end;
 }
 
-.rowContainer input {
+.rowContainer input,
+.rowContainer select {
   width: 70%;
   height: 2rem;
   margin-left: 10px;
