@@ -18,6 +18,7 @@ $("#apptSearchBox").keydown((event) => {
 })
 
 function outputAllAppointments(){
+    
     $.get("/api/appointments", {}, results => {
         outputAppointments(results, $(".apptResultsContainer"));
     })
@@ -33,7 +34,6 @@ function searchAppointments(searchTerm) {
 
 function outputAppointments(results, container){
     container.html("");
-    
     //Make single result to Array
     if(!Array.isArray(results)) {
         results = [results];    

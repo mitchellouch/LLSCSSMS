@@ -40,15 +40,17 @@ const { CLIENT_RENEG_LIMIT } = require("tls");
 //API routes
 const studentsApiRoute = require('./routes/api/students');
 const saitProgramsApiRoute = require('./routes/api/saitPrograms');
+const appointmentsApiRoute = require('./routes/api/appointments');
 
 app.use("/login", loginRoute);
 app.use("/register", registerRoute);
 app.use("/mainpage", mainpageRoute);
-app.use("/appointment", appointmentRoute);
+app.use("/appointment", middleware.requireLogin, appointmentRoute);
 app.use("/student", middleware.requireLogin, studentInfoRoute);
 
 app.use("/api/students", middleware.requireLogin, studentsApiRoute);
 app.use("/api/saitPrograms", saitProgramsApiRoute);
+app.use("/api/appointments", middleware.requireLogin, appointmentsApiRoute);
 
 //start listening & setup route
 const port = 3000;
