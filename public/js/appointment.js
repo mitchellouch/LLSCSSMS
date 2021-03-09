@@ -33,8 +33,7 @@ function searchAppointments(searchTerm) {
 
 function outputAppointments(results, container){
     container.html("");
-    rowNum = 1;
-
+    
     //Make single result to Array
     if(!Array.isArray(results)) {
         results = [results];    

@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const router = express.Router();
 const bodyParser = require("body-parser");
-const Appointment = require("../../models/appointmentSchema.js");
+const Appointment = require("../../models/appointmentSchema");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 

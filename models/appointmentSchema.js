@@ -28,8 +28,8 @@ const appointmentSchema = mongoose.Schema(
         trim: true,
     },
     meetingNotes: String,
-  },
-  { timestamps: true }
+  }//,
+  //{ timestamps: true }
 );
 
 module.exports = mongoose.model("Appointment", appointmentSchema);
