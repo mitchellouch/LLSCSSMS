@@ -9,7 +9,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 router.get("/", (req, res, next) => {
     var searchObj = {};
 
+<<<<<<< HEAD
     if(req.query.saitId !== undefined){ 
+=======
+    //if(req.query.search !== undefined){ 
+>>>>>>> 158c51126b522c7720b0720bdd5be948b06b0b1b
         searchObj = {
             //$or: [
                 //{ apptId: { $regex: req.query.apptId, $options: "i" } },
@@ -17,10 +21,10 @@ router.get("/", (req, res, next) => {
                 saitId: { $regex: req.query.saitId } //, $options: "i" } },
             //]
         }
-    }
-    else {
-        searchObj = {};
-    }
+    // }
+    // else {
+    //     searchObj = {};
+    // }
 
     Appointment.find(searchObj)
     .then(results => res.status(200).send(results))
