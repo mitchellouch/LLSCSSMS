@@ -23,13 +23,17 @@ const appointmentSchema = mongoose.Schema(
       trim: true,
     },
     startDate: {
-        type: Date,
-        required: true,
-        trim: true,
+      type: Date,
+      required: true,
+      trim: true,
     },
-    meetingNotes: String,
-  }//,
-  //{ timestamps: true }
+    meetingNotes: {
+      type: String,
+      required: true,
+      trim: true,
+    } 
+  },
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("Appointment", appointmentSchema);

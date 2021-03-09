@@ -1,14 +1,14 @@
 var timer;
 
 $(document).ready(() => {
-    if($(".apptResultsContainer").length >= 1)
+    if($(".resultsContainer").length >= 1)
         outputAllAppointments();
     //else if($(".saitProgramsContainer").length >= 1) {
     //   setAllSaitPrograms($(".saitProgramsContainer"));
     //}
 })
 
-$("#apptSearchBox").keydown((event) => {
+$("#searchBox").keydown((event) => {
     if(event.key !== "Enter")   return;
 
     clearTimeout(timer);
@@ -19,15 +19,16 @@ $("#apptSearchBox").keydown((event) => {
 
 function outputAllAppointments(){
     $.get("/api/appointments", {}, results => {
-        outputAppointments(results, $(".apptResultsContainer"));
+        outputAppointments(results, $(".resultsContainer"));
     })
 }
 
 function searchAppointments(searchTerm) {
     var query = {};
-    query.search = searchTerm;
+    query.saitId = searchTerm;
+    //query.apptId = searchTerm;
     $.get("/api/appointments", query, results => {
-        outputAppointments(results, $(".apptResultsContainer"));
+        outputAppointments(results, $(".resultsContainer"));
     });
 }
 
@@ -65,7 +66,6 @@ function outputAppointments(results, container){
 }
 
 function createAppointmentsTableRowHtml(postData){
-    //Testing 
     if(postData == null) return alert("Appointment object is null");
 
     return `<tr>
