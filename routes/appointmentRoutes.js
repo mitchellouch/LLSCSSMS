@@ -16,4 +16,9 @@ router.get("/appointment", (req, res, next) => {
   res.status(200).render("users/appointmentNew", payload);
 });
 
+router.get("/appointment", (req, res, next) => {
+  var payload = createPayload(req.session.user);
+  res.status(200).render("users/appointmentNew", payload);
+});
+
 module.exports = router;

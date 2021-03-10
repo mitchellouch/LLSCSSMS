@@ -3,9 +3,9 @@ const mongoose = require("mongoose");
 const appointmentSchema = mongoose.Schema(
   {
     apptId: {
-        type: String,
-        required: true,
-        trim: true,
+      type: String,
+      required: true,
+      trim: true,
     },
     saitId: {
       type: String,
@@ -13,10 +13,10 @@ const appointmentSchema = mongoose.Schema(
       trim: true,
     },
     advisorId: {
-        type: String,
-        required: true,
-        trim: true,
-    },
+      type: String,
+      required: true,
+      trim: true,
+    },      
     meetingType: {
       type: String,
       required: true,

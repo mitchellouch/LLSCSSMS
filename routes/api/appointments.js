@@ -9,26 +9,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 router.get("/", (req, res, next) => {
     var searchObj = {};
 
-    //if(req.query.search !== undefined){ 
-        searchObj = {
-            //$or: [
-                //{ apptId: { $regex: req.query.apptId, $options: "i" } },
-                //{
-                saitId: { $regex: req.query.saitId } //, $options: "i" } },
-            //]
-        }
-    // }
-    // else {
-    //     searchObj = {};
-    // }
-
+    searchObj = {
+        $or: [
+            {saitId: { $regex: req.query.saitId, $options: "i" } },
+            {apptId: { $regex: req.query.apptId, $options: "i" } },
+        ]
+    }
+    
     Appointment.find(searchObj)
     .then(results => res.status(200).send(results))
     .catch(err => {
         console.log(err);
         res.sendStatus(400);
-    })
-    
+    })    
 });
 
 /**router.delete("/:studentId", (req, res, next) => {

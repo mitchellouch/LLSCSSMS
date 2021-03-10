@@ -27,7 +27,7 @@ function outputAllAppointments(){
 function searchAppointments(searchTerm) {
     var query = {};
     query.saitId = searchTerm;
-    //query.apptId = searchTerm;
+    query.apptId = searchTerm;
     $.get("/api/appointments", query, results => {
         outputAppointments(results, $(".resultsContainer"));
     });
@@ -43,10 +43,10 @@ function outputAppointments(results, container){
     var html = `<table class="table table-sm table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">APPT ID</th>
+                                <th scope="col">Appointment ID</th>
                                 <th scope="col">SAIT ID</th>
                                 <th scope="col">Advisor ID</th>
-                                <th scope="col">APPT Type</th>
+                                <th scope="col">Appointment Type</th>
                                 <th scope="col">Start Date</th>
                                 <th scope="col">Meeting Notes</th>
                             </tr>
@@ -72,7 +72,7 @@ function createAppointmentsTableRowHtml(postData){
                 <td>${postData.apptId}</td>
                 <td> <a href="/student/info/${postData.saitId}">${postData.saitId}</a></td>
                 <td>${postData.advisorId}</td>
-                <td>${postData.apptType}</td>
+                <td>${postData.meetingType}</td>
                 <td>${postData.startDate}</td>
                 <td>${postData.meetingNotes}</td>
             </tr>`;
