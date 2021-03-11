@@ -11,10 +11,11 @@ router.get("/", (req, res, next) => {
 
     //if(req.query.search !== undefined){ 
         searchObj = {
-            $or: [
-                { apptId: { $regex: req.query.search, $options: "i" } },
-                { saitId: { $regex: req.query.search, $options: "i" } },
-            ]
+            //$or: [
+                //{ apptId: { $regex: req.query.apptId, $options: "i" } },
+                //{
+                saitId: { $regex: req.query.saitId } //, $options: "i" } },
+            //]
         }
     // }
     // else {

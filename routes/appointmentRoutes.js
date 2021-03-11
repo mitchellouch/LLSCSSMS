@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-router.get("/", (req, res) => {
+router.get("/", (req, res, next) => {
   res.status(200).render("users/appointmentSearch");
 });
 
