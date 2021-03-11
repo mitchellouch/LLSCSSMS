@@ -13,6 +13,10 @@
   flex-direction: column;
 }
 
+.wrapper > .row {
+    margin: 0;
+}
+
 .nav-header {
   display: flex;
   height: 90px;
@@ -66,15 +70,18 @@
 }
 
 .heading {
-  font-size: 40px;
   color: var(--gray);
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+}
+
+.left3rem {
+  margin-left: -3rem;  
 }
 
 .studentInfoWrapper{
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 90%;
   margin: 20px auto;
 }
 
@@ -117,7 +124,7 @@
   display: flex;
   height: 42px;
   align-items: center;
-  margin-bottom: 2rem;
+  margin: 1rem 0;
 }
 
 .buttonsContainer button,
@@ -145,6 +152,8 @@
 
 .studentRegContainer {
   display: flex;
+  border-top: 1px solid var(--red);
+  padding-top: 10px;
 }
 
 .studentInfoContainer {
@@ -184,15 +193,25 @@
 .errorMessage {
   color: red;
   font-weight: 500;
+  border: 1px solid red;
+  width: fit-content;
+  padding: 0.2rem 1rem;
+  border-radius: 0.3rem;
+  margin-bottom: 0.5rem;
 }
 
 .successMessage {
   color: green;
   font-weight: 500;
+  border: 1px solid green;
+  width: fit-content;
+  padding: 0.2rem 1rem;
+  border-radius: 0.3rem;
+  margin-bottom: 0.5rem;
 }
 
 .subHeading {
-    font-size: 36px;
+    font-size: 32px;
     color: var(--gray);
 }
 
@@ -218,4 +237,37 @@
 
 .btn {
   border: none;
+}
+
+.mainSectionContainer {
+    border-left: 1px solid var(--lightGray);
+    border-right: 1px solid var(--lightGray);
+    display: flex;
+    flex-direction: column;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  height: 100%;
+  background-color: #f9fbff;
+  border-bottom: 1px solid var(--lightGray);
+  padding-top: 2rem;
+}
+
+nav a {
+  padding: 10px;
+  color: var(--gray);
+  border-bottom: 1px solid var(--lightGray);
+  width: 100%;
+  text-align: end;
+  padding: 14px 0;
+}
+
+.submenuHeading {
+  font-size: 1.1rem;
+  font-weight:600;
+  border-bottom: 1px solid var(--red);
+  margin-bottom: 0.5rem;
 }

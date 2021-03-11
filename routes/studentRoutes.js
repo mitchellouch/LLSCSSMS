@@ -36,6 +36,7 @@ router.post("/register", async (req, res, next) => {
 
     var payload = req.body;
     payload.pageTitle = "Student Registration";
+    console.log(payload);
 
     if(saitId && firstName && lastName) {
         var student = await Student.findOne({ saitId: saitId })
@@ -53,6 +54,7 @@ router.post("/register", async (req, res, next) => {
             Student.create(data)
             .then(student => {
                 payload = {
+                    pageTitle: "Student Registration",
                     success: true,
                     message: `New student #${saitId} successfully added.`
                 }
