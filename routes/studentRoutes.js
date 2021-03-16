@@ -25,16 +25,12 @@ router.post("/register", async (req, res, next) => {
     var saitId = req.body.saitId.trim();
     var firstName = req.body.firstName.trim();
     var lastName = req.body.lastName.trim();
-    // var studentPhone = req.body.studentPhone.trim();
-    // var studentEmail = req.body.studentEmail.trim();
-    // var personalEmail = req.body.personalEmail.trim();
-    // var academicStatus = req.body.academicStatus.trim();
-    // var comments = req.body.comments.trim();
 
     //textarea needs to be trim
     req.body.comments = req.body.comments.trim();
 
-    var payload = req.body;
+    //console.log("Before: ", req.body);
+    var payload = buildPayload(req.body);
     payload.pageTitle = "Student Registration";
     console.log(payload);
 
@@ -110,6 +106,30 @@ async function getPayload(studentId){
     return {
         profileStudent: student
     }
+}
+
+function buildPayload(payload) {
+
+    if(!payload.studentServiceType || !payload.studentServiceType.includes("EA")){
+        delete payload.program;
+        delete payload.semester;
+        delete payload.academicStatus;
+        delete payload.numOfTries;
+    }
+    else {
+        console.log(payload, payload.academicStatus);
+        payload.eaInfo = {
+            academicStatus: payload.academicStatus,
+            program: payload.program,
+            semester: payload.semester,
+            numOfTries: payload.numOfTries
+        };
+        delete payload.program;
+        delete payload.semester;
+        delete payload.academicStatus;
+    }
+    
+    return payload;
 }
 
 module.exports = router;

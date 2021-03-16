@@ -4,11 +4,20 @@ var rowNum;
 $(document).ready(() => {
     //alert(success);
 
-    if($(".resultsContainer").length >= 1)
+    if($(".resultsContainer").length >= 1)  //search Page
         outputAllStudents();
-    else if($(".saitProgramsContainer").length >= 1) {
-        setAllSaitPrograms($(".saitProgramsContainer"));
+        
+    else{
+        if($(".saitProgramsContainer").length >= 1) {  //Info, register page
+            setAllSaitPrograms($(".saitProgramsContainer"));
+        }
+
+        if(studentTypeChecked !== undefined && studentTypeChecked !== 'false') {
+            expandCollapsedSections(studentTypeChecked);
+        }
     }
+
+    
 })
 
 $("#searchBox").keydown((event) => {
@@ -208,22 +217,24 @@ function setAllSaitPrograms(container) {
             container.append(`<select class="form-select form-control" name="program" disabled></select>`);
         }
     });
-
-    
-
-    
 } 
 
+function expandCollapsedSections(typeList) {
+    var list = typeList.split(",");
+    var checkboxes = document.getElementsByName("studentServiceType");
+    if(list.includes("EA")) {
+        document.getElementById("collapseEA").classList.add("show");
+        checkboxes[0].checked = true;
+    }
 
+    if(list.includes("AS")) {
+        document.getElementById("collapseAS").classList.add("show");
+        checkboxes[1].checked = true;
+    }
 
-// function refreshMessage() {
-//     //variable success is passed from "studentRegister.pug": line 7
-//     if(success == true){    
-//         $("#message").removeClass("errorMessage");
-//         $("#message").addClass("successMessage");
-//     }
-//     else {
-//         $("#message").removeClass("successMessage");
-//         $("#message").addClass("errorMessage");
-//     }
-// }
+    if(list.includes("FA")) {
+        document.getElementById("collapseFA").classList.add("show");
+        checkboxes[2].checked = true;
+    }
+}
+

@@ -1,8 +1,12 @@
 extends layouts/main-layout.pug
 
 block content 
+    script.
+        studentTypeChecked=`#{studentServiceType !== undefined && studentServiceType}`;
+        programSelected=`#{eaInfo !== undefined ? eaInfo.program : ''}`;
+        
 
-    .wrapper
+    form.wrapper(action="/student/register" method="POST")
         .row
             nav.col
                 .submenuHeading Select Type of services
@@ -14,7 +18,11 @@ block content
                     input(type="checkbox", name="studentServiceType", value="FA")
 
             .mainSectionContainer.col-10
-                form.studentInfoWrapper(action="/student/register" method="POST")
+                //- h1 #{eaInfo !== undefined ? eaInfo.numOfTries : 1}
+                
+
+                .studentInfoWrapper
+                    
                     h1.heading.left3rem  #{pageTitle}
 
                     if success == undefined
@@ -59,22 +67,25 @@ block content
                                     span.label Program:
                                 .rowContainer.semesterContainer
                                     span.label Semester:
-                                    select.form-select.form-control(name="semester" value=semester)
+                                    select.form-select.form-control(name="semester")
                                         option(selected) 1
-                                        option(selected = semester==2) 2
-                                        option(selected = semester==3) 3
-                                        option(selected = semester==4) 4
-                                        option(selected = semester==5) 5
-                                        option(selected = semester==6) 6
-                                        option(selected = semester==7) 7
-                                        option(selected = semester==8) 8
+                                        option(selected = eaInfo !== undefined && eaInfo.semester==2) 2
+                                        option(selected = eaInfo !== undefined && eaInfo.semester==3) 3
+                                        option(selected = eaInfo !== undefined && eaInfo.semester==4) 4
+                                        option(selected = eaInfo !== undefined && eaInfo.semester==5) 5
+                                        option(selected = eaInfo !== undefined && eaInfo.semester==6) 6
+                                        option(selected = eaInfo !== undefined && eaInfo.semester==7) 7
+                                        option(selected = eaInfo !== undefined && eaInfo.semester==8) 8
                                 .rowContainer
                                     span.label Academic Status:
-                                    select.form-select.form-control(name="academicStatus" value=academicStatus)
+                                    select.form-select.form-control(name="academicStatus" )
                                         option(selected) Good Standing
-                                        option(selected = academicStatus==="Academic Warning") Academic Warning
-                                        option(selected = academicStatus==="Academic Probation") Academic Probation 
-                                        option(selected = academicStatus==="Academic Suspension") Academic Suspension                                
+                                        option(selected = eaInfo !== undefined && eaInfo.academicStatus==="Academic Warning") Academic Warning
+                                        option(selected = eaInfo !== undefined && eaInfo.academicStatus==="Academic Probation") Academic Probation 
+                                        option(selected = eaInfo !== undefined && eaInfo.academicStatus==="Academic Suspension") Academic Suspension
+                                .rowContainer.semesterContainer
+                                    span.label Number of Tries:
+                                    input.form-control(type="number", name="numOfTries", value= (eaInfo !== undefined ? eaInfo.numOfTries : 1), min=1, max=5)
                                 
 
 
