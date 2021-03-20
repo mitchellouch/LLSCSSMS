@@ -2,7 +2,7 @@ extends layouts/main-layout.pug
 
 block content 
     form.studentInfoWrapper(action="/student/appointment" method="POST")
-        h1.heading  New Appointment 
+        h1.heading  #{pageTitle} 
         
         if success == true
             span.successMessage #{message}
@@ -12,40 +12,55 @@ block content
         .studentRegContainer
             .studentInfoContainer 
                 .rowContainer
+                    span.label Appointment ID:
+                    input.form-control(type="text" name="apptId" required)
+                .rowContainer
                     span.label SAIT Student ID:
-                    input.form-control(type="text" name="saitId" readonly, required)
+                    input.form-control(type="text" name="saitId" required)
                 .rowContainer
-                    span.label First Name:
-                    input.form-control(type="text" name="firstName" readonly, required)
-                .rowContainer
-                    span.label Last Name:
-                    input.form-control(type="text" name="lastName" readonly, required)
-                .rowContainer
-                    span.label Contact Phone:
-                    input.form-control(type="text" name="studentPhone" readonly)
-                .rowContainer
-                    span.label Contact Email:
-                    input.form-control(type="email" name="studentEmail" readonly)
-                .rowContainer
-                    span.label Personal Email:
-                    input.form-control(type="email" name="personalEmail" readonly)
-                .rowContainer
-                    span.label Academic Status:
-                    input.form-control(type="text" name="academicStatus" readonly)
+                    span.label Advisor ID:
+                    input.form-control(type="text" name="advisorId" required)
+                //- .rowContainer
+                //-     span.label First Name:
+                //-     input.form-control(type="text" name="firstName" readonly, required)
+                //- .rowContainer
+                //-     span.label Last Name:
+                //-     input.form-control(type="text" name="lastName" readonly, required)
+                //- .rowContainer
+                //-     span.label Contact Phone:
+                //-     input.form-control(type="text" name="studentPhone" readonly)
+                //- .rowContainer
+                //-     span.label Contact Email:
+                //-     input.form-control(type="email" name="studentEmail" readonly)
+                //- .rowContainer
+                //-     span.label Personal Email:
+                //-     input.form-control(type="email" name="personalEmail" readonly)
+                //- .rowContainer
+                //-     span.label Academic Status:
+                //-     input.form-control(type="text" name="academicStatus" readonly)
                 .rowContainer
                     span.label Appointment Type:
                     //input.form-control(type="text" name="academicStatus" readonly)
-                    select#type.form-control
-                        option(value='Academic') Academic
-                        option(value='Personal') Personal
-                        option(value='Financial') Financial
+                    select.form-select.form-control(name="apptType" value=apptType)
+                        option(selected) Academic
+                        option(selected = apptType==="Personal") Personal
+                        option(selected = apptType==="Financial") Financial
+                .rowContainer
+                    span.label Meeting Notes:
+                    input.form-control(type="text" name="meetingNotes")
             .commentsContainer 
-                span.label Available Times:
-                textarea.form-control(name="availability" cols="40" rows="12")
+                span.label Start Date:
+                //- textarea.form-control(name="startDate" cols="40" rows="10")
+                input#datetimepicker4.form-control(type='text')
+            script(type='text/javascript').
+                $(function () {
+                $('#datetimepicker4').datetimepicker();
+                });
+
         .buttonsContainer.buttonsAlign-right
             input(type="submit" value="Register")
             input(type="reset" value="Reset")
 
 block scripts
-    script(src="/js/studentInfo.js") 
+    script(src="/js/appointment.js") 
     

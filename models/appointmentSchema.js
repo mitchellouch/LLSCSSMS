@@ -29,7 +29,7 @@ const appointmentSchema = mongoose.Schema(
     },
     meetingNotes: {
       type: String,
-      required: true,
+      //required: true,
       trim: true,
     } 
   },
