@@ -20,10 +20,13 @@ const studentSchema = mongoose.Schema(
     studentPhone: String,
     studentEmail: String,
     personalEmail: String,
-    academicStatus: String,
-    program: String,
     comments: String,
-    semester: Number
+    eaInfo: {
+      program: String,
+      semester: Number,
+      academicStatus: String,
+      numOfTries: Number
+    }
   },
   { timestamps: true }
 );

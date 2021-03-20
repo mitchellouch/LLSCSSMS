@@ -30,7 +30,7 @@ app.use(
 );
 
 //exported route from other.js
-const studentInfoRoute = require("./routes/studentInfoRoutes");
+const studentRoute = require("./routes/studentRoutes");
 const loginRoute = require("./routes/loginRoutes");
 const registerRoute = require("./routes/registerRoutes");
 const appointmentRoute = require("./routes/appointmentRoutes");
@@ -46,7 +46,7 @@ app.use("/login", loginRoute);
 app.use("/register", registerRoute);
 app.use("/mainpage", mainpageRoute);
 app.use("/appointment", middleware.requireLogin, appointmentRoute);
-app.use("/student", middleware.requireLogin, studentInfoRoute);
+app.use("/student", middleware.requireLogin, studentRoute);
 
 app.use("/api/students", middleware.requireLogin, studentsApiRoute);
 app.use("/api/saitPrograms", saitProgramsApiRoute);

@@ -1,66 +1,112 @@
 extends layouts/main-layout.pug
 
 block content 
+    script.
+        studentTypeChecked=`#{studentServiceType !== undefined && studentServiceType}`;
+        programSelected=`#{eaInfo !== undefined ? eaInfo.program : ''}`;
+        
+
+    form.wrapper(action="/student/register" method="POST")
+        .row
+            nav.col
+                .submenuHeading Select Type of services
+                label(data-toggle="collapse" data-target="#collapseEA") Early Alerts 
+                    input(type="checkbox", name="studentServiceType", value="EA")
+                label(data-toggle="collapse" data-target="#collapseAS") Accessibility/Tutoring  
+                    input(type="checkbox", name="studentServiceType", value="AS")
+                label(data-toggle="collapse" data-target="#collapseFA") Fund Advising 
+                    input(type="checkbox", name="studentServiceType", value="FA")
+
+            .mainSectionContainer.col-10
+                //- h1 #{eaInfo !== undefined ? eaInfo.numOfTries : 1}
+                
+
+                .studentInfoWrapper
+                    
+                    h1.heading.left3rem  #{pageTitle}
+
+                    if success == undefined
+                        //-No message
+                    else if success == true
+                        span.successMessage #{message}
+                    else 
+                        span.errorMessage #{message}
+
+                    
+                    h2.subHeading Standard Information
+                    .studentRegContainer 
+                        .studentInfoContainer 
+                            .rowContainer
+                                span.label SAIT Student ID:
+                                input.form-control(type="text" name="saitId" placeholder="ex) 000123456" value=saitId, required)
+                            .rowContainer
+                                span.label First Name:
+                                input.form-control(type="text" name="firstName" value=firstName, required)
+                            .rowContainer
+                                span.label Last Name:
+                                input.form-control(type="text" name="lastName" value=lastName, required)
+                            .rowContainer
+                                span.label Contact Phone:
+                                input.form-control(type="text" name="studentPhone" placeholder="ex) 4037778888" value=studentPhone)
+                            .rowContainer
+                                span.label Contact Email:
+                                input.form-control(type="email" name="studentEmail" value=studentEmail)
+                            .rowContainer
+                                span.label Personal Email:
+                                input.form-control(type="email" name="personalEmail" value=personalEmail)
+                            
+                        .commentsContainer 
+                            span.label Comments:
+                            textarea.form-control(name="comments" cols="40" rows="9") #{comments} 
+
+                    #collapseEA.panel-collapse.collapse
+                        h2.subHeading Detail - Early Alerts
+                        .studentRegContainer 
+                            .studentInfoContainer 
+                                .rowContainer.saitProgramsContainer 
+                                    span.label Program:
+                                .rowContainer.semesterContainer
+                                    span.label Semester:
+                                    select.form-select.form-control(name="semester")
+                                        option(selected) 1
+                                        option(selected = eaInfo !== undefined && eaInfo.semester==2) 2
+                                        option(selected = eaInfo !== undefined && eaInfo.semester==3) 3
+                                        option(selected = eaInfo !== undefined && eaInfo.semester==4) 4
+                                        option(selected = eaInfo !== undefined && eaInfo.semester==5) 5
+                                        option(selected = eaInfo !== undefined && eaInfo.semester==6) 6
+                                        option(selected = eaInfo !== undefined && eaInfo.semester==7) 7
+                                        option(selected = eaInfo !== undefined && eaInfo.semester==8) 8
+                                .rowContainer
+                                    span.label Academic Status:
+                                    select.form-select.form-control(name="academicStatus" )
+                                        option(selected) Good Standing
+                                        option(selected = eaInfo !== undefined && eaInfo.academicStatus==="Academic Warning") Academic Warning
+                                        option(selected = eaInfo !== undefined && eaInfo.academicStatus==="Academic Probation") Academic Probation 
+                                        option(selected = eaInfo !== undefined && eaInfo.academicStatus==="Academic Suspension") Academic Suspension
+                                .rowContainer.semesterContainer
+                                    span.label Number of Tries:
+                                    input.form-control(type="number", name="numOfTries", value= (eaInfo !== undefined ? eaInfo.numOfTries : 1), min=1, max=5)
+                                
 
 
-    //- script.
-    //-     var success = !{success};
 
-    form.studentInfoWrapper(action="/student/register" method="POST")
-        h1.heading  #{pageTitle}
+                    #collapseAS.panel-collapse.collapse
+                        h2.subHeading Detail - Accessibility / Tutoring
+                        .studentRegContainer 
+                            .studentInfoContainer 
+                                .rowContainer
 
-        if success == true
-            span.successMessage #{message}
-        else 
-            span.errorMessage #{message}
 
-        .studentRegContainer 
-            .studentInfoContainer 
-                .rowContainer
-                    span.label SAIT Student ID:
-                    input.form-control(type="text" name="saitId" placeholder="ex) 000123456" value=saitId, required)
-                .rowContainer
-                    span.label First Name:
-                    input.form-control(type="text" name="firstName" value=firstName, required)
-                .rowContainer
-                    span.label Last Name:
-                    input.form-control(type="text" name="lastName" value=lastName, required)
-                .rowContainer
-                    span.label Contact Phone:
-                    input.form-control(type="text" name="studentPhone" placeholder="ex) 4037778888" value=studentPhone)
-                .rowContainer
-                    span.label Contact Email:
-                    input.form-control(type="email" name="studentEmail" value=studentEmail)
-                .rowContainer
-                    span.label Personal Email:
-                    input.form-control(type="email" name="personalEmail" value=personalEmail)
-                .rowContainer
-                    span.label Academic Status:
-                    select.form-select.form-control(name="academicStatus" value=academicStatus)
-                        option(selected) Good Standing
-                        option(selected = academicStatus==="Academic Warning") Academic Warning
-                        option(selected = academicStatus==="Academic Probation") Academic Probation 
-                        option(selected = academicStatus==="Academic Suspension") Academic Suspension
-                .rowContainer.saitProgramsContainer 
-                    span.label Program:
-                .rowContainer.semesterContainer
-                    span.label Semester:
-                    select.form-select.form-control(name="semester" value=semester)
-                        option(selected) 1
-                        option(selected = semester==2) 2
-                        option(selected = semester==3) 3
-                        option(selected = semester==4) 4
-                        option(selected = semester==5) 5
-                        option(selected = semester==6) 6
-                        option(selected = semester==7) 7
-                        option(selected = semester==8) 8
-            .commentsContainer 
-                span.label Comments:
-                textarea.form-control(name="comments" cols="40" rows="10") #{comments} 
+                    #collapseFA.panel-collapse.collapse
+                        h2.subHeading Detail - Fund Advising
+                        .studentRegContainer 
+                            .studentInfoContainer 
+                                .rowContainer
 
-        .buttonsContainer.buttonsAlign-right
-            input(type="submit" value="Register")
-            input#resetButton(type="reset" value="Reset")
+
+                    .buttonsContainer.buttonsAlign-right
+                        input(type="submit" value="Register")
+                        input#resetButton(type="reset" value="Reset")
 
 block scripts
     script(src="/js/studentInfo.js") 
