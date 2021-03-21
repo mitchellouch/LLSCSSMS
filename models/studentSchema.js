@@ -25,7 +25,36 @@ const studentSchema = mongoose.Schema(
       program: String,
       semester: Number,
       academicStatus: String,
-      numOfTries: Number
+      numOfTries: Number,
+      comments: String
+    },
+    asInfo: {
+      dateOfBirth: Date,
+      citizenshipStatus: String,
+      gender: String,
+      homeAddress: String,
+      postalCode: String,
+      primaryCode: String,
+      secondaryCode: String,
+      tertiaryCode: String,
+      comments: String,
+      emergencyContact: {
+        relationship: String,
+        fullName: String,
+        Phone: String
+      }      
+    },
+    faInfo: {
+      fundingType: String,
+      sin: String,
+      hasIncomeSupport: Boolean,
+      hasEiClaim: Boolean,
+      hasReducedCrsLoad: Boolean,
+      isFundedEsl: Boolean,
+      eslFundedMonths: Number,
+      isFundedAu: Boolean,
+      auFundedMonths: Number,
+      comments: String      
     }
   },
   { timestamps: true }

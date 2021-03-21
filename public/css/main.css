@@ -176,14 +176,36 @@
   margin-left: 10px;
   margin-bottom: 5px;
 }
+.rowContainer input[type="checkbox"] {
+  width: 10%;
+}
+
+.colContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
 
 .label {
   color: var(--gray);
   font-weight: 500;
 }
 
+.colLabel {
+  color: var(--gray);
+  font-weight: 500;
+  font-size: 1.2rem;
+  border-bottom: 1px solid var(--red);
+  margin-bottom: 0.3rem;
+
+}
+
 .studentRegContainer .commentsContainer {
   margin-left: 20px;
+}
+
+.studentRegContainer .commentsContainer textarea{
+  height:80%;
 }
 
 .buttonsAlign-right {
