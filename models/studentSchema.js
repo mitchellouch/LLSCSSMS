@@ -26,7 +26,7 @@ const studentSchema = mongoose.Schema(
       semester: Number,
       academicStatus: String,
       numOfTries: Number,
-      comments: String
+      comments: String,
     },
     asInfo: {
       dateOfBirth: Date,
@@ -41,8 +41,8 @@ const studentSchema = mongoose.Schema(
       emergencyContact: {
         relationship: String,
         fullName: String,
-        Phone: String
-      }      
+        Phone: String,
+      },
     },
     faInfo: {
       fundingType: String,
@@ -54,8 +54,8 @@ const studentSchema = mongoose.Schema(
       eslFundedMonths: Number,
       isFundedAu: Boolean,
       auFundedMonths: Number,
-      comments: String      
-    }
+      comments: String,
+    },
   },
   { timestamps: true }
 );

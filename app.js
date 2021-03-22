@@ -34,23 +34,27 @@ const studentRoute = require("./routes/studentRoutes");
 const loginRoute = require("./routes/loginRoutes");
 const registerRoute = require("./routes/registerRoutes");
 const appointmentRoute = require("./routes/appointmentRoutes");
+const workshopRoute = require("./routes/workshopRoutes");
 const mainpageRoute = require("./routes/mainpageRoutes");
 const { CLIENT_RENEG_LIMIT } = require("tls");
 
 //API routes
-const studentsApiRoute = require('./routes/api/students');
-const saitProgramsApiRoute = require('./routes/api/saitPrograms');
-const appointmentsApiRoute = require('./routes/api/appointments');
+const studentsApiRoute = require("./routes/api/students");
+const saitProgramsApiRoute = require("./routes/api/saitPrograms");
+const appointmentsApiRoute = require("./routes/api/appointments");
+const workshopsApiRoute = require("./routes/api/workshops");
 
 app.use("/login", loginRoute);
 app.use("/register", registerRoute);
 app.use("/mainpage", mainpageRoute);
 app.use("/appointment", middleware.requireLogin, appointmentRoute);
 app.use("/student", middleware.requireLogin, studentRoute);
+app.use("/workshop", middleware.requireLogin, workshopRoute);
 
 app.use("/api/students", middleware.requireLogin, studentsApiRoute);
 app.use("/api/saitPrograms", saitProgramsApiRoute);
 app.use("/api/appointments", middleware.requireLogin, appointmentsApiRoute);
+app.use("/api/workshops", middleware.requireLogin, workshopsApiRoute);
 
 //start listening & setup route
 const port = 3000;
