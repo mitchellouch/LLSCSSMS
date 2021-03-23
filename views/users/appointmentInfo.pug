@@ -1,0 +1,63 @@
+extends layouts/main-layout.pug
+
+block content 
+    .wrapper
+        .row
+            .mainSectionContainer.col-10
+                form.studentInfoWrapper(action=`/appointment/info/${apptId}`, method="POST") 
+                    h1.heading.left3rem  #{pageTitle}
+                    //h1.subHeading  #{appointmentInfo ? `${appointmentInfo.firstName} ${profileStudent.lastName}` : "Appointment not found."}
+                    //- h1.subHeading  #{fullName}
+
+                    if success == true
+                        span.successMessage #{message}
+                    else if success != undefined
+                        span.errorMessage #{message}
+
+                    if !appointmentInfo
+                        span.errorMessage Check the url you are trying to access 
+                    else
+
+                        .studentRegContainer 
+                            .studentInfoContainer 
+                                .rowContainer
+                                    span.label Appointment ID:
+                                    input.form-control(type="text" name="apptId" placeholder="ex) 000123456" value=appointmentInfo.apptId, required, disabled)
+                                .rowContainer
+                                    span.label SAIT Student ID:
+                                    input.form-control(type="text" name="saitId" placeholder="ex) 000123456" value=appointmentInfo.saitId, required, disabled)
+                                .rowContainer
+                                    span.label Advisor ID:
+                                    input.form-control(type="text" name="advisorId" placeholder="ex) 000123456" value=appointmentInfo.advisorId, required, disabled)
+                                .rowContainer
+                                    span.label Meeting Type:
+                                    select.form-select.form-control(name="meetingType" value=appointmentInfo.meetingType)
+                                        option(selected=true) Academic
+                                        option(selected= appointmentInfo.apptType==="Personal") Personal 
+                                        option(selected= appointmentInfo.apptType==="Financial") Financial      
+                                .rowContainer
+                                    span.label Start Date:
+                                    input.form-control(type="text" name="startDate" placeholder="ex) 000123456" value=appointmentInfo.startDate, required)                         
+                            .commentsContainer 
+                                span.label Meeting Notes:
+                                textarea.form-control(name="meetingNotes" cols="40" rows="9") #{appointmentInfo.meetingNotes} 
+
+                        .buttonsContainer.buttonsAlign-right
+                            input#updateStudentButton(type="submit" value="Update")
+                            button#deleteStudentButton(type="button", data-toggle="modal", data-target="#deleteAppointmentModal") Delete
+
+    #deleteAppointmentModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='deleteAppointmentModalLabel', aria-hidden='true')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                    h5#deleteAppointmentModalLabel.modal-title Delete appointment #{appointmentInfo.apptId}?
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                    span(aria-hidden='true') &times;
+                .modal-body
+                    p You cannot restore the data after deletion.
+                .modal-footer
+                    button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+                    button#deleteAppointmentConfButton.btn.btn-primary(type='button') Delete
+
+block scripts
+    script(src="/js/appointment.js") 

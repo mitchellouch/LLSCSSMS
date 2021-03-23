@@ -17,6 +17,43 @@ $("#searchBox").keydown((event) => {
     searchAppointments(value);
 })
 
+$("#resetButton").click((event) => {
+    $("[name=saitId]").attr("value", null);
+    $("[name=firstName]").attr("value", null);
+    $("[name=lastName]").attr("value", null);
+    $("[name=studentPhone]").attr("value", null);
+    $("[name=studentEmail]").attr("value", null);
+    $("[name=personalEmail]").attr("value", null);
+    $("[name=academicStatus]").attr("value", null);
+    $("[name=comments]").val(null);
+})
+
+$("#deleteAppointmentModal").on("show.bs.modal", (event) => {
+    var button = $(event.relatedTarget);
+    console.log("log")
+    var apptId = $("[name=apptId]").val();
+    $("#deleteAppointmentConfButton").data("apptId", apptId);
+})
+
+$("#deleteAppointmentConfButton").click((event) => {
+    var apptId = $(event.target).data("apptId");
+
+    $.ajax({
+        url: `/api/appointments/${apptId}`,
+        type: "DELETE",
+        success: (data, status, xhr) => {
+
+            if(xhr.status != 202) {
+                alert("could not delete appointment");
+                return;
+            }
+            
+            alert(`#${apptId} is successfully deleted.`);
+            window.location.replace("/appointment");
+        }
+    })
+})
+
 function outputAllAppointments(){
     
     $.get("/api/appointments", {}, results => {
@@ -46,7 +83,7 @@ function outputAppointments(results, container){
                                 <th scope="col">Appointment ID</th>
                                 <th scope="col">SAIT ID</th>
                                 <th scope="col">Advisor ID</th>
-                                <th scope="col">Appointment Type</th>
+                                <th scope="col">Meeting Type</th>
                                 <th scope="col">Start Date</th>
                                 <th scope="col">Meeting Notes</th>
                             </tr>
@@ -69,8 +106,8 @@ function createAppointmentsTableRowHtml(postData){
     if(postData == null) return alert("Appointment object is null");
 
     return `<tr>
-                <td>${postData.apptId}</td>
-                <td> <a href="/student/info/${postData.saitId}">${postData.saitId}</a></td>
+                <td><a href="/appointment/info/${postData.apptId}">${postData.apptId}</td>
+                <td><a href="/student/info/${postData.saitId}">${postData.saitId}</a></td>
                 <td>${postData.advisorId}</td>
                 <td>${postData.meetingType}</td>
                 <td>${postData.startDate}</td>
