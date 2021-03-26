@@ -2,7 +2,6 @@ var timer;
 var rowNum;
 
 $(document).ready(() => {
-    //alert(success);
 
     if($(".resultsContainer").length >= 1)  //search Page
         outputAllStudents();
@@ -10,11 +9,17 @@ $(document).ready(() => {
     else{
         if($(".saitProgramsContainer").length >= 1) {  //Info, register page
             setAllSaitPrograms($(".saitProgramsContainer"));
+            activateFaCheckbox();
+        }
+        
+        if(studentServiceType !== undefined && studentServiceType.length !== 0) {
+            expandCollapsedSections(studentServiceType);
         }
 
-        if(studentTypeChecked !== undefined && studentTypeChecked !== 'false') {
-            expandCollapsedSections(studentTypeChecked);
+        if(birthDate !== undefined && birthDate.length !== 0) {
+            setBirthDate(birthDate);
         }
+        
     }
 
     
@@ -42,14 +47,7 @@ $("#searchBox").keydown((event) => {
 
 //Reset all values
 $("#resetButton").click((event) => {
-    $("[name=saitId]").attr("value", null);
-    $("[name=firstName]").attr("value", null);
-    $("[name=lastName]").attr("value", null);
-    $("[name=studentPhone]").attr("value", null);
-    $("[name=studentEmail]").attr("value", null);
-    $("[name=personalEmail]").attr("value", null);
-    $("[name=academicStatus]").attr("value", null);
-    $("[name=comments]").val(null);
+    resetCollapsedSections();
 })
 
 $("#deleteStudentModal").on("show.bs.modal", (event) => {
@@ -220,6 +218,8 @@ function setAllSaitPrograms(container) {
 } 
 
 function expandCollapsedSections(typeList) {
+    if(typeList.length == 0)    return;
+
     var list = typeList.split(",");
     var checkboxes = document.getElementsByName("studentServiceType");
     if(list.includes("EA")) {
@@ -238,3 +238,53 @@ function expandCollapsedSections(typeList) {
     }
 }
 
+function resetCollapsedSections() {
+    document.getElementById("collapseEA").classList.remove("show");
+    document.getElementById("collapseAS").classList.remove("show");
+    document.getElementById("collapseFA").classList.remove("show");
+}
+
+function activateFaCheckbox() {
+    if($("input[name=isFundedEsl]")[0].checked)
+        $("input[name=eslFundedMonths]").attr("disabled", false);
+        
+    $("input[name=isFundedEsl]").on("change", (e) => {
+        if(e.target.checked) {
+            $("input[name=eslFundedMonths]").attr("disabled", false);
+        }
+        else {
+            $("input[name=eslFundedMonths]").attr("disabled", true);
+        }
+    })
+    
+    if($("input[name=isFundedAu]")[0].checked)
+        $("input[name=auFundedMonths]").attr("disabled", false);
+
+    $("input[name=isFundedAu]").on("change", (e) => {
+        if(e.target.checked) {
+            $("input[name=auFundedMonths]").attr("disabled", false);
+        }
+        else {
+            $("input[name=auFundedMonths]").attr("disabled", true);
+        }
+    })
+}
+
+function setBirthDate(date) {
+    var formatedDate = formatDate(date);
+    document.getElementsByName("dateOfBirth")[0].value = formatedDate;
+}
+
+function formatDate(date) { //format Date object as "yyyy-mm-dd"
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + (d.getDate() + 1),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}

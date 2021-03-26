@@ -2,24 +2,41 @@ extends layouts/main-layout.pug
 
 block content 
     script.
-        programSelected="#{profileStudent.program}";
+        var programSelected=`#{(profileStudent !== undefined) && profileStudent.program != null && profileStudent.program}`;
+        var birthDate=`#{(profileStudent !== undefined) && (profileStudent.asInfo !== undefined) && profileStudent.asInfo.dateOfBirth}`;
+        var studentServiceType = "";
+        if((`#{profileStudent}`).includes("eaInfo")) studentServiceType += "EA"+",";
+        if((`#{profileStudent}`).includes("asInfo")) studentServiceType += "AS"+",";
+        if((`#{profileStudent}`).includes("faInfo")) studentServiceType += "FA"+",";
+        
+        
 
-    .wrapper
+    form.wrapper(action=`/student/info/${saitId}`, method="POST")
         .row
             nav.col
-                a(href=`/student/info/${saitId}`) Standard Information
-                a(href=`/student/info/${saitId}/EA`) Early Alerts Info
-                a(href=`/student/info/${saitId}/AS`) Accessibility Services Info
-                a(href=`/student/info/${saitId}/FA`) Fund Advising Info
+                .submenuHeading Select Type of services
+                label(data-toggle="collapse" data-target="#collapseEA") Early Alerts 
+                    input(type="checkbox", name="studentServiceType", value="EA")
+                label(data-toggle="collapse" data-target="#collapseAS") Accessibility/Tutoring  
+                    input(type="checkbox", name="studentServiceType", value="AS")
+                label(data-toggle="collapse" data-target="#collapseFA") Fund Advising 
+                    input(type="checkbox", name="studentServiceType", value="FA")
+            //- nav.col
+            //-     a(href=`/student/info/${saitId}`) Standard Information
+            //-     a(href=`/student/info/${saitId}/EA`) Early Alerts Info
+            //-     a(href=`/student/info/${saitId}/AS`) Accessibility Services Info
+            //-     a(href=`/student/info/${saitId}/FA`) Fund Advising Info
             .mainSectionContainer.col-10
-                form.studentInfoWrapper(action=`/student/info/${saitId}`, method="POST") 
+                .studentInfoWrapper 
                     h1.heading.left3rem  #{pageTitle}
                     h1.subHeading  #{profileStudent ? `${profileStudent.firstName} ${profileStudent.lastName}` : "Student not found."}
                     //- h1.subHeading  #{fullName}
 
-                    if success == true
+                    if success == undefined
+                        //-No message
+                    else if success == true
                         span.successMessage #{message}
-                    else if success != undefined
+                    else 
                         span.errorMessage #{message}
 
                     if !profileStudent
@@ -72,6 +89,126 @@ block content
                                 span.label Comments:
                                 textarea.form-control(name="comments" cols="40" rows="9") #{profileStudent.comments} 
 
+
+                        #collapseEA.panel-collapse.collapse
+                            h2.subHeading Detail - Early Alerts
+                            .studentRegContainer 
+                                .studentInfoContainer 
+                                    .rowContainer
+                                        span.label Academic Status:
+                                        select.form-select.form-control(name="academicStatus" )
+                                            option(selected) Good Standing
+                                            option(selected = profileStudent.eaInfo.academicStatus==="Academic Warning") Academic Warning
+                                            option(selected = profileStudent.eaInfo.academicStatus==="Academic Probation") Academic Probation 
+                                            option(selected = profileStudent.eaInfo.academicStatus==="Academic Suspension") Academic Suspension
+                                    .rowContainer
+                                        span.label Number of Tries:
+                                        input.form-control(type="number", name="numOfTries", value=profileStudent.eaInfo.numOfTries, min=1, max=5)
+                                    .rowContainer
+                                        span.label Ref To:
+                                        input.form-control(type="text", name="refTo", value=profileStudent.eaInfo.refTo)
+                                    .rowContainer
+                                        span.label Ref By:
+                                        input.form-control(type="text", name="refBy", value=profileStudent.eaInfo.refBy)
+                                .commentsContainer 
+                                    span.label EA-Comments:
+                                    textarea.form-control(name="ea_comments" cols="40" rows="9") #{profileStudent.eaInfo.comments}
+                                    
+
+                        #collapseAS.panel-collapse.collapse
+                            h2.subHeading Detail - Accessibility / Tutoring
+                            .studentRegContainer 
+                                .studentInfoContainer 
+                                    .rowContainer
+                                        span.label Date of Birth:
+                                        input.form-control(type="date", name="dateOfBirth")
+                                    .rowContainer
+                                        span.label Citizenship Status:
+                                        select.form-select.form-control(name="citizenshipStatus" )
+                                            option(selected, value=null) --Choose--
+                                            option(selected = profileStudent.asInfo.citizenshipStatus==="Citizenship") Citizenship
+                                            option(selected = profileStudent.asInfo.citizenshipStatus==="Permanent resident") Permanent resident
+                                            option(selected = profileStudent.asInfo.citizenshipStatus==="Temporary resident") Temporary resident
+                                    .rowContainer
+                                        span.label Gender:
+                                        select.form-select.form-control(name="gender" )
+                                            option(selected, value=null) --Choose--
+                                            option(selected = profileStudent.asInfo.gender==="Male") Male
+                                            option(selected = profileStudent.asInfo.gender==="Female") Female
+                                            option(selected = profileStudent.asInfo.gender==="Non-binary") Non-binary
+                                    .rowContainer
+                                        span.label Home address:
+                                        input.form-control(type="text", name="homeAddress", value=profileStudent.asInfo.homeAddress)
+                                    .rowContainer
+                                        span.label Postal Code:
+                                        input.form-control(type="text", name="postalCode", value=profileStudent.asInfo.postalCode)
+                                    .colContainer
+                                        span.colLabel Classification information
+                                        .rowContainer
+                                            span.label Primary Code:
+                                            input.form-control(type="text", name="primaryCode", value=profileStudent.asInfo.primaryCode)
+                                        .rowContainer
+                                            span.label Secondary Code:
+                                            input.form-control(type="text", name="secondaryCode", value=profileStudent.asInfo.secondaryCode)
+                                        .rowContainer
+                                            span.label Tertiary Code:
+                                            input.form-control(type="text", name="tertiaryCode", value=profileStudent.asInfo.tertiaryCode)
+                                    .colContainer
+                                        span.colLabel Emergency Contact
+                                        .rowContainer
+                                            span.label Relationship:
+                                            input.form-control(type="text", name="emerg_relationship", value=profileStudent.asInfo.emergencyContact.relationship)
+                                        .rowContainer
+                                            span.label Full name:
+                                            input.form-control(type="text", name="emerg_fullName", value=profileStudent.asInfo.emergencyContact.fullName)
+                                        .rowContainer
+                                            span.label Phone:
+                                            input.form-control(type="text", name="emerg_phone", value=profileStudent.asInfo.emergencyContact.phone)
+                                .commentsContainer 
+                                    span.label AS-Comments:
+                                    textarea.form-control(name="as_comments" cols="40" rows="9") #{profileStudent.asInfo.comments}
+                                    
+                                    
+
+                        #collapseFA.panel-collapse.collapse
+                            h2.subHeading Detail - Fund Advising
+                            .studentRegContainer 
+                                .studentInfoContainer 
+                                    .rowContainer
+                                        span.label Funding Type:
+                                        input.form-control(type="text", name="fundingType", value=profileStudent.faInfo.fundingType)
+                                    .rowContainer
+                                        span.label SIN:
+                                        input.form-control(type="text", name="sin", value=profileStudent.faInfo.sin)
+                                    .rowContainer
+                                        span.label Income support? 
+                                        input.form-control(type="checkbox", name="hasIncomeSupport", checked=profileStudent.faInfo.hasIncomeSupport)
+                                    .rowContainer
+                                        span.label EI Claim? 
+                                        input.form-control(type="checkbox", name="hasEiClaim", checked=profileStudent.faInfo.hasEiClaim)
+                                    .rowContainer
+                                        span.label Reducred Course Load currently working? 
+                                        input.form-control(type="checkbox", name="hasReducedCrsLoad", checked=profileStudent.faInfo.hasReducedCrsLoad)
+                                    .colContainer
+                                        span.colLabel Demographical Information
+                                        .rowContainer
+                                            span.label Previous funded for ESL training? 
+                                            input.form-control(type="checkbox", name="isFundedEsl", checked=profileStudent.faInfo.isFundedEsl)
+                                        .rowContainer
+                                            span.label ESL-# of Months:
+                                            input.form-control(type="number", name="eslFundedMonths", value= profileStudent.faInfo.eslFundedMonths, min=0, disabled)
+                                        .rowContainer
+                                            span.label Previous funded for AU training? 
+                                            input.form-control(type="checkbox", name="isFundedAu", checked=profileStudent.faInfo.isFundedAu)
+                                        .rowContainer
+                                            span.label AU-# of Months:
+                                            input.form-control(type="number", name="auFundedMonths", value= profileStudent.faInfo.auFundedMonths, min=0, disabled)
+                                        
+                                .commentsContainer 
+                                    span.label FA-Comments:
+                                    textarea.form-control(name="fa_comments" cols="40" rows="9") #{profileStudent.faInfo.comments}
+
+
                         .buttonsContainer.buttonsAlign-right
                             input#updateStudentButton(type="submit" value="Update")
                             button#deleteStudentButton(type="button", data-toggle="modal", data-target="#deleteStudentModal") Delete
@@ -80,7 +217,7 @@ block content
         .modal-dialog(role='document')
             .modal-content
                 .modal-header
-                    h5#deleteStudentModalLabel.modal-title Delete student #{profileStudent.firstName} #{profileStudent.lastName}?
+                    h5#deleteStudentModalLabel.modal-title Delete student [#{profileStudent !== undefined && profileStudent.firstName} #{profileStudent !== undefined && profileStudent.lastName}]?
                     button.close(type='button', data-dismiss='modal', aria-label='Close')
                     span(aria-hidden='true') &times;
                 .modal-body

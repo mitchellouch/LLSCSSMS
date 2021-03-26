@@ -20,13 +20,15 @@ const studentSchema = mongoose.Schema(
     studentPhone: String,
     studentEmail: String,
     personalEmail: String,
+    program: String,
+    semester: Number,
     comments: String,
     eaInfo: {
-      program: String,
-      semester: Number,
       academicStatus: String,
       numOfTries: Number,
-      comments: String,
+      refTo: String,
+      refBy: String,
+      comments: String
     },
     asInfo: {
       dateOfBirth: Date,
@@ -41,7 +43,7 @@ const studentSchema = mongoose.Schema(
       emergencyContact: {
         relationship: String,
         fullName: String,
-        Phone: String,
+        phone: String,
       },
     },
     faInfo: {
