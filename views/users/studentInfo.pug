@@ -2,6 +2,7 @@ extends layouts/main-layout.pug
 
 block content 
     script.
+        console.log(`#{profileStudent}`);
         var programSelected=`#{(profileStudent !== undefined) && profileStudent.program != null && profileStudent.program}`;
         var birthDate=`#{(profileStudent !== undefined) && (profileStudent.asInfo !== undefined) && profileStudent.asInfo.dateOfBirth}`;
         var studentServiceType = "";
@@ -63,13 +64,6 @@ block content
                                 .rowContainer
                                     span.label Personal Email:
                                     input.form-control(type="email" name="personalEmail" value=profileStudent.personalEmail)
-                                .rowContainer
-                                    span.label Academic Status:
-                                    select.form-select.form-control(name="academicStatus" value=profileStudent.academicStatus)
-                                        option(selected=true) Good Standing
-                                        option(selected= profileStudent.academicStatus==="Academic Warning") Academic Warning
-                                        option(selected= profileStudent.academicStatus==="Academic Probation") Academic Probation 
-                                        option(selected= profileStudent.academicStatus==="Academic Suspension") Academic Suspension
                                 .rowContainer.saitProgramsContainer 
                                     span.label Program:
                                     //- select will be created by studentInfo.js

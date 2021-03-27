@@ -74,9 +74,9 @@ router.post("/register", async (req, res, next) => {
 router.get("/info/:studentId", async (req, res, next) => {
     var payload = await getPayload(req.params.studentId);
     payload.pageTitle = "Student Information";
-    //payload.saitId = req.params.studentId;
+    payload.saitId = req.params.studentId;
     
-    console.log(payload);
+    //console.log(payload);
 
     // if(payload.asInfo.dateOfBirth !== undefined){
     //     console.log(payload.asInfo.dateOfBirth);
@@ -92,32 +92,39 @@ router.post("/info/:studentId", async (req, res, next) => {
     //textarea needs to be trim
     req.body.comments = req.body.comments.trim();
 
-    var payload = await getPayload(req.params.studentId);
+    //var payload = await getPayload(req.params.studentId);
+    var payload = {};
 
-    var student = await Student.findOneAndUpdate({saitId: req.params.studentId}, {$set: req.body}, {new: true})
+    var data = buildDataObj(req.body);
+    //console.log("Input Data: ", data);
+    var unsetObj = {};
+    if(data.eaInfo === undefined)
+        unsetObj.eaInfo = "";
+    if(data.asInfo === undefined)
+        unsetObj.asInfo = "";
+    if(data.faInfo === undefined)
+        unsetObj.faInfo = "";
+    
+    //console.log(unsetObj);
+
+    var student = await Student.findOneAndUpdate({saitId: req.params.studentId}, {$unset: unsetObj, $set: data}, {new: true})
     .catch(error => {
         console.log(error);
         res.sendStatus(400);
     })
-
+    
     payload.pageTitle = "Student Information";
     payload.saitId = req.params.studentId;
     payload.success = true;
     payload.message = `#${req.params.studentId} successfully updated.`;
     payload.profileStudent = student;
+    //console.log("Result payload: ", payload);
     res.status(200).render("users/studentInfo", payload);
 });
 
 async function getPayload(studentId){
-    // var emergencySchema = new Schema({
-    //     relationship: String,
-    //     fullName: String,
-    //     phone: String
-    // });
 
     var student = await Student.findOne({ saitId: studentId });
-    // .populate({path: 'asInfo', populate: {path: 'emergencyContact', model: emergencySchema}})
-    // .catch(err => console.log(err));
 
     if(student == null) {
         return {};
@@ -140,24 +147,15 @@ function buildDataObj(payload) {
         if(payload.refBy) data.eaInfo.refBy = payload.refBy;
         if(payload.ea_comments) data.eaInfo.comments = payload.ea_comments;
     }
+    else {
+        if(data.eaInfo !== undefined){
+            console.log("#####T");
+            delete data.eaInfo;
+        }
+    }
 
     if(payload.studentServiceType && payload.studentServiceType.includes("AS")) {
-        data.asInfo = {
-            // dateOfBirth: payload.dateOfBirth,
-            // citizenshipStatus: payload.citizenshipStatus,
-            // gender: payload.gender,
-            // homeAddress: payload.homeAddress,
-            // postalCode: payload.postalCode,
-            // primaryCode: payload.primaryCode,
-            // secondaryCode: payload.secondaryCode,
-            // tertiaryCode: payload.tertiaryCode,
-            // comments: payload.as_comments,
-            // emergencyContact: {
-            //     relationship: payload.emerg_relationship,
-            //     fullName: payload.emerg_fullName,
-            //     phone: payload.emerg_phone
-            // }      
-        };
+        data.asInfo = {};
         if(payload.dateOfBirth) data.asInfo.dateOfBirth = payload.dateOfBirth;
         if(payload.citizenshipStatus) data.asInfo.citizenshipStatus = payload.citizenshipStatus;
         if(payload.gender) data.asInfo.gender = payload.gender;
@@ -174,18 +172,7 @@ function buildDataObj(payload) {
         if(payload.emerg_phone) data.asInfo.emergencyContact.phone = payload.emerg_phone;
     }
     if(payload.studentServiceType && payload.studentServiceType.includes("FA")) {
-        data.faInfo = {
-            // fundingType: payload.fundingType,
-            // sin: payload.sin,
-            // hasIncomeSupport: payload.hasIncomeSupport ? true : false,
-            // hasEiClaim: payload.hasEiClaim ? true : false,
-            // hasReducedCrsLoad: payload.hasReducedCrsLoad ? true : false,
-            // isFundedEsl: payload.isFundedEsl ? true : false,
-            // // eslFundedMonths: payload.eslFundedMonths,
-            // isFundedAu: payload.isFundedAu ? true : false,
-            // // auFundedMonths: payload.auFundedMonths,
-            // comments: payload.fa_comments     
-        };
+        data.faInfo = {};
 
         if(payload.fundingType) data.faInfo.fundingType = payload.fundingType;
         if(payload.sin) data.faInfo.sin = payload.sin;
