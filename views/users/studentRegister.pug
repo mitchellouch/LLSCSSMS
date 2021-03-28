@@ -2,8 +2,8 @@ extends layouts/main-layout.pug
 
 block content 
     script.
-        studentTypeChecked=`#{studentServiceType !== undefined && studentServiceType}`;
-        programSelected=`#{program}`;
+        var studentServiceType=`#{studentServiceType !== undefined && studentServiceType}`;
+        var programSelected=`#{program}`;
         
 
     form.wrapper(action="/student/register" method="POST")
@@ -54,6 +54,19 @@ block content
                             .rowContainer
                                 span.label Personal Email:
                                 input.form-control(type="email" name="personalEmail" value=personalEmail)
+                            .rowContainer.saitProgramsContainer 
+                                span.label Program:
+                            .rowContainer.semesterContainer
+                                span.label Semester:
+                                select.form-select.form-control(name="semester")
+                                    option(selected) 1
+                                    option(selected = semester==2) 2
+                                    option(selected = semester==3) 3
+                                    option(selected = semester==4) 4
+                                    option(selected = semester==5) 5
+                                    option(selected = semester==6) 6
+                                    option(selected = semester==7) 7
+                                    option(selected = semester==8) 8
                             
                         .commentsContainer 
                             span.label Comments:
@@ -63,19 +76,6 @@ block content
                         h2.subHeading Detail - Early Alerts
                         .studentRegContainer 
                             .studentInfoContainer 
-                                .rowContainer.saitProgramsContainer 
-                                    span.label Program:
-                                .rowContainer.semesterContainer
-                                    span.label Semester:
-                                    select.form-select.form-control(name="semester")
-                                        option(selected) 1
-                                        option(selected = semester==2) 2
-                                        option(selected = semester==3) 3
-                                        option(selected = semester==4) 4
-                                        option(selected = semester==5) 5
-                                        option(selected = semester==6) 6
-                                        option(selected = semester==7) 7
-                                        option(selected = semester==8) 8
                                 .rowContainer
                                     span.label Academic Status:
                                     select.form-select.form-control(name="academicStatus" )
@@ -86,6 +86,12 @@ block content
                                 .rowContainer
                                     span.label Number of Tries:
                                     input.form-control(type="number", name="numOfTries", value=numOfTries, min=1, max=5)
+                                .rowContainer
+                                    span.label Ref To:
+                                    input.form-control(type="text", name="refTo", value=refTo)
+                                .rowContainer
+                                    span.label Ref By:
+                                    input.form-control(type="text", name="refBy", value=refBy)
                             .commentsContainer 
                                 span.label EA-Comments:
                                 textarea.form-control(name="ea_comments" cols="40" rows="9") #{ea_comments}
@@ -172,13 +178,13 @@ block content
                                         input.form-control(type="checkbox", name="isFundedEsl", checked=isFundedEsl)
                                     .rowContainer
                                         span.label ESL-# of Months:
-                                        input.form-control(type="number", name="eslFundedMonths", value= eslFundedMonths, min=0)
+                                        input.form-control(type="number", name="eslFundedMonths", value= eslFundedMonths, min=0, disabled)
                                     .rowContainer
                                         span.label Previous funded for AU training? 
                                         input.form-control(type="checkbox", name="isFundedAu", checked=isFundedAu)
                                     .rowContainer
                                         span.label AU-# of Months:
-                                        input.form-control(type="number", name="auFundedMonths", value= auFundedMonths, min=0)
+                                        input.form-control(type="number", name="auFundedMonths", value= auFundedMonths, min=0, disabled)
                                     
                             .commentsContainer 
                                 span.label FA-Comments:
