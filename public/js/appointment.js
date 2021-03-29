@@ -85,6 +85,7 @@ function outputAppointments(results, container){
                                 <th scope="col">Advisor ID</th>
                                 <th scope="col">Meeting Type</th>
                                 <th scope="col">Start Date</th>
+                                <th scope="col">End Date</th>
                                 <th scope="col">Meeting Notes</th>
                             </tr>
                         </thead>
@@ -104,13 +105,19 @@ function outputAppointments(results, container){
 
 function createAppointmentsTableRowHtml(postData){
     if(postData == null) return alert("Appointment object is null");
+    var start = new Date(postData.startDate);
+    start.setHours(start.getHours() - 1);
+    
+    var end = new Date(postData.endDate);
+    end.setHours(end.getHours()-1);
 
     return `<tr>
                 <td><a href="/appointment/info/${postData.apptId}">${postData.apptId}</td>
                 <td><a href="/student/info/${postData.saitId}">${postData.saitId}</a></td>
                 <td>${postData.advisorId}</td>
                 <td>${postData.meetingType}</td>
-                <td>${postData.startDate}</td>
+                <td>${start.toLocaleString()}</td>
+                <td>${end.toLocaleString()}</td>
                 <td>${postData.meetingNotes}</td>
             </tr>`;
 }

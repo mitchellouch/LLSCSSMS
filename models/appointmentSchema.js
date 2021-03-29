@@ -27,6 +27,11 @@ const appointmentSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
+    endDate: {
+      type: Date,
+      required: true,
+      trim: true,
+    },
     meetingNotes: {
       type: String,
       //required: true,

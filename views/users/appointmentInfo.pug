@@ -32,12 +32,15 @@ block content
                                 .rowContainer
                                     span.label Meeting Type:
                                     select.form-select.form-control(name="meetingType" value=appointmentInfo.meetingType)
-                                        option(selected=true) Academic
+                                        option(selected= appointmentInfo.apptType==="Academic") Academic
                                         option(selected= appointmentInfo.apptType==="Personal") Personal 
                                         option(selected= appointmentInfo.apptType==="Financial") Financial      
                                 .rowContainer
                                     span.label Start Date:
-                                    input.form-control(type="text" name="startDate" placeholder="ex) 000123456" value=appointmentInfo.startDate, required)                         
+                                    input.form-control(type="text" name="startDate" id="dt" placeholder="ex) 000123456" value=appointmentInfo.startDate.toLocaleString(), required)
+                                .rowContainer
+                                    span.label End Date:
+                                    input.form-control(type="text" name="endDate" placeholder="ex) 000123456" value=appointmentInfo.endDate.toLocaleString(), required)                         
                             .commentsContainer 
                                 span.label Meeting Notes:
                                 textarea.form-control(name="meetingNotes" cols="40" rows="9") #{appointmentInfo.meetingNotes} 

@@ -23,43 +23,45 @@ router.post("/apptRegister", async (req, res, next) => {
   var saitId = req.body.saitId.trim();
   var advisorId = req.body.advisorId.trim();
   var apptType = req.body.meetingType.trim();
-  var startDate = req.body.startDate.trim();
+  var startDate = new Date(req.body.startDate.trim());
+  var endDate = new Date(req.body.endDate.trim());
   req.body.meetingNotes = req.body.meetingNotes.trim();
 
   //var payload = req.body;
   //payload.pageTitle = "Student Registration";
 
-  if(apptId && saitId && advisorId && apptType && startDate) {
+  if(apptId && saitId && advisorId && apptType && startDate && endDate) {
       var appointment = await Appointment.findOne({ apptId: apptId })
       .catch(err => {
           console.log(err);
-          payload.success = false;
-          payload.message = "Something went wrong.";
-          res.status(200).render("users/appointmentNew", payload);
+          //payload.success = false;
+          //payload.message = "Something went wrong.";
+          //res.status(200).render("users/appointmentNew", payload);
+          res.status(200).render("users/appointmentNew");
       });
 
-      if (appointment !== null) {
+      if (appointment == null) {
           //Appointment found
           var data = req.body;
 
           Appointment.create(data)
           .then(appointment => {
-              payload = {
-                  success: true,
-                  message: `New appointment for student #${saitId} successfully added.`
-              }
-              res.status(200).render("users/appointmentNew", payload);
+              //payload = {
+              //    success: true,
+              //    message: `New appointment for student #${saitId} successfully added.`
+              //}
+              res.status(200).render("users/appointmentNew");
           });
       }
       else {
-          payload.success = false;
-          payload.message = `Provided SAIT ID #${saitId} does not exist.`;
-          res.status(200).render("users/appointmentNew", payload);
+          //payload.success = false;
+          //payload.message = `Provided SAIT ID #${saitId} does not exist.`;
+          res.status(200).render("users/appointmentNew");
       }
   }
   else {
-      payload.success = false;
-      payload.message = "Make sure each field has a valid value.";
+      //payload.success = false;
+      //payload.message = "Make sure each field has a valid value.";
   }
 });
 
@@ -72,7 +74,7 @@ router.get("/info/:apptId", async (req, res, next) => {
 
 router.post("/info/:apptId", async (req, res, next) => {
   //textarea needs to be trim
-  req.body.comments = req.body.comments.trim();
+  req.body.meetingNotes = req.body.meetingNotes.trim();
 
   var payload = await getPayload(req.params.apptId);
 
