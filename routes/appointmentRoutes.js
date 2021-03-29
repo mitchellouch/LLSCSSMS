@@ -3,6 +3,7 @@ const app = express();
 const router = express.Router();
 const bodyParser = require("body-parser");
 const Appointment = require("../models/appointmentSchema");
+const Student = require("../models/studentSchema");
 const bcrypt = require("bcrypt");
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -27,41 +28,52 @@ router.post("/apptRegister", async (req, res, next) => {
   var endDate = new Date(req.body.endDate.trim());
   req.body.meetingNotes = req.body.meetingNotes.trim();
 
-  //var payload = req.body;
-  //payload.pageTitle = "Student Registration";
+  var payload = req.body;
+  payload.pageTitle = "Appointment Registration";
 
   if(apptId && saitId && advisorId && apptType && startDate && endDate) {
       var appointment = await Appointment.findOne({ apptId: apptId })
       .catch(err => {
           console.log(err);
-          //payload.success = false;
-          //payload.message = "Something went wrong.";
-          //res.status(200).render("users/appointmentNew", payload);
-          res.status(200).render("users/appointmentNew");
+          payload.success = false;
+          payload.message = "Something went wrong.";
+          res.status(200).render("users/appointmentNew", payload);
       });
 
-      if (appointment == null) {
-          //Appointment found
-          var data = req.body;
+      var student = await Student.findOne({ saitId: saitId })
+      .catch(err => {
+        console.log(err);
+        payload.success = false;
+        payload.message = "Something went wrong.";
+        res.status(200).render("users/appointmentNew", payload);
+    });
 
-          Appointment.create(data)
-          .then(appointment => {
-              //payload = {
-              //    success: true,
-              //    message: `New appointment for student #${saitId} successfully added.`
-              //}
-              res.status(200).render("users/appointmentNew");
-          });
+      if (appointment == null && student !== null) {
+        //Appointment found
+        var data = req.body;
+
+        Appointment.create(data)
+        .then(appointment => {
+            payload = {
+                success: true,
+                message: `New appointment for student #${saitId} successfully added.`
+            }
+            res.status(200).render("users/appointmentNew", payload);
+        });
       }
-      else {
-          //payload.success = false;
-          //payload.message = `Provided SAIT ID #${saitId} does not exist.`;
-          res.status(200).render("users/appointmentNew");
+      else if (appointment !== null) {
+        payload.success = false;
+        payload.message = `Provided Appointment ID #${apptId} already exists.`;
+        res.status(200).render("users/appointmentNew", payload);
+      } else{
+        payload.success = false;
+        payload.message = `Provided SAIT ID #${saitId} does not exist.`;
+        res.status(200).render("users/appointmentNew", payload);
       }
   }
   else {
-      //payload.success = false;
-      //payload.message = "Make sure each field has a valid value.";
+      payload.success = false;
+      payload.message = "Make sure each field has a valid value.";
   }
 });
 

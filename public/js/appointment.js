@@ -106,10 +106,10 @@ function outputAppointments(results, container){
 function createAppointmentsTableRowHtml(postData){
     if(postData == null) return alert("Appointment object is null");
     var start = new Date(postData.startDate);
-    start.setHours(start.getHours() - 1);
+    start.setHours(start.getHours() + 6);
     
     var end = new Date(postData.endDate);
-    end.setHours(end.getHours()-1);
+    end.setHours(end.getHours() + 6);
 
     return `<tr>
                 <td><a href="/appointment/info/${postData.apptId}">${postData.apptId}</td>

@@ -37,10 +37,10 @@ block content
                                         option(selected= appointmentInfo.apptType==="Financial") Financial      
                                 .rowContainer
                                     span.label Start Date:
-                                    input.form-control(type="text" name="startDate" id="dt" placeholder="ex) 000123456" value=appointmentInfo.startDate.toLocaleString(), required)
+                                    input.form-control(type="datetime-local" name="startDate" id="dt" placeholder="ex) 000123456" value=appointmentInfo.startDate.toJSON().slice(0,19), required)
                                 .rowContainer
                                     span.label End Date:
-                                    input.form-control(type="text" name="endDate" placeholder="ex) 000123456" value=appointmentInfo.endDate.toLocaleString(), required)                         
+                                    input.form-control(type="datetime-local" name="endDate" placeholder="ex) 000123456" value=appointmentInfo.endDate.toJSON().slice(0,19), required)                         
                             .commentsContainer 
                                 span.label Meeting Notes:
                                 textarea.form-control(name="meetingNotes" cols="40" rows="9") #{appointmentInfo.meetingNotes} 
