@@ -1,5 +1,42 @@
 extends layouts/main-layout.pug
 
 block content 
-  .studentInfoWrapper 
-    h1 Hello this page would be home page
+  .mainmenuContainer
+    .row
+      a.card.mb-3.menuCard(href="/student")
+        .card-body
+          i.material-icons assignment_ind
+          h5.card-title Student Information
+          p.card-text Manage overall Student
+        .card-footer.bg-transparent 
+          span.card-footer-name Go to Student Info
+          i.material-icons keyboard_arrow_right
+
+      a.card.mb-3.menuCard(href="/appointment")
+        .card-body
+          i.material-icons event
+          h5.card-title Appointment
+          p.card-text Manage overall appointment
+        .card-footer.bg-transparent 
+          span.card-footer-name Go to Appointment
+          i.material-icons keyboard_arrow_right
+
+    .row
+      a.card.mb-3.menuCard(href="/workshop")
+        .card-body
+          i.material-icons date_range
+          h5.card-title Workshop
+          p.card-text Manage overall Workshop
+        .card-footer.bg-transparent 
+          span.card-footer-name Go to Workshop
+          i.material-icons keyboard_arrow_right 
+
+      a.card.mb-3.menuCard(href="/myinfo")
+        .card-body
+          i.material-icons manage_accounts
+          h5.card-title My account
+          p.card-text Manage my information
+        .card-footer.bg-transparent 
+          span.card-footer-name Go to My Info
+          i.material-icons keyboard_arrow_right 
+
