@@ -4,6 +4,7 @@ const router = express.Router();
 const bodyParser = require("body-parser");
 const Workshop = require("../models/workshopSchema");
 const bcrypt = require("bcrypt");
+const appointmentSchema = require("../models/appointmentSchema");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -32,8 +33,16 @@ router.post("/workshopNew", (req, res, next) => {
   var numAttendees = req.body.numAttendees.trim();
   var avgRating = req.body.avgRating.trim();
 
-  if (workshopID && workshopType && workshopDesc && workshopDate && workshopLength && workshopFacilitator &&workshopRequest) {
-
+  if (workshopID && workshopType && workshopDesc && workshopDate && workshopLength && workshopFacilitator && workshopRequest) {
+    var workshop = await Workshop.findOne({ workshopID: workshopID })
+      .catch(err => {
+        console.log(err);
+        //payload.success = false;
+        //payload.message = "Something went wrong.";
+        //res.status(200).render("users/workshopNew", payload);
+        res.status(200).render("users/workshopNew");
+      });
+    
   }
 });
 
