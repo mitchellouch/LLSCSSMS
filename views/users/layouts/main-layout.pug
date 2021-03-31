@@ -22,16 +22,29 @@ html(lang="en")
                     i.material-icons mail
                     img(src="/images/profilePic.png", alt="profile image")
                     .username Fname Lname
-            .nav-footer
-                .navFooterContainer
-                    .navFooterItem
-                        a(href="/") Home
-                    .navFooterItem
-                        a(href="/student") Student Info
-                    .navFooterItem
-                        a(href="/appointment") Appointment
-                    .navFooterItem
-                        a(href="/workshop") Workshop 
+            nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+                button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation')
+                    span.navbar-toggler-icon
+                #navbarNav.collapse.navbar-collapse
+                    ul.navbar-nav
+                        li.nav-item.active
+                            a.nav-link(href='/') Home 
+                        li.nav-item
+                            a.nav-link(href='/student') Student Info
+                        li.nav-item
+                            a.nav-link(href='/appointment') Appointment
+                        li.nav-item
+                            a.nav-link(href='/workshop') Workshop
+            //- .nav-footer
+            //-     .navFooterContainer
+            //-         .navFooterItem
+            //-             a(href="/") Home
+            //-         .navFooterItem
+            //-             a(href="/student") Student Info
+            //-         .navFooterItem
+            //-             a(href="/appointment") Appointment
+            //-         .navFooterItem
+            //-             a(href="/workshop") Workshop 
             
             block content 
         
