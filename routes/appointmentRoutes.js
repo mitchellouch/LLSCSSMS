@@ -25,8 +25,11 @@ router.post("/apptRegister", async (req, res, next) => {
   var advisorId = req.body.advisorId.trim();
   var apptType = req.body.meetingType.trim();
   var startDate = new Date(req.body.startDate.trim());
+  //startDate.setHours(startDate.getHours+6);
   var endDate = new Date(req.body.endDate.trim());
+  //endDate.setHours(endDate.getHours+6);
   req.body.meetingNotes = req.body.meetingNotes.trim();
+  var available = true;
 
   var payload = req.body;
   payload.pageTitle = "Appointment Registration";
@@ -49,17 +52,40 @@ router.post("/apptRegister", async (req, res, next) => {
     });
 
       if (appointment == null && student !== null) {
+        const queryAllUsers = () => {
+          //Where User is you mongoose user model
+          Appointment.find({} , (err, appt) => {
+              if(err) //do something...
+      
+              appt.map(appt => {
+                var s = appt.startDate.toLocaleString();
+                var e = appt.endDate.toLocaleString();
+                if(endDate.toLocaleString() > s && endDate.toLocaleString() < e)
+                  available = false;
+                  
+                if(startDate.toLocaleString() > s && startDate.toLocaleString() < e)
+                  available = false;
+              })
+          })
+        }
         //Appointment found
         var data = req.body;
-
-        Appointment.create(data)
-        .then(appointment => {
-            payload = {
-                success: true,
-                message: `New appointment for student #${saitId} successfully added.`
-            }
-            res.status(200).render("users/appointmentNew", payload);
-        });
+        if(available == true){
+          Appointment.create(data)
+          .then(appointment => {
+              payload = {
+                  success: true,
+                  message: `New appointment for student #${saitId} successfully added.`
+              }
+              res.status(200).render("users/appointmentNew", payload);
+          });
+        } else{
+          payload = {
+            success: true,
+            message: `Appointment time slot is already taken`
+        }
+        res.status(200).render("users/appointmentNew", payload);
+        }
       }
       else if (appointment !== null) {
         payload.success = false;

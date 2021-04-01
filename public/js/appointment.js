@@ -111,6 +111,20 @@ function createAppointmentsTableRowHtml(postData){
     var end = new Date(postData.endDate);
     end.setHours(end.getHours() + 6);
 
+    /**var newDate = new Date(start.getTime()+start.getTimezoneOffset()*60*1000);
+    var offset = start.getTimezoneOffset() / 60;
+    var hours = start.getHours();
+    newDate.setHours(hours - offset);
+    start = newDate;
+
+    
+    
+    var newDate1 = new Date(end.getTime()+end.getTimezoneOffset()*60*1000);
+    var offset1 = end.getTimezoneOffset() / 60;
+    var hours1 = end.getHours();
+    newDate1.setHours(hours1 - offset1);
+    end = newDate1;**/
+
     return `<tr>
                 <td><a href="/appointment/info/${postData.apptId}">${postData.apptId}</td>
                 <td><a href="/student/info/${postData.saitId}">${postData.saitId}</a></td>
