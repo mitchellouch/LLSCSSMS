@@ -6,22 +6,70 @@
   --lightGrayHover: #cdd5dc;
   --red: #da291c;
   --darkRed: #ba2318;
+  --bgColor: #f6f7f8;
 }
 
 .wrapper {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--bgColor);
 }
 
 .wrapper > .row {
     margin: 0;
 }
 
+.mainmenuContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+  align-items: center;
+  background-color: var(--bgColor);
+}
+
+.menuCard {
+  margin: 1rem;
+  min-width: 20rem;
+  color: var(--gray);
+  box-shadow: 0.2rem 0.2rem 0.2rem var(--lightGray);
+  transition: all 0.9s, color 0.3s;
+}
+
+.card-body i {
+  font-size: 4rem;
+  color: var(--red);
+  transition: color 0.3s;
+}
+
+.menuCard:hover {
+  text-decoration: none;
+  background-color: var(--red);
+  color: white;
+  transform: translate(0, -0.5rem);
+}
+
+.menuCard:hover .card-body i{
+  color: white;
+}
+
+.card-footer {
+  display: flex;
+  color: inherit;
+  font-weight: 600;
+}
+
+.card-footer .card-footer-name {
+  flex: 1;
+}
+
+
 .nav-header {
   display: flex;
   height: 90px;
   align-items: center;
   padding: 0 20px;
+  background-color: white;
 }
 
 .nav-header .logoContainer {
@@ -47,26 +95,17 @@
   margin-right: 10px;
 }
 
-.nav-footer {
-  display: flex;
-  background-color: var(--gray);
-  height: 60px;
-}
-
-.nav-footer .navFooterContainer{
-  display: flex;
-  margin: 5px 50px;
-  align-items: center;
-}
-
-.navFooterItem {
+#navbarNav li{
   margin: 0 35px;
   font-size: 19px;
 }
 
-.navFooterItem a{
+#navbarNav li a{
   font-size: 100%;
   color: white;
+}
+#navbarNav li a:hover{
+  text-decoration: underline;
 }
 
 .heading {
@@ -141,6 +180,7 @@
   font-size: 15px;
   background-color: var(--lightGray);
   margin: 0 5px;
+  box-shadow: 2px 2px 3px;
 }
 
 .buttonsContainer button:hover,
@@ -268,17 +308,17 @@
     flex-direction: column;
 }
 
-nav {
+.row nav {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   height: 100%;
-  background-color: #f9fbff;
+  background-color: var(--bgColor);
   border-bottom: 1px solid var(--lightGray);
   padding-top: 2rem;
 }
 
-nav a {
+.row nav a {
   padding: 10px;
   color: var(--gray);
   border-bottom: 1px solid var(--lightGray);
@@ -292,4 +332,8 @@ nav a {
   font-weight:600;
   border-bottom: 1px solid var(--red);
   margin-bottom: 0.5rem;
+}
+
+.col {
+  background-color: var(--bgColor);
 }

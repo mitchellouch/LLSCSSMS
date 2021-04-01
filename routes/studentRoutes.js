@@ -97,6 +97,8 @@ router.post("/info/:studentId", async (req, res, next) => {
 
     var data = buildDataObj(req.body);
     //console.log("Input Data: ", data);
+    
+    // decide objects to unset depending on data structure (check it has each section data)
     var unsetObj = {};
     if(data.eaInfo === undefined)
         unsetObj.eaInfo = "";

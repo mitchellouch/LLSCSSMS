@@ -17,26 +17,15 @@ const workshopSchema = mongoose.Schema(
       trim: true,
     },
     workshopDate: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    workshopStartTime: {
-      type: String,
+      type: Date,
       required: true,
       trim: true,
     },
     workshopLength: {
-      type: String,
-      required: true,
+      type: Number,
       trim: true,
     },
     workshopFacilitator: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    facilitatorContact: {
       type: String,
       required: true,
       trim: true,
@@ -46,6 +35,24 @@ const workshopSchema = mongoose.Schema(
       required: true,
       trim: true,
     },
+    requestProgram: {
+      type: String,
+      trim: true,
+    },
+    requestSchool: {
+      type: String,
+      trim: true,
+    },
+    requestContact: {
+      type: Boolean,
+      trim: true,
+    },
+    numAttendees: {
+      type: Number,
+    },
+    avgRating: {
+      type: Number,
+    }
   },
   { timestamps: true }
 );
