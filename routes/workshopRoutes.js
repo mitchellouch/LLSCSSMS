@@ -19,7 +19,7 @@ router.get("/workshopNew", (req, res, next) => {
   res.status(200).render("users/workshopNew", payload);
 });
 
-router.post("/workshopNew", (req, res, next) => {
+router.post("/workshopNew", async (req, res, next) => {
   var workshopID = req.body.workshopID.trim();
   var workshopType = req.body.workshopType.trim();
   var workshopDesc = req.body.workshopDesc.trim();
@@ -27,11 +27,11 @@ router.post("/workshopNew", (req, res, next) => {
   var workshopLength = req.body.workshopLength.trim();
   var workshopFacilitator = req.body.workshopFacilitator.trim();
   var workshopRequest = req.body.workshopRequest.trim();
-  var requestProgram = req.body.requestProgram.trim();
+  /**var requestProgram = req.body.requestProgram.trim();
   var requestSchool = req.body.requestProgram.trim();
   var requestContact = req.body.requestContact.trim();
   var numAttendees = req.body.numAttendees.trim();
-  var avgRating = req.body.avgRating.trim();
+  var avgRating = req.body.avgRating.trim();*/
 
   if (workshopID && workshopType && workshopDesc && workshopDate && workshopLength && workshopFacilitator && workshopRequest) {
     var workshop = await Workshop.findOne({ workshopID: workshopID })
@@ -42,8 +42,61 @@ router.post("/workshopNew", (req, res, next) => {
         //res.status(200).render("users/workshopNew", payload);
         res.status(200).render("users/workshopNew");
       });
-    
+
+    if (workshop == null) {
+      Workshop.create(req.body)
+        .then(workshop => {
+          //payload = {
+          //    success: true,
+          //    message: `New Workshop successfully added.`
+          //}
+          res.status(200).render("users/workshopNew");
+        });
+    } else {
+      /**payload.success = false;
+      payload.message = 'Workshop with id ${workshopID} already exists.';*/
+      res.status(200).render("users/workshopNew");
+    }
   }
 });
+
+router.get("/info/:workshopId", async (req, res, next) => {
+  var payload = await getPayload(req.params.apptId);
+  payload.pageTitle = "Workshop Information";
+  payload.apptId = req.params.apptId;
+  res.status(200).render("users/workshopInfo", payload);
+});
+
+router.post("/info/:workshopId", async (req, res, next) => {
+  //textarea needs to be trim
+  req.body.comments = req.body.comments.trim();
+
+  var payload = await getPayload(req.params.workshopId);
+
+  var workshop = await Workshop.findOneAndUpdate({apptId: req.params.apptId}, {$set: req.body}, {new: true})
+  .catch(error => {
+      console.log(error);
+      res.sendStatus(400);
+  })
+
+  payload.pageTitle = "Workshop Information";
+  payload.workshopId = req.params.workshopID;
+  payload.success = true;
+  payload.message = `Workshop ${req.params.workshopId} successfully updated.`;
+  payload.appointmentInfo = workshop;
+  res.status(200).render("users/workshopInfo", payload);
+});
+
+async function getPayload(workshopId){
+  var workshop = await Workshop.findOne({ workshopId: workshopId });
+
+  if(workshop == null) {
+      return {};
+  }
+
+  return {
+      workshopInfo: workshop
+  }
+}
 
 module.exports = router;

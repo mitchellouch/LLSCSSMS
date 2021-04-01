@@ -38,19 +38,19 @@ block content
                 .rowContainer 
                     span.label Contact Person: 
                     input.form-control(type="text" name="requestContact" disabled)
-            .commentsContainer
-                span.label Comments:
-                input.fo
-            .studentInfoContainer 
-                .rowContainer 
-                    span.label Number of Attendees: 
-                    input.form-control(type="number" name="numAttendees")
-                .rowContainer 
-                    span.label Workshop Length (hrs):  
-                    input.form-control(type="number" name="workshopLength")
-                .rowContainer 
-                    span.label Average Rating: 
-                    input.form-control(type="number" name="avgRating")
+                .studentInfoContainer 
+                    .rowContainer 
+                        span.label Number of Attendees: 
+                        input.form-control(type="number" name="numAttendees")
+                    .rowContainer 
+                        span.label Workshop Length (hrs):  
+                        input.form-control(type="number" name="workshopLength")
+                    .rowContainer 
+                        span.label Average Rating: 
+                        input.form-control(type="number" name="avgRating")
+            .commentsContainer 
+                  span.label Comments:
+                  textarea.form-control(name="comments" cols="40" rows="9")
             
         .buttonsContainer.buttonsAlign-right
             input(type="submit" value="Create")

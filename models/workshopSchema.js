@@ -52,7 +52,11 @@ const workshopSchema = mongoose.Schema(
     },
     avgRating: {
       type: Number,
-    }
+    },
+    comments: {
+      type: String,
+      trim: true,
+    },
   },
   { timestamps: true }
 );
