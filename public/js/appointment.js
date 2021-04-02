@@ -3,9 +3,6 @@ var timer;
 $(document).ready(() => {
     if($(".resultsContainer").length >= 1)
         outputAllAppointments();
-    //else if($(".saitProgramsContainer").length >= 1) {
-    //   setAllSaitPrograms($(".saitProgramsContainer"));
-    //}
 })
 
 $("#searchBox").keydown((event) => {

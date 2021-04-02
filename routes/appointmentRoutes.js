@@ -52,25 +52,8 @@ router.post("/apptRegister", async (req, res, next) => {
     });
 
       if (appointment == null && student !== null) {
-        const queryAllUsers = () => {
-          //Where User is you mongoose user model
-          Appointment.find({} , (err, appt) => {
-              if(err) //do something...
-      
-              appt.map(appt => {
-                var s = appt.startDate.toLocaleString();
-                var e = appt.endDate.toLocaleString();
-                if(endDate.toLocaleString() > s && endDate.toLocaleString() < e)
-                  available = false;
-                  
-                if(startDate.toLocaleString() > s && startDate.toLocaleString() < e)
-                  available = false;
-              })
-          })
-        }
-        //Appointment found
-        var data = req.body;
-        if(available == true){
+        if(searchAllAppointments(startDate, endDate)){
+          var data = req.body;
           Appointment.create(data)
           .then(appointment => {
               payload = {
@@ -83,8 +66,8 @@ router.post("/apptRegister", async (req, res, next) => {
           payload = {
             success: true,
             message: `Appointment time slot is already taken`
-        }
-        res.status(200).render("users/appointmentNew", payload);
+          }
+          res.status(200).render("users/appointmentNew", payload);
         }
       }
       else if (appointment !== null) {
@@ -102,6 +85,40 @@ router.post("/apptRegister", async (req, res, next) => {
       payload.message = "Make sure each field has a valid value.";
   }
 });
+
+function searchAllAppointments(startDateTime, endDateTime){
+  $.get("/api/appointments", {}, results => {
+      if(outputAppointments(results, startDateTime, endDateTime))
+        return true;
+  })
+  return false;
+}
+
+function outputAppointments(results, startDateTime, endDateTime){
+  if(!Array.isArray(results)) {
+      results = [results];    
+  }
+  
+  results.forEach(result => {
+    var s = result.startDate.toLocaleString();
+    var e = result.endDate.toLocaleString();
+    if(endDateTime.toLocaleString() > s && endDateTime.toLocaleString() < e)
+      return false;
+      
+    if(startDateTime.toLocaleString() > s && startDateTime.toLocaleString() < e)
+      return false;
+  });
+  return true;
+}
+
+
+
+
+
+
+
+
+
 
 router.get("/info/:apptId", async (req, res, next) => {
   var payload = await getPayload(req.params.apptId);
