@@ -98,6 +98,7 @@ function outputAppointments(results, startDateTime, endDateTime){
   if(!Array.isArray(results)) {
       results = [results];    
   }
+  //ff
   
   results.forEach(result => {
     var s = result.startDate.toLocaleString();
