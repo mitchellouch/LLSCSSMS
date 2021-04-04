@@ -31,7 +31,7 @@ const workshopSchema = mongoose.Schema(
       trim: true,
     },
     workshopRequest: {
-      type: String,
+      type: Boolean,
       required: true,
       trim: true,
     },
@@ -44,7 +44,7 @@ const workshopSchema = mongoose.Schema(
       trim: true,
     },
     requestContact: {
-      type: Boolean,
+      type: String,
       trim: true,
     },
     numAttendees: {
