@@ -1,0 +1,339 @@
+:root {
+  --blue: #006fbf;
+  --darkBlue: #004489;
+  --gray: #494c4e;
+  --lightGray: #e3e9f1;
+  --lightGrayHover: #cdd5dc;
+  --red: #da291c;
+  --darkRed: #ba2318;
+  --bgColor: #f6f7f8;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--bgColor);
+}
+
+.wrapper > .row {
+    margin: 0;
+}
+
+.mainmenuContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+  align-items: center;
+  background-color: var(--bgColor);
+}
+
+.menuCard {
+  margin: 1rem;
+  min-width: 20rem;
+  color: var(--gray);
+  box-shadow: 0.2rem 0.2rem 0.2rem var(--lightGray);
+  transition: all 0.9s, color 0.3s;
+}
+
+.card-body i {
+  font-size: 4rem;
+  color: var(--red);
+  transition: color 0.3s;
+}
+
+.menuCard:hover {
+  text-decoration: none;
+  background-color: var(--red);
+  color: white;
+  transform: translate(0, -0.5rem);
+}
+
+.menuCard:hover .card-body i{
+  color: white;
+}
+
+.card-footer {
+  display: flex;
+  color: inherit;
+  font-weight: 600;
+}
+
+.card-footer .card-footer-name {
+  flex: 1;
+}
+
+
+.nav-header {
+  display: flex;
+  height: 90px;
+  align-items: center;
+  padding: 0 20px;
+  background-color: white;
+}
+
+.nav-header .logoContainer {
+  flex: 1;
+}
+
+.userProfileContainer {
+  display: flex;
+  height: 42px;
+  align-items: center;
+  padding: 10px;
+}
+
+.userProfileContainer i {
+  height: 40px;
+  font-size: 45px;
+  color: rgb(143, 143, 143);
+  margin-right: 10px;
+}
+
+.userProfileContainer img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+#navbarNav li{
+  margin: 0 35px;
+  font-size: 19px;
+}
+
+#navbarNav li a{
+  font-size: 100%;
+  color: white;
+}
+#navbarNav li a:hover{
+  text-decoration: underline;
+}
+
+.heading {
+  color: var(--gray);
+  margin-bottom: 20px;
+}
+
+.left3rem {
+  margin-left: -3rem;  
+}
+
+.studentInfoWrapper{
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 20px auto;
+}
+
+.searchBarContainer {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  border: 1px solid var(--gray);
+  border-radius: 10px;
+  width: 40%;
+  margin: auto;
+  margin-bottom: 2rem;
+  max-width: 1000px;
+}
+
+.searchBarContainer input {
+  height: 100%;
+  border: none;
+  background-color: inherit;
+  flex: 1;
+  padding: 5px 20px;
+  color: var(--gray);
+  outline: none;
+}
+
+.searchBarContainer .iconContainer {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+.searchBarContainer i {
+  font-size: 20px;
+  color: var(--gray);
+}
+
+.studentInfoWrapper .buttonsContainer {
+  display: flex;
+  height: 42px;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.buttonsContainer button,
+.buttonsContainer input[type="button"],
+.buttonsContainer input[type="reset"],
+.buttonsContainer input[type="submit"] {
+  height: 42px;
+  padding: 0 30px;
+  border: none;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--gray);
+  font-size: 15px;
+  background-color: var(--lightGray);
+  margin: 0 5px;
+  box-shadow: 2px 2px 3px;
+}
+
+.buttonsContainer button:hover,
+.buttonsContainer input[type="button"]:hover,
+.buttonsContainer input[type="reset"]:hover,
+.buttonsContainer input[type="submit"]:hover {
+  background-color: var(--lightGrayHover);
+}
+
+.studentRegContainer {
+  display: flex;
+  border-top: 1px solid var(--red);
+  padding-top: 10px;
+}
+
+.studentInfoContainer {
+  display:flex;
+  flex-direction: column;
+  width: 60%;
+  padding: 1.5rem 0;
+}
+
+.rowContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.rowContainer input,
+.rowContainer select {
+  width: 70%;
+  height: 2rem;
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+.rowContainer input[type="checkbox"] {
+  width: 10%;
+}
+
+.colContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.label {
+  color: var(--gray);
+  font-weight: 500;
+}
+
+.colLabel {
+  color: var(--gray);
+  font-weight: 500;
+  font-size: 1.2rem;
+  border-bottom: 1px solid var(--red);
+  margin-bottom: 0.3rem;
+
+}
+
+.studentRegContainer .commentsContainer {
+  margin-left: 20px;
+}
+
+.studentRegContainer .commentsContainer textarea{
+  height:80%;
+}
+
+.buttonsAlign-right {
+  justify-content: flex-end;
+}
+
+.errorMessage {
+  color: red;
+  font-weight: 500;
+  border: 1px solid red;
+  width: fit-content;
+  padding: 0.2rem 1rem;
+  border-radius: 0.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.successMessage {
+  color: green;
+  font-weight: 500;
+  border: 1px solid green;
+  width: fit-content;
+  padding: 0.2rem 1rem;
+  border-radius: 0.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.subHeading {
+    font-size: 32px;
+    color: var(--gray);
+}
+
+#updateStudentButton {
+  background-color: var(--blue);
+  color: white;
+}
+
+#updateStudentButton:hover {
+  background-color: var(--darkBlue);
+}
+
+#deleteStudentButton,
+#deleteStudentConfButton {
+  background-color: var(--red);
+  color: white;
+}
+
+#deleteStudentButton:hover,
+#deleteStudentConfButton:hover {
+  background-color: var(--darkRed);
+}
+
+.btn {
+  border: none;
+}
+
+.mainSectionContainer {
+    border-left: 1px solid var(--lightGray);
+    border-right: 1px solid var(--lightGray);
+    display: flex;
+    flex-direction: column;
+}
+
+.row nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  height: 100%;
+  background-color: var(--bgColor);
+  border-bottom: 1px solid var(--lightGray);
+  padding-top: 2rem;
+}
+
+.row nav a {
+  padding: 10px;
+  color: var(--gray);
+  border-bottom: 1px solid var(--lightGray);
+  width: 100%;
+  text-align: end;
+  padding: 14px 0;
+}
+
+.submenuHeading {
+  font-size: 1.1rem;
+  font-weight:600;
+  border-bottom: 1px solid var(--red);
+  margin-bottom: 0.5rem;
+}
+
+.col {
+  background-color: var(--bgColor);
+}

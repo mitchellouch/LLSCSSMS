@@ -1,0 +1,19 @@
+extends layouts/main-layout.pug
+
+block content 
+  .studentInfoWrapper 
+    h1.heading  Manage Appointment
+
+    .buttonsContainer
+        a(href="/appointment/apptRegister") 
+            button Create Appointment
+    
+    .searchBarContainer
+        input#searchBox(type="text", name="searchBox", placeholder="Search by SAIT ID or Appointment ID then press Enter")
+        .iconContainer
+            i.fas.fa-search
+      
+    .resultsContainer
+    
+block scripts
+    script(src="/js/appointment.js")

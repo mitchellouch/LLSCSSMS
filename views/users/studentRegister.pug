@@ -1,0 +1,199 @@
+extends layouts/main-layout.pug
+
+block content 
+    script.
+        var studentServiceType=`#{studentServiceType !== undefined && studentServiceType}`;
+        var programSelected=`#{program}`;
+        
+
+    form.wrapper(action="/student/register" method="POST")
+        .row
+            nav.col
+                .submenuHeading Select Type of services
+                label(data-toggle="collapse" data-target="#collapseEA") Early Alerts 
+                    input(type="checkbox", name="studentServiceType", value="EA")
+                label(data-toggle="collapse" data-target="#collapseAS") Accessibility/Tutoring  
+                    input(type="checkbox", name="studentServiceType", value="AS")
+                label(data-toggle="collapse" data-target="#collapseFA") Fund Advising 
+                    input(type="checkbox", name="studentServiceType", value="FA")
+
+            .mainSectionContainer.col-10
+                //- h1 #{eaInfo !== undefined ? eaInfo.numOfTries : 1}
+                
+
+                .studentInfoWrapper
+                    
+                    h1.heading.left3rem  #{pageTitle}
+
+                    if success == undefined
+                        //-No message
+                    else if success == true
+                        span.successMessage #{message}
+                    else 
+                        span.errorMessage #{message}
+
+                    
+                    h2.subHeading Standard Information
+                    .studentRegContainer 
+                        .studentInfoContainer 
+                            .rowContainer
+                                span.label SAIT Student ID:
+                                input.form-control(type="text" name="saitId" placeholder="ex) 000123456" value=saitId, required)
+                            .rowContainer
+                                span.label First Name:
+                                input.form-control(type="text" name="firstName" value=firstName, required)
+                            .rowContainer
+                                span.label Last Name:
+                                input.form-control(type="text" name="lastName" value=lastName, required)
+                            .rowContainer
+                                span.label Contact Phone:
+                                input.form-control(type="text" name="studentPhone" placeholder="ex) 4037778888" value=studentPhone)
+                            .rowContainer
+                                span.label Contact Email:
+                                input.form-control(type="email" name="studentEmail" value=studentEmail)
+                            .rowContainer
+                                span.label Personal Email:
+                                input.form-control(type="email" name="personalEmail" value=personalEmail)
+                            .rowContainer.saitProgramsContainer 
+                                span.label Program:
+                            .rowContainer.semesterContainer
+                                span.label Semester:
+                                select.form-select.form-control(name="semester")
+                                    option(selected) 1
+                                    option(selected = semester==2) 2
+                                    option(selected = semester==3) 3
+                                    option(selected = semester==4) 4
+                                    option(selected = semester==5) 5
+                                    option(selected = semester==6) 6
+                                    option(selected = semester==7) 7
+                                    option(selected = semester==8) 8
+                            
+                        .commentsContainer 
+                            span.label Comments:
+                            textarea.form-control(name="comments" cols="40" rows="9") #{comments} 
+
+                    #collapseEA.panel-collapse.collapse
+                        h2.subHeading Detail - Early Alerts
+                        .studentRegContainer 
+                            .studentInfoContainer 
+                                .rowContainer
+                                    span.label Academic Status:
+                                    select.form-select.form-control(name="academicStatus" )
+                                        option(selected) Good Standing
+                                        option(selected = academicStatus==="Academic Warning") Academic Warning
+                                        option(selected = academicStatus==="Academic Probation") Academic Probation 
+                                        option(selected = academicStatus==="Academic Suspension") Academic Suspension
+                                .rowContainer
+                                    span.label Number of Tries:
+                                    input.form-control(type="number", name="numOfTries", value=numOfTries, min=1, max=5)
+                                .rowContainer
+                                    span.label Ref To:
+                                    input.form-control(type="text", name="refTo", value=refTo)
+                                .rowContainer
+                                    span.label Ref By:
+                                    input.form-control(type="text", name="refBy", value=refBy)
+                            .commentsContainer 
+                                span.label EA-Comments:
+                                textarea.form-control(name="ea_comments" cols="40" rows="9") #{ea_comments}
+                                
+
+                    #collapseAS.panel-collapse.collapse
+                        h2.subHeading Detail - Accessibility / Tutoring
+                        .studentRegContainer 
+                            .studentInfoContainer 
+                                .rowContainer
+                                    span.label Date of Birth:
+                                    input.form-control(type="date", name="dateOfBirth", value=dateOfBirth)
+                                .rowContainer
+                                    span.label Citizenship Status:
+                                    select.form-select.form-control(name="citizenshipStatus" )
+                                        option(selected, value=null) --Choose--
+                                        option(selected = citizenshipStatus==="Citizenship") Citizenship
+                                        option(selected = citizenshipStatus==="Permanent resident") Permanent resident
+                                        option(selected = citizenshipStatus==="Temporary resident") Temporary resident
+                                .rowContainer
+                                    span.label Gender:
+                                    select.form-select.form-control(name="gender" )
+                                        option(selected, value=null) --Choose--
+                                        option(selected = gender==="Male") Male
+                                        option(selected = gender==="Female") Female
+                                        option(selected = gender==="Non-binary") Non-binary
+                                .rowContainer
+                                    span.label Home address:
+                                    input.form-control(type="text", name="homeAddress", value=homeAddress)
+                                .rowContainer
+                                    span.label Postal Code:
+                                    input.form-control(type="text", name="postalCode", value=postalCode)
+                                .colContainer
+                                    span.colLabel Classification information
+                                    .rowContainer
+                                        span.label Primary Code:
+                                        input.form-control(type="text", name="primaryCode", value=primaryCode)
+                                    .rowContainer
+                                        span.label Secondary Code:
+                                        input.form-control(type="text", name="secondaryCode", value=secondaryCode)
+                                    .rowContainer
+                                        span.label Tertiary Code:
+                                        input.form-control(type="text", name="tertiaryCode", value=tertiaryCode)
+                                .colContainer
+                                    span.colLabel Emergency Contact
+                                    .rowContainer
+                                        span.label Relationship:
+                                        input.form-control(type="text", name="emerg_relationship", value=emerg_relationship)
+                                    .rowContainer
+                                        span.label Full name:
+                                        input.form-control(type="text", name="emerg_fullName", value=emerg_fullName)
+                                    .rowContainer
+                                        span.label Phone:
+                                        input.form-control(type="text", name="emerg_phone", value=emerg_phone)
+                            .commentsContainer 
+                                span.label AS-Comments:
+                                textarea.form-control(name="as_comments" cols="40" rows="9") #{as_comments}
+                                
+                                
+
+                    #collapseFA.panel-collapse.collapse
+                        h2.subHeading Detail - Fund Advising
+                        .studentRegContainer 
+                            .studentInfoContainer 
+                                .rowContainer
+                                    span.label Funding Type:
+                                    input.form-control(type="text", name="fundingType", value=fundingType)
+                                .rowContainer
+                                    span.label SIN:
+                                    input.form-control(type="text", name="sin", value=sin)
+                                .rowContainer
+                                    span.label Income support? 
+                                    input.form-control(type="checkbox", name="hasIncomeSupport", checked=hasIncomeSupport)
+                                .rowContainer
+                                    span.label EI Claim? 
+                                    input.form-control(type="checkbox", name="hasEiClaim", checked=hasEiClaim)
+                                .rowContainer
+                                    span.label Reducred Course Load currently working? 
+                                    input.form-control(type="checkbox", name="hasReducedCrsLoad", checked=hasReducedCrsLoad)
+                                .colContainer
+                                    span.colLabel Demographical Information
+                                    .rowContainer
+                                        span.label Previous funded for ESL training? 
+                                        input.form-control(type="checkbox", name="isFundedEsl", checked=isFundedEsl)
+                                    .rowContainer
+                                        span.label ESL-# of Months:
+                                        input.form-control(type="number", name="eslFundedMonths", value= eslFundedMonths, min=0, disabled)
+                                    .rowContainer
+                                        span.label Previous funded for AU training? 
+                                        input.form-control(type="checkbox", name="isFundedAu", checked=isFundedAu)
+                                    .rowContainer
+                                        span.label AU-# of Months:
+                                        input.form-control(type="number", name="auFundedMonths", value= auFundedMonths, min=0, disabled)
+                                    
+                            .commentsContainer 
+                                span.label FA-Comments:
+                                textarea.form-control(name="fa_comments" cols="40" rows="9") #{fa_comments}
+
+
+                    .buttonsContainer.buttonsAlign-right
+                        input(type="submit" value="Register")
+                        input#resetButton(type="reset" value="Reset")
+
+block scripts
+    script(src="/js/studentInfo.js") 

@@ -1,0 +1,61 @@
+extends layouts/main-layout.pug
+
+block content     
+    form.studentInfoWrapper(action="/workshop/workshopNew" method="POST")
+        h1.heading  #{pageTitle} 
+        
+        if success == true
+            span.successMessage #{message}
+        else 
+            span.errorMessage #{message}
+
+        .studentRegContainer
+            .studentInfoContainer 
+                .rowContainer
+                    span.label Workshop ID:
+                    input.form-control(type="text" name="workshopID" required)
+                .rowContainer
+                    span.label Workshop Type:
+                    input.form-control(type="text" name="workshopType" required)
+                .rowContainer
+                    span.label Workshop Desc:
+                    input.form-control(type="text" name="workshopDesc" required)
+                .rowContainer
+                    span.label Workshop Date:
+                    input.form-control(type="datetime-local" name="workshopDate" required)
+                .rowContainer
+                    span.label Facilitator:
+                    input.form-control(type="text" name="workshopFacilitator" required)
+                .rowContainer 
+                    span.label Workshop requested by program? 
+                    input.form-control(type="checkbox" name="workshopRequest")
+                .rowContainer 
+                    span.label Program: 
+                    input.form-control(type="text" name="requestProgram" disabled required)
+                .rowContainer 
+                    span.label School: 
+                    input.form-control(type="text" name="requestSchool" disabled required)
+                .rowContainer 
+                    span.label Contact Person: 
+                    input.form-control(type="text" name="requestContact" disabled required)
+                .studentInfoContainer 
+                    .rowContainer 
+                        span.label Number of Attendees: 
+                        input.form-control(type="text" name="numAttendees")
+                    .rowContainer 
+                        span.label Workshop Length (hrs):  
+                        input.form-control(type="text" name="workshopLength")
+                    .rowContainer 
+                        span.label Average Rating: 
+                        input.form-control(type="text" name="avgRating")
+            .commentsContainer 
+                  span.label Comments:
+                  textarea.form-control(name="comments" cols="40" rows="9")
+            
+        .buttonsContainer.buttonsAlign-right
+            input(type="submit" value="Create")
+            input(type="reset" value="Reset")
+
+block scripts
+    script(src="/js/workshop.js") 
+    

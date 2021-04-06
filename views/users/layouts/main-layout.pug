@@ -1,0 +1,57 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        //title LLSC SSMS Main Page 
+        title #{pageTitle}
+
+        link(rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons')
+        link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous')
+        link(rel='stylesheet' href='/css/main.css')
+    body 
+        .wrapper
+            .nav-header 
+                .logoContainer
+                    a(href="/") 
+                        img(src='https://learn.sait.ca/d2l/lp/navbars/6605/theme/viewimage/3208789/view?v=20.21.1.27113-201' height='80px' width='240px' alt='SAIT LOGO')
+                .userProfileContainer 
+                    i.material-icons notifications
+                    i.material-icons message
+                    i.material-icons mail
+                    img(src="/images/profilePic.png", alt="profile image")
+                    .username Fname Lname
+            nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+                button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation')
+                    span.navbar-toggler-icon
+                #navbarNav.collapse.navbar-collapse
+                    ul.navbar-nav
+                        li.nav-item.active
+                            a.nav-link(href='/') Home 
+                        li.nav-item
+                            a.nav-link(href='/student') Student Info
+                        li.nav-item
+                            a.nav-link(href='/appointment') Appointment
+                        li.nav-item
+                            a.nav-link(href='/workshop') Workshop
+            //- .nav-footer
+            //-     .navFooterContainer
+            //-         .navFooterItem
+            //-             a(href="/") Home
+            //-         .navFooterItem
+            //-             a(href="/student") Student Info
+            //-         .navFooterItem
+            //-             a(href="/appointment") Appointment
+            //-         .navFooterItem
+            //-             a(href="/workshop") Workshop 
+            
+            block content 
+        
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js')
+        script(src='https://kit.fontawesome.com/f9af606c5a.js', crossorigin='anonymous')
+        script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js', integrity='sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6', crossorigin='anonymous')
+        
+        block scripts
+
+        script(src="/js/common.js")
