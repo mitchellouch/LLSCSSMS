@@ -4,7 +4,7 @@ block content
   .wrapper
     .row
       .mainSectionContainer.col-10
-        form.studentInfoWrapper(action=`/workshop/info/${workshopId}`, method="POST") 
+        form.studentInfoWrapper(action=`/workshop/info/${workshopID}`, method="POST") 
           h1.heading.left3rem  #{pageTitle}
 
             if success == true
@@ -20,13 +20,13 @@ block content
                 .studentInfoContainer 
                   .rowContainer
                     span.label Workshop ID:
-                    input.form-control(type="text" name="workshopId" value=workshopInfo.workshopId, required, disabled)
+                    input.form-control(type="text" name="workshopID" value=workshopInfo.workshopID, required, disabled)
                   .rowContainer
                     span.label Workshop Type:
                     input.form-control(type="text" name="workshopType" value=workshopInfo.workshopType, required)
                   .rowContainer
                     span.label Workshop Desc:
-                    input.form-control(type="text" name="advisorId" value=workshopInfo.workshopDesc, required)
+                    input.form-control(type="text" name="advisorID" value=workshopInfo.workshopDesc, required)
                   .rowContainer
                     span.label Workshop Date:
                     input.form-control(type="datetime-local" name="workshopDate" value=workshopInfo.workshopDate, required)
@@ -67,7 +67,7 @@ block content
         .modal-dialog(role='document')
             .modal-content
                 .modal-header
-                    h5#deleteAppointmentModalLabel.modal-title Delete appointment #{appointmentInfo.apptId}?
+                    h5#deleteAppointmentModalLabel.modal-title Delete appointment #{appointmentInfo.apptID}?
                     button.close(type='button', data-dismiss='modal', aria-label='Close')
                     span(aria-hidden='true') &times;
                 .modal-body

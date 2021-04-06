@@ -38,16 +38,20 @@ block content
                         .studentInfoContainer 
                             .rowContainer
                                 span.label SAIT Student ID:
-                                input.form-control(type="text" name="saitId" placeholder="ex) 000123456" value=saitId, required)
+                                input.form-control(type="text" name="saitId" placeholder="ex) 000123456" value=saitId, required
+                                , pattern="000[0-9]{6}")
                             .rowContainer
                                 span.label First Name:
-                                input.form-control(type="text" name="firstName" value=firstName, required)
+                                input.form-control(type="text" name="firstName" value=firstName, required
+                                , pattern="[A-Za-z]{1,20}")
                             .rowContainer
                                 span.label Last Name:
-                                input.form-control(type="text" name="lastName" value=lastName, required)
+                                input.form-control(type="text" name="lastName" value=lastName, required
+                                , pattern="[A-Za-z]{1,20}")
                             .rowContainer
                                 span.label Contact Phone:
-                                input.form-control(type="text" name="studentPhone" placeholder="ex) 4037778888" value=studentPhone)
+                                input.form-control(type="text" name="studentPhone" placeholder="ex) 4037778888" value=studentPhone
+                                , pattern="[0-9]{10}")
                             .rowContainer
                                 span.label Contact Email:
                                 input.form-control(type="email" name="studentEmail" value=studentEmail)
@@ -85,7 +89,7 @@ block content
                                         option(selected = academicStatus==="Academic Suspension") Academic Suspension
                                 .rowContainer
                                     span.label Number of Tries:
-                                    input.form-control(type="number", name="numOfTries", value=numOfTries, min=1, max=5)
+                                    input.form-control(type="number", name="numOfTries", value=(numOfTries || 1), min=1, max=5)
                                 .rowContainer
                                     span.label Ref To:
                                     input.form-control(type="text", name="refTo", value=refTo)
@@ -123,7 +127,8 @@ block content
                                     input.form-control(type="text", name="homeAddress", value=homeAddress)
                                 .rowContainer
                                     span.label Postal Code:
-                                    input.form-control(type="text", name="postalCode", value=postalCode)
+                                    input.form-control(type="text", name="postalCode", value=postalCode, placeholder="ex) A1B2C3"
+                                    , pattern="[A-Z][0-9][A-Z][0-9][A-Z][0-9]")
                                 .colContainer
                                     span.colLabel Classification information
                                     .rowContainer
@@ -145,7 +150,8 @@ block content
                                         input.form-control(type="text", name="emerg_fullName", value=emerg_fullName)
                                     .rowContainer
                                         span.label Phone:
-                                        input.form-control(type="text", name="emerg_phone", value=emerg_phone)
+                                        input.form-control(type="text", name="emerg_phone", value=emerg_phone, placeholder="ex) 4037778888"
+                                        , pattern="[0-9]{10}")
                             .commentsContainer 
                                 span.label AS-Comments:
                                 textarea.form-control(name="as_comments" cols="40" rows="9") #{as_comments}
@@ -161,7 +167,8 @@ block content
                                     input.form-control(type="text", name="fundingType", value=fundingType)
                                 .rowContainer
                                     span.label SIN:
-                                    input.form-control(type="text", name="sin", value=sin)
+                                    input.form-control(type="text", name="sin", value=sin, placeholder="ex) 100200300"
+                                    , pattern="[0-9]{9}")
                                 .rowContainer
                                     span.label Income support? 
                                     input.form-control(type="checkbox", name="hasIncomeSupport", checked=hasIncomeSupport)
@@ -178,13 +185,13 @@ block content
                                         input.form-control(type="checkbox", name="isFundedEsl", checked=isFundedEsl)
                                     .rowContainer
                                         span.label ESL-# of Months:
-                                        input.form-control(type="number", name="eslFundedMonths", value= eslFundedMonths, min=0, disabled)
+                                        input.form-control(type="number", name="eslFundedMonths", value=(eslFundedMonths || 1), min=1, disabled)
                                     .rowContainer
                                         span.label Previous funded for AU training? 
                                         input.form-control(type="checkbox", name="isFundedAu", checked=isFundedAu)
                                     .rowContainer
                                         span.label AU-# of Months:
-                                        input.form-control(type="number", name="auFundedMonths", value= auFundedMonths, min=0, disabled)
+                                        input.form-control(type="number", name="auFundedMonths", value=(auFundedMonths || 1), min=1, disabled)
                                     
                             .commentsContainer 
                                 span.label FA-Comments:

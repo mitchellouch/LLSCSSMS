@@ -11,11 +11,11 @@ router.get("/", (req, res, next) => {
 
   /**searchObj = {
     $or: [
-      { workshopId: { $regex: req.query.workshopId.toString(), $options: "i" } },
+      { workshopID: { $regex: req.query.workshopID.toString(), $options: "i" } },
     ],
   };*/
 
-  Workshop.find(req.query.workshopId)
+  Workshop.find(req.query.workshopID)
     .then((results) => res.status(200).send(results))
     .catch((err) => {
       console.log(err);
@@ -23,8 +23,8 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.delete("/:workshopId", (req, res, next) => {
-  Workshop.findOneAndDelete({ workshopId: req.params.workshopId })
+router.delete("/:workshopID", (req, res, next) => {
+  Workshop.findOneAndDelete({ workshopID: req.params.workshopID })
     .then(() => res.sendStatus(202))
     .catch((error) => {
       console.log(error);
