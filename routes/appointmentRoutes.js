@@ -86,13 +86,13 @@ router.post("/apptRegister", async (req, res, next) => {
   }
 });
 
-/**function searchAllAppointments(startDateTime, endDateTime){
+function searchAllAppointments(startDateTime, endDateTime){
   $.get("/api/appointments", {}, results => {
       if(outputAppointments(results, startDateTime, endDateTime))
         return true;
   })
   return false;
-}*/
+}
 
 function outputAppointments(results, startDateTime, endDateTime){
   if(!Array.isArray(results)) {
