@@ -52,8 +52,34 @@ router.post("/apptRegister", async (req, res, next) => {
     });
 
       if (appointment == null && student !== null) {
-        if(searchAllAppointments(startDate, endDate)){
-          var data = req.body;
+        var appts = await Appointment.find({})
+        //.then(results => res.status(200).send(results))
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(400);
+        });
+        for (i = 0; i < appts.length; i++) {
+          var s = appts[i].startDate.toLocaleString();
+          var e = appts[i].endDate.toLocaleString();
+          if(endDate.toLocaleString() > s && endDate.toLocaleString() < e)
+            available=false;
+            
+          if(startDate.toLocaleString() > s && startDate.toLocaleString() < e)
+            available=false;
+        } 
+/*
+        appts.forEach(result => {
+          var s = result.startDate.toLocaleString();
+          var e = result.endDate.toLocaleString();
+          if(endDate.toLocaleString() > s && endDate.toLocaleString() < e)
+            available=false;
+            
+          if(startDate.toLocaleString() > s && startDate.toLocaleString() < e)
+            available=false;
+        });
+*/
+        if(available){
+          var data = req.body;//
           Appointment.create(data)
           .then(appointment => {
               payload = {
@@ -64,7 +90,7 @@ router.post("/apptRegister", async (req, res, next) => {
           });
         } else{
           payload = {
-            success: true,
+            success: false,
             message: `Appointment time slot is already taken`
           }
           res.status(200).render("users/appointmentNew", payload);
@@ -85,7 +111,7 @@ router.post("/apptRegister", async (req, res, next) => {
       payload.message = "Make sure each field has a valid value.";
   }
 });
-
+/*
 function searchAllAppointments(startDateTime, endDateTime){
   $.get("/api/appointments", {}, results => {
       if(outputAppointments(results, startDateTime, endDateTime))
@@ -110,16 +136,7 @@ function outputAppointments(results, startDateTime, endDateTime){
       return false;
   });
   return true;
-}
-
-
-
-
-
-
-
-
-
+}*/
 
 router.get("/info/:apptId", async (req, res, next) => {
   var payload = await getPayload(req.params.apptId);

@@ -72,7 +72,7 @@ function outputWorkshops(results, container){
 function createWorkshopsTableRowHtml(postData){
     if(postData == null) return alert("Workshop object is null");
     var start = new Date(postData.workshopDate);
-    //start.setHours(start.getHours() + 6);
+    start.setHours(start.getHours() - 1);
 
     /**var newDate = new Date(start.getTime()+start.getTimezoneOffset()*60*1000);
     var offset = start.getTimezoneOffset() / 60;
@@ -93,8 +93,8 @@ function createWorkshopsTableRowHtml(postData){
                 <td>${postData.workshopType}</td>
                 <td>${postData.workshopFacilitator}</td>
                 <td>${postData.workshopRequest}</td>
-                <td>${start.toLocaleString()} hrs</td>
-                <td>${postData.workshopLength}</td>
+                <td>${start.toLocaleString()}</td>
+                <td>${postData.workshopLength} hrs</td>
                 <td>${postData.comments}</td>
             </tr>`;
 }
