@@ -64,35 +64,35 @@ router.post("/workshopNew", async (req, res, next) => {
   }
 });
 
-router.get("/info/:workshopId", async (req, res, next) => {
-  var payload = await getPayload(req.params.apptId);
+router.get("/info/:workshopID", async (req, res, next) => {
+  var payload = await getPayload(req.params.workshopID);
   payload.pageTitle = "Workshop Information";
-  payload.apptId = req.params.apptId;
+  payload.workshopID = req.params.workshopID;
   res.status(200).render("users/workshopInfo", payload);
 });
 
-router.post("/info/:workshopId", async (req, res, next) => {
+router.post("/info/:workshopID", async (req, res, next) => {
   //textarea needs to be trim
   req.body.comments = req.body.comments.trim();
 
-  var payload = await getPayload(req.params.workshopId);
+  var payload = await getPayload(req.params.workshopID);
 
-  var workshop = await Workshop.findOneAndUpdate({apptId: req.params.apptId}, {$set: req.body}, {new: true})
+  var workshop = await Workshop.findOneAndUpdate({workshopID: req.params.workshopID}, {$set: req.body}, {new: true})
   .catch(error => {
       console.log(error);
       res.sendStatus(400);
   })
 
   payload.pageTitle = "Workshop Information";
-  payload.workshopId = req.params.workshopID;
+  payload.workshopID = req.params.workshopID;
   payload.success = true;
-  payload.message = `Workshop ${req.params.workshopId} successfully updated.`;
+  payload.message = `Workshop ${req.params.workshopID} successfully updated.`;
   payload.appointmentInfo = workshop;
   res.status(200).render("users/workshopInfo", payload);
 });
 
-async function getPayload(workshopId){
-  var workshop = await Workshop.findOne({ workshopId: workshopId });
+async function getPayload(workshopID){
+  var workshop = await Workshop.findOne({ workshopID: workshopID });
 
   if(workshop == null) {
       return {};
