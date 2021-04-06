@@ -79,7 +79,7 @@ router.post("/apptRegister", async (req, res, next) => {
         });
 */
         if(available){
-          var data = req.body;
+          var data = req.body;//
           Appointment.create(data)
           .then(appointment => {
               payload = {
