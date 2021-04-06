@@ -4,7 +4,6 @@ const router = express.Router();
 const bodyParser = require("body-parser");
 const Workshop = require("../models/workshopSchema");
 const bcrypt = require("bcrypt");
-const appointmentSchema = require("../models/appointmentSchema");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -32,6 +31,11 @@ router.post("/workshopNew", async (req, res, next) => {
   var requestContact = req.body.requestContact.trim();
   var numAttendees = req.body.numAttendees.trim();
   var avgRating = req.body.avgRating.trim();*/
+  if (workshopRequest == "on"){
+    req.body.workshopRequest = true;
+  } else {
+    req.body.workshopRequest = false;
+  }
 
   if (workshopID && workshopType && workshopDesc && workshopDate && workshopLength && workshopFacilitator && workshopRequest) {
     var workshop = await Workshop.findOne({ workshopID: workshopID })

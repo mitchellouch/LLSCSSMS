@@ -11,8 +11,7 @@ router.get("/", (req, res, next) => {
 
   searchObj = {
     $or: [
-      { saitId: { $regex: req.query.saitId, $options: "i" } },
-      { apptId: { $regex: req.query.workshopId, $options: "i" } },
+      { workshopId: { $regex: req.query.workshopId, $options: "i" } },
     ],
   };
 
