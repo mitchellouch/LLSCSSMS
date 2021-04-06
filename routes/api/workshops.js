@@ -9,13 +9,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 router.get("/", (req, res, next) => {
   var searchObj = {};
 
-  searchObj = {
+  /**searchObj = {
     $or: [
-      { workshopId: { $regex: req.query.workshopId, $options: "i" } },
+      { workshopId: { $regex: req.query.workshopId.toString(), $options: "i" } },
     ],
-  };
+  };*/
 
-  Workshop.find(searchObj)
+  Workshop.find(req.query.workshopId)
     .then((results) => res.status(200).send(results))
     .catch((err) => {
       console.log(err);

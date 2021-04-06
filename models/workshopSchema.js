@@ -22,7 +22,7 @@ const workshopSchema = mongoose.Schema(
       trim: true,
     },
     workshopLength: {
-      type: Number,
+      type: String,
       trim: true,
     },
     workshopFacilitator: {
@@ -48,10 +48,12 @@ const workshopSchema = mongoose.Schema(
       trim: true,
     },
     numAttendees: {
-      type: Number,
+      type: String,
+      trim: true,
     },
     avgRating: {
-      type: Number,
+      type: String,
+      trim: true,
     },
     comments: {
       type: String,

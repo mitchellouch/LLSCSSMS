@@ -31,23 +31,23 @@ block content
                     input.form-control(type="checkbox" name="workshopRequest")
                 .rowContainer 
                     span.label Program: 
-                    input.form-control(type="text" name="requestProgram" disabled)
+                    input.form-control(type="text" name="requestProgram" disabled required)
                 .rowContainer 
                     span.label School: 
-                    input.form-control(type="text" name="requestSchool" disabled)
+                    input.form-control(type="text" name="requestSchool" disabled required)
                 .rowContainer 
                     span.label Contact Person: 
-                    input.form-control(type="text" name="requestContact" disabled)
+                    input.form-control(type="text" name="requestContact" disabled required)
                 .studentInfoContainer 
                     .rowContainer 
                         span.label Number of Attendees: 
-                        input.form-control(type="number" name="numAttendees")
+                        input.form-control(type="text" name="numAttendees")
                     .rowContainer 
                         span.label Workshop Length (hrs):  
-                        input.form-control(type="number" name="workshopLength")
+                        input.form-control(type="text" name="workshopLength")
                     .rowContainer 
                         span.label Average Rating: 
-                        input.form-control(type="number" name="avgRating")
+                        input.form-control(type="text" name="avgRating")
             .commentsContainer 
                   span.label Comments:
                   textarea.form-control(name="comments" cols="40" rows="9")
