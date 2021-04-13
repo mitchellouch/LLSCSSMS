@@ -1,3 +1,5 @@
+var timer;
+
 $(document).ready(() => {
     if($(".resultsContainer").length >= 1)
         outputAllWorkshops();
@@ -15,10 +17,10 @@ $("[name=workshopRequest]").click((event) => {
     }
 })
 
-$("#searchBox").keydown((event) => {
+$("#searchBox").keyup((event) => {
     var textbox = $(event.target);
     var value = textbox.val();
-    searchAppointments(value);
+    searchWorkshops(value);
 })
 
 function outputAllWorkshops(){
