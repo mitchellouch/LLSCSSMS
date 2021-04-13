@@ -3,7 +3,6 @@ extends layouts/main-layout.pug
 block content 
   .wrapper
     .row
-      .mainSectionContainer.col-10
         form.studentInfoWrapper(action=`/workshop/info/${workshopID}`, method="POST") 
           h1.heading.left3rem #{pageTitle}
 
@@ -26,10 +25,10 @@ block content
                   input.form-control(type="text" name="workshopType" value=workshopInfo.workshopType, required)
                 .rowContainer
                   span.label Workshop Desc:
-                  input.form-control(type="text" name="advisorID" value=workshopInfo.workshopDesc, required)
+                  input.form-control(type="text" name="workshopDesc" value=workshopInfo.workshopDesc, required)
                 .rowContainer
                   span.label Workshop Date:
-                  input.form-control(type="datetime-local" name="workshopDate" value=workshopInfo.workshopDate, required)
+                  input.form-control(type="datetime-local" name="workshopDate" value=workshopInfo.workshopDate.toJSON().slice(0,19), required)
                 .rowContainer
                   span.label Facilitator:
                   input.form-control(type="text" name="workshopFacilitator" value=workshopInfo.workshopFacilitator, required)
@@ -46,15 +45,16 @@ block content
                   span.label Contact Person: 
                   input.form-control(type="text" name="requestContact" disabled)
                 span.workshopResults.label Workshop Results:
-                .rowContainer 
-                  span.label Number of Attendees: 
-                  input.form-control(type="number" name="numAttendees")
-                .rowContainer 
-                  span.label Workshop Length (hrs):  
-                  input.form-control(type="number" name="workshopLength")
-                .rowContainer 
-                  span.label Average Rating: 
-                  input.form-control(type="number" name="avgRating")                    
+                .extrasContainer
+                  .rowContainer 
+                    span.label Number of Attendees: 
+                    input.form-control(type="text" name="numAttendees")
+                  .rowContainer 
+                    span.label Workshop Length (hrs):  
+                    input.form-control(type="text" name="workshopLength")
+                  .rowContainer 
+                    span.label Average Rating: 
+                    input.form-control(type="text" name="avgRating")                    
               .commentsContainer 
                 span.label Comments:
                 textarea.form-control(name="comments" cols="40" rows="9") #{workshopInfo.comments} 

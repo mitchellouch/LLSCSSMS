@@ -6,7 +6,7 @@ block content
         
         if success == true
             span.successMessage #{message}
-        else 
+        else if success != undefined 
             span.errorMessage #{message}
 
         .studentRegContainer
@@ -38,7 +38,8 @@ block content
                 .rowContainer 
                     span.label Contact Person: 
                     input.form-control(type="text" name="requestContact" disabled required)
-                .studentInfoContainer 
+                span.workshopResults.label Workshop Results:
+                .extrasContainer
                     .rowContainer 
                         span.label Number of Attendees: 
                         input.form-control(type="text" name="numAttendees")
