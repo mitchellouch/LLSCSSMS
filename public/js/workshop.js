@@ -23,6 +23,32 @@ $("#searchBox").keyup((event) => {
     searchWorkshops(value);
 })
 
+$("#deleteWorkshopModal").on("show.bs.modal", (event) => {
+    var button = $(event.relatedTarget);
+    console.log("log")
+    var workshopID = $("[name=workshopID]").val();
+    $("#deleteWorkshopConfButton").data("workshopID", workshopID);
+})
+
+$("#deleteWorkshopConfButton").click((event) => {
+    var workshopID = $(event.target).data("workshopID");
+
+    $.ajax({
+        url: `/api/workshops/${workshopID}`,
+        type: "DELETE",
+        success: (data, status, xhr) => {
+
+            if(xhr.status != 202) {
+                alert("could not delete workshop");
+                return;
+            }
+            
+            alert(`#${workshopID} is successfully deleted.`);
+            window.location.replace("/workshop");
+        }
+    })
+})
+
 function outputAllWorkshops(){
     
     $.get("/api/workshops", {}, results => {
