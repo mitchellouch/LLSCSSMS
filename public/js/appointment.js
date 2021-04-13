@@ -103,10 +103,10 @@ function outputAppointments(results, container){
 function createAppointmentsTableRowHtml(postData){
     if(postData == null) return alert("Appointment object is null");
     var start = new Date(postData.startDate);
-    start.setHours(start.getHours() + 6);
+    start.setHours(start.getHours() - 1);
     
     var end = new Date(postData.endDate);
-    end.setHours(end.getHours() + 6);
+    end.setHours(end.getHours() - 1);
 
     /**var newDate = new Date(start.getTime()+start.getTimezoneOffset()*60*1000);
     var offset = start.getTimezoneOffset() / 60;

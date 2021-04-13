@@ -138,15 +138,6 @@ function outputAppointments(results, startDateTime, endDateTime){
   return true;
 }*/
 
-
-
-
-
-
-
-
-
-
 router.get("/info/:apptId", async (req, res, next) => {
   var payload = await getPayload(req.params.apptId);
   payload.pageTitle = "Appointment Information";

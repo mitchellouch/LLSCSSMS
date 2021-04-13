@@ -8,12 +8,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 router.get("/", (req, res, next) => {
   var searchObj = {};
-
-  searchObj = {
-    $or: [
-      { workshopId: { $regex: req.query.workshopId, $options: "i" } },
-    ],
-  };
+  if (req.query.workshopID !== undefined) {
+    searchObj = {
+      $or: [
+        { workshopID: { $regex: req.query.workshopID, $options: "i" } },
+      ],
+    };
+  } else 
+    searchObj = {};
 
   Workshop.find(searchObj)
     .then((results) => res.status(200).send(results))
@@ -23,8 +25,8 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.delete("/:workshopId", (req, res, next) => {
-  Workshop.findOneAndDelete({ workshopId: req.params.workshopId })
+router.delete("/:workshopID", (req, res, next) => {
+  Workshop.findOneAndDelete({ workshopID: req.params.workshopID })
     .then(() => res.sendStatus(202))
     .catch((error) => {
       console.log(error);

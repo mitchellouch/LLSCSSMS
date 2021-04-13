@@ -1,3 +1,5 @@
+var timer;
+
 $(document).ready(() => {
     if($(".resultsContainer").length >= 1)
         outputAllWorkshops();
@@ -15,6 +17,12 @@ $("[name=workshopRequest]").click((event) => {
     }
 })
 
+$("#searchBox").keyup((event) => {
+    var textbox = $(event.target);
+    var value = textbox.val();
+    searchWorkshops(value);
+})
+
 function outputAllWorkshops(){
     
     $.get("/api/workshops", {}, results => {
@@ -24,7 +32,7 @@ function outputAllWorkshops(){
 
 function searchWorkshops(searchTerm) {
     var query = {};
-    query.workshopId = searchTerm;
+    query.workshopID = searchTerm;
     $.get("/api/workshops", query, results => {
         outputWorkshops(results, $(".resultsContainer"));
     });
@@ -58,18 +66,15 @@ function outputWorkshops(results, container){
     
     container.append(html);
 
-    if(results.length == 0) {
-        container.append("<span class='noResults'>No result</span>");
+    if(results.length === 0) {
+        container.append("<span class='noResults'>No result's</span>");
     }
 }
 
 function createWorkshopsTableRowHtml(postData){
     if(postData == null) return alert("Workshop object is null");
-    //var start = new Date(postData.startDate);
-    //start.setHours(start.getHours() + 6);
-    
-    //var end = new Date(postData.endDate);
-    //end.setHours(end.getHours() + 6);
+    var start = new Date(postData.workshopDate);
+    start.setHours(start.getHours() - 1);
 
     /**var newDate = new Date(start.getTime()+start.getTimezoneOffset()*60*1000);
     var offset = start.getTimezoneOffset() / 60;
@@ -86,12 +91,12 @@ function createWorkshopsTableRowHtml(postData){
     end = newDate1;**/
 
     return `<tr>
-                <td><a href="/workshop/info/${postData.workshopId}">${postData.workshopId}</td>
+                <td><a href="/workshop/info/${postData.workshopID}">${postData.workshopID}</td>
                 <td>${postData.workshopType}</td>
                 <td>${postData.workshopFacilitator}</td>
                 <td>${postData.workshopRequest}</td>
-                <td>${postData.workshopDate}</td>
-                <td>${postData.workshopLength}</td>
+                <td>${start.toLocaleString()}</td>
+                <td>${postData.workshopLength} hrs</td>
                 <td>${postData.comments}</td>
             </tr>`;
 }
