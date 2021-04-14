@@ -25,7 +25,8 @@ function outputUsers(results, container) {
                                 <th scope="col">SAIT ID</th>
                                 <th scope="col">FIRST</th>
                                 <th scope="col">LAST</th>
-                                <th scope="col">Status</th>
+                                <th scope="col">Accept</th>
+                                <th scope="col">Decline</th>
                             </tr>
                         </thead>
                         <tbody>`;
@@ -51,6 +52,7 @@ function createUsersTableRowHtml(postData) {
                 <td>${postData.saitId}</td>
                 <td>${postData.firstName}</td>
                 <td>${postData.lastName}</td>
-                <td>${postData.request}</td>
+                <td> <a href="api/admin/request/accept/${postData.saitId}"><i class='material-icons' style='color: green;'>check</i></a></td>
+                <td> <a href="api/admin/request/decline/${postData.saitId}"><i class='material-icons' style='color: red;'>remove_circle_outline</i></a></td>
             </tr>`;
 }

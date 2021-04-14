@@ -30,4 +30,25 @@ router.get("/", (req, res, next) => {
         });
 });
 
+router.get("/request/accept/:saitId", (req, res, next) => {
+    //request: true -> false
+    User.findOneAndUpdate({ saitId: req.params.saitId }, { $set: { request: false } }, { new: true })
+        .then(() => res.redirect("/admin")) //redirect /admin
+        .catch(error => {
+            console.log(error);
+            res.sendStatus(400);
+        })
+});
+
+router.get("/request/decline/:saitId", (req, res, next) => {
+    //delete the user
+    User.findOneAndDelete({ saitId: req.params.saitId })
+        .then(() => res.redirect("/admin")) //redirect /admin
+        .catch(error => {
+            console.log(error);
+            res.sendStatus(400);
+        })
+
+});
+
 module.exports = router;
