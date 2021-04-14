@@ -1,3 +1,5 @@
+var timer;
+
 $(document).ready(() => {
     if($(".resultsContainer").length >= 1)
         outputAllWorkshops();
@@ -15,10 +17,36 @@ $("[name=workshopRequest]").click((event) => {
     }
 })
 
-$("#searchBox").keydown((event) => {
+$("#searchBox").keyup((event) => {
     var textbox = $(event.target);
     var value = textbox.val();
-    searchAppointments(value);
+    searchWorkshops(value);
+})
+
+$("#deleteWorkshopModal").on("show.bs.modal", (event) => {
+    var button = $(event.relatedTarget);
+    console.log("log")
+    var workshopID = $("[name=workshopID]").val();
+    $("#deleteWorkshopConfButton").data("workshopID", workshopID);
+})
+
+$("#deleteWorkshopConfButton").click((event) => {
+    var workshopID = $(event.target).data("workshopID");
+
+    $.ajax({
+        url: `/api/workshops/${workshopID}`,
+        type: "DELETE",
+        success: (data, status, xhr) => {
+
+            if(xhr.status != 202) {
+                alert("could not delete workshop");
+                return;
+            }
+            
+            alert(`#${workshopID} is successfully deleted.`);
+            window.location.replace("/workshop");
+        }
+    })
 })
 
 function outputAllWorkshops(){

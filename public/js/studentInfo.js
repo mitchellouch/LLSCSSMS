@@ -21,8 +21,6 @@ $(document).ready(() => {
         }
 
     }
-
-
 })
 
 $("#searchBox").keydown((event) => {

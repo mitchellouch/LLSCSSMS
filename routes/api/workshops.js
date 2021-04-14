@@ -8,14 +8,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 router.get("/", (req, res, next) => {
   var searchObj = {};
+  if (req.query.workshopID !== undefined) {
+    searchObj = {
+      $or: [
+        { workshopID: { $regex: req.query.workshopID, $options: "i" } },
+      ],
+    };
+  } else 
+    searchObj = {};
 
-  /**searchObj = {
-    $or: [
-      { workshopID: { $regex: req.query.workshopID.toString(), $options: "i" } },
-    ],
-  };*/
-
-  Workshop.find(req.query.workshopID)
+  Workshop.find(searchObj)
     .then((results) => res.status(200).send(results))
     .catch((err) => {
       console.log(err);

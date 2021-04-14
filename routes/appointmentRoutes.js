@@ -9,12 +9,16 @@ const bcrypt = require("bcrypt");
 app.use(bodyParser.urlencoded({ extended: false }));
 
 router.get("/", (req, res, next) => {
-  res.status(200).render("users/appointmentSearch");
+  var payload = {
+    userLoggedIn: req.session.user
+  };
+  res.status(200).render("users/appointmentSearch", payload);
 });
 
 router.get("/apptRegister", (req, res, next) => {
   var payload = {
-    pageTitle: "New Appointment"
+    pageTitle: "New Appointment",
+    userLoggedIn: req.session.user
   };
   res.status(200).render("users/appointmentNew", payload);
 });
@@ -33,6 +37,7 @@ router.post("/apptRegister", async (req, res, next) => {
 
   var payload = req.body;
   payload.pageTitle = "Appointment Registration";
+  payload.userLoggedIn = req.session.user;
 
   if(apptId && saitId && advisorId && apptType && startDate && endDate) {
       var appointment = await Appointment.findOne({ apptId: apptId })
@@ -84,14 +89,16 @@ router.post("/apptRegister", async (req, res, next) => {
           .then(appointment => {
               payload = {
                   success: true,
-                  message: `New appointment for student #${saitId} successfully added.`
+                  message: `New appointment for student #${saitId} successfully added.`,
+                  userLoggedIn: req.session.user
               }
               res.status(200).render("users/appointmentNew", payload);
           });
         } else{
           payload = {
             success: false,
-            message: `Appointment time slot is already taken`
+            message: `Appointment time slot is already taken`,
+            userLoggedIn: req.session.user
           }
           res.status(200).render("users/appointmentNew", payload);
         }
@@ -142,6 +149,7 @@ router.get("/info/:apptId", async (req, res, next) => {
   var payload = await getPayload(req.params.apptId);
   payload.pageTitle = "Appointment Information";
   payload.apptId = req.params.apptId;
+  payload.userLoggedIn = req.session.user;
   res.status(200).render("users/appointmentInfo", payload);
 });
 
@@ -162,6 +170,7 @@ router.post("/info/:apptId", async (req, res, next) => {
   payload.success = true;
   payload.message = `#${req.params.apptId} successfully updated.`;
   payload.appointmentInfo = appointment;
+  payload.userLoggedIn = req.session.user;
   res.status(200).render("users/appointmentInfo", payload);
 });
 

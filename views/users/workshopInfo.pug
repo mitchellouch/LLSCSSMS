@@ -3,61 +3,61 @@ extends layouts/main-layout.pug
 block content 
   .wrapper
     .row
-      .mainSectionContainer.col-10
         form.studentInfoWrapper(action=`/workshop/info/${workshopID}`, method="POST") 
-          h1.heading.left3rem  #{pageTitle}
+          h1.heading.left3rem #{pageTitle}
 
-            if success == true
-              span.successMessage #{message}
-            else if success != undefined
-              span.errorMessage #{message}
+          if success == true
+            span.successMessage #{message}
+          else if success != undefined
+            span.errorMessage #{message}
 
-            if !workshopInfo
-              span.errorMessage Check the url you are trying to access 
-            else
+          if !workshopInfo
+            span.errorMessage Check the url you are trying to access 
+          else
 
-              .studentRegContainer 
-                .studentInfoContainer 
-                  .rowContainer
-                    span.label Workshop ID:
-                    input.form-control(type="text" name="workshopID" value=workshopInfo.workshopID, required, disabled)
-                  .rowContainer
-                    span.label Workshop Type:
-                    input.form-control(type="text" name="workshopType" value=workshopInfo.workshopType, required)
-                  .rowContainer
-                    span.label Workshop Desc:
-                    input.form-control(type="text" name="advisorID" value=workshopInfo.workshopDesc, required)
-                  .rowContainer
-                    span.label Workshop Date:
-                    input.form-control(type="datetime-local" name="workshopDate" value=workshopInfo.workshopDate, required)
-                  .rowContainer
-                    span.label Facilitator:
-                    input.form-control(type="text" name="workshopFacilitator" value=workshopInfo.workshopFacilitator, required)
+            .studentRegContainer 
+              .studentInfoContainer 
+                .rowContainer
+                  span.label Workshop ID:
+                  input.form-control(type="text" name="workshopID" value=workshopInfo.workshopID, required, disabled)
+                .rowContainer
+                  span.label Workshop Type:
+                  input.form-control(type="text" name="workshopType" value=workshopInfo.workshopType, required)
+                .rowContainer
+                  span.label Workshop Desc:
+                  input.form-control(type="text" name="workshopDesc" value=workshopInfo.workshopDesc, required)
+                .rowContainer
+                  span.label Workshop Date:
+                  input.form-control(type="datetime-local" name="workshopDate" value=workshopInfo.workshopDate.toJSON().slice(0,19), required)
+                .rowContainer
+                  span.label Facilitator:
+                  input.form-control(type="text" name="workshopFacilitator" value=workshopInfo.workshopFacilitator, required)
+                .rowContainer 
+                  span.label Workshop requested by program? 
+                  input.form-control(type="checkbox" name="workshopRequest")
+                .rowContainer 
+                  span.label Program: 
+                  input.form-control(type="text" name="requestProgram" disabled)
+                .rowContainer 
+                  span.label School: 
+                  input.form-control(type="text" name="requestSchool" disabled)
+                .rowContainer 
+                  span.label Contact Person: 
+                  input.form-control(type="text" name="requestContact" disabled)
+                span.workshopResults.label Workshop Results:
+                .extrasContainer
                   .rowContainer 
-                    span.label Workshop requested by program? 
-                    input.form-control(type="checkbox" name="workshopRequest")
+                    span.label Number of Attendees: 
+                    input.form-control(type="text" name="numAttendees")
                   .rowContainer 
-                    span.label Program: 
-                    input.form-control(type="text" name="requestProgram" disabled)
+                    span.label Workshop Length (hrs):  
+                    input.form-control(type="text" name="workshopLength")
                   .rowContainer 
-                    span.label School: 
-                    input.form-control(type="text" name="requestSchool" disabled)
-                  .rowContainer 
-                    span.label Contact Person: 
-                    input.form-control(type="text" name="requestContact" disabled)
-                  .studentInfoContainer 
-                    .rowContainer 
-                      span.label Number of Attendees: 
-                      input.form-control(type="number" name="numAttendees")
-                    .rowContainer 
-                      span.label Workshop Length (hrs):  
-                      input.form-control(type="number" name="workshopLength")
-                    .rowContainer 
-                      span.label Average Rating: 
-                      input.form-control(type="number" name="avgRating")                    
-                .commentsContainer 
-                  span.label Comments:
-                  textarea.form-control(name="comments" cols="40" rows="9") #{workshopInfo.comments} 
+                    span.label Average Rating: 
+                    input.form-control(type="text" name="avgRating")                    
+              .commentsContainer 
+                span.label Comments:
+                textarea.form-control(name="comments" cols="40" rows="9") #{workshopInfo.comments} 
 
           .buttonsContainer.buttonsAlign-right
               input#updateStudentButton(type="submit" value="Update")
@@ -67,7 +67,7 @@ block content
         .modal-dialog(role='document')
             .modal-content
                 .modal-header
-                    h5#deleteAppointmentModalLabel.modal-title Delete appointment #{appointmentInfo.apptID}?
+                    h5#deleteAppointmentModalLabel.modal-title Delete workshop #{workshopInfo.workshopID}?
                     button.close(type='button', data-dismiss='modal', aria-label='Close')
                     span(aria-hidden='true') &times;
                 .modal-body

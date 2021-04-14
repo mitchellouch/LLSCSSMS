@@ -5,10 +5,7 @@ $(document).ready(() => {
         outputAllAppointments();
 })
 
-$("#searchBox").keydown((event) => {
-    if(event.key !== "Enter")   return;
-
-    clearTimeout(timer);
+$("#searchBox").keyup((event) => {
     var textbox = $(event.target);
     var value = textbox.val();
     searchAppointments(value);
