@@ -20,15 +20,6 @@ block content
         .card-footer.bg-transparent 
           span.card-footer-name Go to Appointment
           i.material-icons keyboard_arrow_right
-      
-      a.card.mb-3.menuCard(href="/admin")
-        .card-body
-          i.material-icons admin_panel_settings
-          h5.card-title Admin
-          p.card-text Manage Admin Request
-        .card-footer.bg-transparent
-          span.card-footer-name Go to Admin
-          i.material-icons keyboard_arrow_right
 
     .row
       a.card.mb-3.menuCard(href="/workshop")
@@ -39,14 +30,24 @@ block content
         .card-footer.bg-transparent 
           span.card-footer-name Go to Workshop
           i.material-icons keyboard_arrow_right 
+      
+      if (userLoggedIn != undefined && userLoggedIn.admin == true)
+        a.card.mb-3.menuCard(href="/admin")
+          .card-body
+            i.material-icons admin_panel_settings
+            h5.card-title Admin
+            p.card-text Manage admin request
+          .card-footer.bg-transparent
+            span.card-footer-name Go to Admin
+            i.material-icons keyboard_arrow_right
 
-      a.card.mb-3.menuCard(href="/myinfo")
+      a.card.mb-3.menuCard(href="/logout")
         .card-body
-          i.material-icons manage_accounts
-          h5.card-title My account
-          p.card-text Manage my information
+          i.material-icons logout
+          h5.card-title Logout
+          p.card-text Disconnect my account
         .card-footer.bg-transparent 
-          span.card-footer-name Go to My Info
+          span.card-footer-name Logout
           i.material-icons keyboard_arrow_right 
 
       

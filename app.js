@@ -32,6 +32,7 @@ app.use(
 //exported route from other.js
 const studentRoute = require("./routes/studentRoutes");
 const loginRoute = require("./routes/loginRoutes");
+const logoutRoute = require("./routes/logoutRoutes");
 const registerRoute = require("./routes/registerRoutes");
 const appointmentRoute = require("./routes/appointmentRoutes");
 const workshopRoute = require("./routes/workshopRoutes");
@@ -48,17 +49,18 @@ const adminApiRoute = require("./routes/api/admin");
 
 app.use("/login", loginRoute);
 app.use("/register", registerRoute);
-app.use("/mainpage", mainpageRoute);
+app.use("/mainpage", middleware.requireLogin, mainpageRoute);
 app.use("/appointment", middleware.requireLogin, appointmentRoute);
 app.use("/student", middleware.requireLogin, studentRoute);
 app.use("/workshop", middleware.requireLogin, workshopRoute);
-app.use("/admin", middleware.requireLogin, adminRoute);
+app.use("/admin", middleware.requireAdmin, adminRoute);
+app.use("/logout", middleware.requireLogin, logoutRoute);
 
 app.use("/api/students", middleware.requireLogin, studentsApiRoute);
 app.use("/api/saitPrograms", saitProgramsApiRoute);
 app.use("/api/appointments", middleware.requireLogin, appointmentsApiRoute);
 app.use("/api/workshops", middleware.requireLogin, workshopsApiRoute);
-app.use("/api/admin", middleware.requireLogin, adminApiRoute);
+app.use("/api/admin", middleware.requireAdmin, adminApiRoute);
 
 //start listening & setup route
 const port = 3000;

@@ -19,6 +19,8 @@ html(lang="en")
                 .userProfileContainer 
                     img(src="/images/profilePic.png", alt="profile image")
                     .username #{userLoggedIn.firstName} #{userLoggedIn.lastName}
+                .logoutContainer
+                    a(href="/logout") Logout 
             nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
                 button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation')
                     span.navbar-toggler-icon
@@ -32,8 +34,9 @@ html(lang="en")
                             a.nav-link(href='/appointment') Appointment
                         li.nav-item
                             a.nav-link(href='/workshop') Workshop
-                        li.nav-item
-                            a.nav-link(href='/admin') Admin
+                        if (userLoggedIn != undefined && userLoggedIn.admin == true)
+                            li.nav-item
+                                a.nav-link(href='/admin') Admin
 
             
             block content 
