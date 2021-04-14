@@ -8,12 +8,16 @@ const bcrypt = require("bcrypt");
 app.use(bodyParser.urlencoded({ extended: false }));
 
 router.get("/", (req, res, next) => {
-  res.status(200).render("users/workshopSearch");
+  var payload = {
+    userLoggedIn: req.session.user
+  };
+  res.status(200).render("users/workshopSearch", payload);
 });
 
 router.get("/workshopNew", (req, res, next) => {
   var payload = {
-    pageTitle: "New Workshop"
+    pageTitle: "New Workshop",
+    userLoggedIn: req.session.user
   };
   res.status(200).render("users/workshopNew", payload);
 });
@@ -44,6 +48,10 @@ router.post("/workshopNew", async (req, res, next) => {
     workshop.requestContact = "";
   }
 
+  var payload = {
+    userLoggedIn: req.session.user
+  };
+
   if (workshop) {
     var workshopFound = await Workshop.findOne({ workshopID: workshop.workshopID })
       .catch(err => {
@@ -58,13 +66,14 @@ router.post("/workshopNew", async (req, res, next) => {
         .then(workshop => {
           payload = {
             success: true,
-            message: `New Workshop successfully added.`
+            message: `New Workshop successfully added.`,
+            userLoggedIn: req.session.user
           }
           res.status(200).render("users/workshopNew", payload);
         });
     } else {
       payload.success = false;
-      payload.message = 'Workshop with id ${workshopID} already exists.';
+      payload.message = `Workshop with id #${workshop.workshopID} already exists.`;
       res.status(200).render("users/workshopNew", payload);
     }
   }
@@ -74,6 +83,7 @@ router.get("/info/:workshopID", async (req, res, next) => {
   var payload = await getPayload(req.params.workshopID);
   payload.pageTitle = "Workshop Information";
   payload.workshopID = req.params.workshopID;
+  payload.userLoggedIn = req.session.user;
   res.status(200).render("users/workshopInfo", payload);
 });
 
@@ -117,6 +127,7 @@ router.post("/info/:workshopID", async (req, res, next) => {
   payload.success = true;
   payload.message = `Workshop ${req.params.workshopID} successfully updated.`;
   payload.workshopInfo = workshopUpdated;
+  payload.userLoggedIn = req.session.user;
   res.status(200).render("users/workshopInfo", payload);
 });
 

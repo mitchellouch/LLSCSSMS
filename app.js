@@ -68,6 +68,8 @@ app.get("/", middleware.requireLogin, (req, res, next) => {
     pageTitle: "Main Page",
     userLoggedIn: req.session.user,
   };
+
+  console.log(payload);
   res.status(200).render("users/mainpage", payload);
 });
 

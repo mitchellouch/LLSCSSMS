@@ -21,8 +21,6 @@ $(document).ready(() => {
         }
         
     }
-
-    
 })
 
 $("#searchBox").keydown((event) => {
@@ -119,6 +117,7 @@ $("#updateStudentButton").click(event => {
 })*/
 
 function outputAllStudents(){
+
     $.get("/api/students", {}, results => {
         outputStudents(results, $(".resultsContainer"));
     })

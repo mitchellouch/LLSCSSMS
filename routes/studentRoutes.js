@@ -9,15 +9,18 @@ const { Schema } = require("mongoose");
 app.use(bodyParser.urlencoded({ extended: false }));
 
 router.get("/", (req, res, next) => {
+
     var payload = {
-        pageTitle: "Student Search"
+        pageTitle: "Student Search",
+        userLoggedIn: req.session.user
     };
     res.status(200).render("users/studentSearch", payload);
 });
 
 router.get("/register", (req, res, next) => {
     var payload = {
-        pageTitle: "Student Registration"
+        pageTitle: "Student Registration",
+        userLoggedIn: req.session.user
     };
     res.status(200).render("users/studentRegister", payload);
 });
@@ -41,6 +44,7 @@ router.post("/register", async (req, res, next) => {
             console.log(err);
             payload.success = false;
             payload.message = "Something went wrong.";
+            payload.userLoggedIn = req.session.user;
             res.status(200).render("users/studentRegister", payload);
         });
 
@@ -54,7 +58,8 @@ router.post("/register", async (req, res, next) => {
                 payload = {
                     pageTitle: "Student Registration",
                     success: true,
-                    message: `New student #${saitId} successfully added.`
+                    message: `New student #${saitId} successfully added.`,
+                    userLoggedIn: req.session.user
                 }
                 res.status(200).render("users/studentRegister", payload);
             });
@@ -62,6 +67,7 @@ router.post("/register", async (req, res, next) => {
         else {
             payload.success = false;
             payload.message = `Provided SAIT ID #${saitId} is already registered.`;
+            payload.userLoggedIn = req.session.user;
             res.status(200).render("users/studentRegister", payload);
         }
     }
@@ -75,6 +81,7 @@ router.get("/info/:studentId", async (req, res, next) => {
     var payload = await getPayload(req.params.studentId);
     payload.pageTitle = "Student Information";
     payload.saitId = req.params.studentId;
+    payload.userLoggedIn = req.session.user;
     
     //console.log(payload);
 
@@ -120,6 +127,7 @@ router.post("/info/:studentId", async (req, res, next) => {
     payload.success = true;
     payload.message = `#${req.params.studentId} successfully updated.`;
     payload.profileStudent = student;
+    payload.userLoggedIn = req.session.user;
     //console.log("Result payload: ", payload);
     res.status(200).render("users/studentInfo", payload);
 });
