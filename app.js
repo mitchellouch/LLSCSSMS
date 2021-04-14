@@ -22,11 +22,11 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(bodyParser.json());
 app.use(
-    session({
-        secret: "capstone llsc 2021", //secret keyword
-        resave: true,
-        saveUninitialized: false,
-    })
+  session({
+    secret: process.env.SECRET_KEY, //secret keyword
+    resave: true,
+    saveUninitialized: false,
+  })
 );
 
 //exported route from other.js
@@ -65,16 +65,16 @@ app.use("/api/admin", middleware.requireAdmin, adminApiRoute);
 //start listening & setup route
 const port = 3000;
 app.listen(port, () => {
-    console.log("Server listening on port " + port);
+  console.log("Server listening on port " + port);
 });
 
 //localhost:3000
 app.get("/", middleware.requireLogin, (req, res, next) => {
-    var payload = {
-        pageTitle: "Main Page",
-        userLoggedIn: req.session.user,
-    };
-    res.status(200).render("users/mainpage", payload);
+  var payload = {
+    pageTitle: "Main Page",
+    userLoggedIn: req.session.user,
+  };
+  res.status(200).render("users/mainpage", payload);
 });
 
 //app.post("/", (req, res) => {});
