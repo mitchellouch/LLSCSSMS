@@ -9,7 +9,8 @@ block content
                     //h1.subHeading  #{appointmentInfo ? `${appointmentInfo.firstName} ${profileStudent.lastName}` : "Appointment not found."}
                     //- h1.subHeading  #{fullName}
 
-                    if success == true
+                    if success == undefined
+                    else if success == true
                         span.successMessage #{message}
                     else if success != undefined
                         span.errorMessage #{message}

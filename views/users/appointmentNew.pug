@@ -4,7 +4,8 @@ block content
     form.studentInfoWrapper(action="/appointment/apptRegister" method="POST")
         h1.heading  #{pageTitle} 
         
-        if success == true
+        if success == undefined
+        else if success == true
             span.successMessage #{message}
         else 
             span.errorMessage #{message}
