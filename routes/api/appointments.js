@@ -9,33 +9,33 @@ app.use(bodyParser.urlencoded({ extended: false }));
 router.get("/", (req, res, next) => {
     var searchObj = {};
 
-    if(req.query.apptId !== undefined) {
+    if (req.query.apptId !== undefined) {
         searchObj = {
             $or: [
-                {saitId: { $regex: req.query.saitId, $options: "i" } },
-                {apptId: { $regex: req.query.apptId, $options: "i" } },
+                { saitId: { $regex: req.query.saitId, $options: "i" } },
+                { apptId: { $regex: req.query.apptId, $options: "i" } },
             ]
         }
-    } else{
+    } else {
         searchObj = {};
     }
-    
+
     Appointment.find(searchObj)
-    .then(results => res.status(200).send(results))
-    .catch(err => {
-        console.log(err);
-        res.sendStatus(400);
-    })    
+        .then(results => res.status(200).send(results))
+        .catch(err => {
+            console.log(err);
+            res.sendStatus(400);
+        })
 });
 
 router.delete("/:appointmentId", (req, res, next) => {
-    
-    Appointment.findOneAndDelete({apptId: req.params.appointmentId})
-    .then(() => res.sendStatus(202))
-    .catch(error => {
-        console.log(error);
-        res.sendStatus(400);
-    })
+
+    Appointment.findOneAndDelete({ apptId: req.params.appointmentId })
+        .then(() => res.sendStatus(202))
+        .catch(error => {
+            console.log(error);
+            res.sendStatus(400);
+        })
 })
 
 

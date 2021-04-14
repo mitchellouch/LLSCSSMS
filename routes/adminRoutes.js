@@ -1,23 +1,15 @@
-/*
 const express = require("express");
 const app = express();
 const router = express.Router();
 const bodyParser = require("body-parser");
-const Student = require("../models/adminSchema");
+const Workshop = require("../models/userSchema");
 const bcrypt = require("bcrypt");
-const { Schema } = require("mongoose");
+
+app.use(bodyParser.urlencoded({ extended: false }));
 
 router.get("/", (req, res, next) => {
-    var payload = {
-        pageTitle: "Admin Search"
-    };
-    res.status(200).render("users/adminSearch", payload);
+    res.status(200).render("users/adminRequest");
 });
 
-router.get("/register", (req, res, next) => {
-    var payload = {
-        pageTitle: "Admin Registration"
-    };
-    res.status(200).render("users/adminRegister", payload);
-});
-**/
+
+module.exports = router;

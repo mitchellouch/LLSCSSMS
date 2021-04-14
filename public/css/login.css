@@ -5,18 +5,17 @@
 }
 
 body {
-    background: url("https://www.sait.ca/images/News%20and%20Events/2020/SADT-lights.jpg")
-    fixed center;
+    background: url("https://www.sait.ca/images/News%20and%20Events/2020/SADT-lights.jpg") fixed center;
     background-size: cover;
 }
 
-.wrapper{
+.wrapper {
     display: flex;
     justify-content: center;
     margin-top: 30px;
 }
 
-.loginContainer{
+.loginContainer {
     background-color: #fff;
     padding: 20px;
     max-width: 700px;
@@ -29,7 +28,7 @@ body {
 }
 
 form {
-    display:flex;
+    display: flex;
     flex-direction: column;
 }
 
@@ -56,8 +55,8 @@ input[type="submit"]:hover {
     background-color: var(--darkBlue);
 }
 
-
-h1, h3 {
+h1,
+h3 {
     color: var(--gray);
 }
 
@@ -66,3 +65,7 @@ h1, h3 {
     font-weight: 500;
 }
 
+.successMessage {
+    color: green;
+    font-weight: 500;
+}

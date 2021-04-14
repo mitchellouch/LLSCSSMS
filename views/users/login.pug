@@ -5,10 +5,11 @@ block content
     h1 Lamb Learner Success Center
     h3 Student Services Management System
     p.errorMessage #{errorMessage}
+    p.successMessage #{successMessage}
 
     form(method='POST')
-      input#logId.form-control(type='text' placeholder='Enter SAIT ID' name='logId' value="000123456")
-      input#logPassword.form-control(type='password' placeholder='Enter Password' name='logPassword' value="password")
+      input#logId.form-control(type='text' placeholder='Enter SAIT ID' name='logId' value="000987654")
+      input#logPassword.form-control(type='password' placeholder='Enter Password' name='logPassword' value="123456")
       input(type='submit' value='Login')
     a(href='/register') Need an account? Register here.
 
