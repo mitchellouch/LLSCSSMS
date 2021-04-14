@@ -9,12 +9,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 router.get("/", (req, res, next) => {
     var searchObj = {};
 
+    // searchObj = {
+    //     //saitId: { $regex: req.query.saitId }
+    //     request: { type: Boolean, default: true }
+    // }
+
     searchObj = {
-        //saitId: { $regex: req.query.saitId }
-        request: { type: Boolean, default: true }
+        $or: [
+            { request: 'true' },
+            { request: true }
+        ]
     }
 
-    User.find(req.query.saitId)
+
+    User.find(searchObj)
         .then((results) => res.status(200).send(results))
         .catch((err) => {
             console.log(err);

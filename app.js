@@ -44,7 +44,7 @@ const studentsApiRoute = require("./routes/api/students");
 const saitProgramsApiRoute = require("./routes/api/saitPrograms");
 const appointmentsApiRoute = require("./routes/api/appointments");
 const workshopsApiRoute = require("./routes/api/workshops");
-const adminApiRoute = require("./routes/api/admins");
+const adminApiRoute = require("./routes/api/admin");
 
 app.use("/login", loginRoute);
 app.use("/register", registerRoute);
@@ -58,7 +58,7 @@ app.use("/api/students", middleware.requireLogin, studentsApiRoute);
 app.use("/api/saitPrograms", saitProgramsApiRoute);
 app.use("/api/appointments", middleware.requireLogin, appointmentsApiRoute);
 app.use("/api/workshops", middleware.requireLogin, workshopsApiRoute);
-app.use("/api/admins", middleware.requireLogin, adminApiRoute);
+app.use("/api/admin", middleware.requireLogin, adminApiRoute);
 
 //start listening & setup route
 const port = 3000;

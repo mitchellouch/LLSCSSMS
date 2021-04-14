@@ -5,7 +5,7 @@ $(document).ready(() => {
 
 
 function outputAllUsers() {
-    $.get("/api/admins", {}, results => {
+    $.get("/api/admin", {}, results => {
         outputUsers(results, $(".resultsContainer"));
     })
 }
@@ -48,7 +48,7 @@ function createUsersTableRowHtml(postData) {
 
     return `<tr>
                 <th scope="row">${rowNum++}</th>
-                <td>${postData.saitId}">${postData.saitId}</td>
+                <td>${postData.saitId}</td>
                 <td>${postData.firstName}</td>
                 <td>${postData.lastName}</td>
                 <td>${postData.request}</td>
