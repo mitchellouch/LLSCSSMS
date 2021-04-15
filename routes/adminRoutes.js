@@ -8,11 +8,10 @@ const bcrypt = require("bcrypt");
 app.use(bodyParser.urlencoded({ extended: false }));
 
 router.get("/", (req, res, next) => {
-    var payload = {
-        userLoggedIn: req.session.user
-    };
-    res.status(200).render("users/adminRequest", payload);
+  var payload = {
+    userLoggedIn: req.session.user,
+  };
+  res.status(200).render("users/adminRequest", payload);
 });
-
 
 module.exports = router;

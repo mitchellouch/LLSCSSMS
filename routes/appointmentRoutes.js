@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 router.get("/", (req, res, next) => {
   var payload = {
-    userLoggedIn: req.session.user
+    userLoggedIn: req.session.user,
   };
   res.status(200).render("users/appointmentSearch", payload);
 });
@@ -18,7 +18,7 @@ router.get("/", (req, res, next) => {
 router.get("/apptRegister", (req, res, next) => {
   var payload = {
     pageTitle: "New Appointment",
-    userLoggedIn: req.session.user
+    userLoggedIn: req.session.user,
   };
   res.status(200).render("users/appointmentNew", payload);
 });
@@ -39,40 +39,40 @@ router.post("/apptRegister", async (req, res, next) => {
   payload.pageTitle = "Appointment Registration";
   payload.userLoggedIn = req.session.user;
 
-  if(apptId && saitId && advisorId && apptType && startDate && endDate) {
-      var appointment = await Appointment.findOne({ apptId: apptId })
-      .catch(err => {
-          console.log(err);
-          payload.success = false;
-          payload.message = "Something went wrong.";
-          res.status(200).render("users/appointmentNew", payload);
-      });
-
-      var student = await Student.findOne({ saitId: saitId })
-      .catch(err => {
+  if (apptId && saitId && advisorId && apptType && startDate && endDate) {
+    var appointment = await Appointment.findOne({ apptId: apptId }).catch(
+      (err) => {
         console.log(err);
         payload.success = false;
         payload.message = "Something went wrong.";
         res.status(200).render("users/appointmentNew", payload);
+      }
+    );
+
+    var student = await Student.findOne({ saitId: saitId }).catch((err) => {
+      console.log(err);
+      payload.success = false;
+      payload.message = "Something went wrong.";
+      res.status(200).render("users/appointmentNew", payload);
     });
 
-      if (appointment == null && student !== null) {
-        var appts = await Appointment.find({})
+    if (appointment == null && student !== null) {
+      var appts = await Appointment.find({})
         //.then(results => res.status(200).send(results))
-        .catch(err => {
-            console.log(err);
-            res.sendStatus(400);
+        .catch((err) => {
+          console.log(err);
+          res.sendStatus(400);
         });
-        for (i = 0; i < appts.length; i++) {
-          var s = appts[i].startDate.toLocaleString();
-          var e = appts[i].endDate.toLocaleString();
-          if(endDate.toLocaleString() > s && endDate.toLocaleString() < e)
-            available=false;
-            
-          if(startDate.toLocaleString() > s && startDate.toLocaleString() < e)
-            available=false;
-        } 
-/*
+      for (i = 0; i < appts.length; i++) {
+        var s = appts[i].startDate.toLocaleString();
+        var e = appts[i].endDate.toLocaleString();
+        if (endDate.toLocaleString() > s && endDate.toLocaleString() < e)
+          available = false;
+
+        if (startDate.toLocaleString() > s && startDate.toLocaleString() < e)
+          available = false;
+      }
+      /*
         appts.forEach(result => {
           var s = result.startDate.toLocaleString();
           var e = result.endDate.toLocaleString();
@@ -83,39 +83,36 @@ router.post("/apptRegister", async (req, res, next) => {
             available=false;
         });
 */
-        if(available){
-          var data = req.body;//
-          Appointment.create(data)
-          .then(appointment => {
-              payload = {
-                  success: true,
-                  message: `New appointment for student #${saitId} successfully added.`,
-                  userLoggedIn: req.session.user
-              }
-              res.status(200).render("users/appointmentNew", payload);
-          });
-        } else{
+      if (available) {
+        var data = req.body; //
+        Appointment.create(data).then((appointment) => {
           payload = {
-            success: false,
-            message: `Appointment time slot is already taken`,
-            userLoggedIn: req.session.user
-          }
+            success: true,
+            message: `New appointment for student #${saitId} successfully added.`,
+            userLoggedIn: req.session.user,
+          };
           res.status(200).render("users/appointmentNew", payload);
-        }
-      }
-      else if (appointment !== null) {
-        payload.success = false;
-        payload.message = `Provided Appointment ID #${apptId} already exists.`;
-        res.status(200).render("users/appointmentNew", payload);
-      } else{
-        payload.success = false;
-        payload.message = `Provided SAIT ID #${saitId} does not exist.`;
+        });
+      } else {
+        payload = {
+          success: false,
+          message: `Appointment time slot is already taken`,
+          userLoggedIn: req.session.user,
+        };
         res.status(200).render("users/appointmentNew", payload);
       }
-  }
-  else {
+    } else if (appointment !== null) {
       payload.success = false;
-      payload.message = "Make sure each field has a valid value.";
+      payload.message = `Provided Appointment ID #${apptId} already exists.`;
+      res.status(200).render("users/appointmentNew", payload);
+    } else {
+      payload.success = false;
+      payload.message = `Provided SAIT ID #${saitId} does not exist.`;
+      res.status(200).render("users/appointmentNew", payload);
+    }
+  } else {
+    payload.success = false;
+    payload.message = "Make sure each field has a valid value.";
   }
 });
 /*
@@ -159,11 +156,14 @@ router.post("/info/:apptId", async (req, res, next) => {
 
   var payload = await getPayload(req.params.apptId);
 
-  var appointment = await Appointment.findOneAndUpdate({apptId: req.params.apptId}, {$set: req.body}, {new: true})
-  .catch(error => {
-      console.log(error);
-      res.sendStatus(400);
-  })
+  var appointment = await Appointment.findOneAndUpdate(
+    { apptId: req.params.apptId },
+    { $set: req.body },
+    { new: true }
+  ).catch((error) => {
+    console.log(error);
+    res.sendStatus(400);
+  });
 
   payload.pageTitle = "Appointment Information";
   payload.apptId = req.params.apptId;
@@ -174,16 +174,16 @@ router.post("/info/:apptId", async (req, res, next) => {
   res.status(200).render("users/appointmentInfo", payload);
 });
 
-async function getPayload(appointmentId){
+async function getPayload(appointmentId) {
   var appointment = await Appointment.findOne({ apptId: appointmentId });
 
-  if(appointment == null) {
-      return {};
+  if (appointment == null) {
+    return {};
   }
 
   return {
-      appointmentInfo: appointment
-  }
+    appointmentInfo: appointment,
+  };
 }
 
 module.exports = router;

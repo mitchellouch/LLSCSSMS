@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 router.get("/", (req, res, next) => {
   var payload = {
-    userLoggedIn: req.session.user
+    userLoggedIn: req.session.user,
   };
   res.status(200).render("users/workshopSearch", payload);
 });
@@ -17,7 +17,7 @@ router.get("/", (req, res, next) => {
 router.get("/workshopNew", (req, res, next) => {
   var payload = {
     pageTitle: "New Workshop",
-    userLoggedIn: req.session.user
+    userLoggedIn: req.session.user,
   };
   res.status(200).render("users/workshopNew", payload);
 });
@@ -34,9 +34,9 @@ router.post("/workshopNew", async (req, res, next) => {
     comments: req.body.comments.trim(),
     numAttendees: req.body.numAttendees.trim(),
     avgRating: req.body.avgRating.trim(),
-  }
+  };
 
-  if (workshop.workshopRequest == "on"){
+  if (workshop.workshopRequest == "on") {
     workshop.workshopRequest = true;
     workshop.requestProgram = req.body.requestProgram.trim();
     workshop.requestSchool = req.body.requestProgram.trim();
@@ -49,28 +49,28 @@ router.post("/workshopNew", async (req, res, next) => {
   }
 
   var payload = {
-    userLoggedIn: req.session.user
+    userLoggedIn: req.session.user,
   };
 
   if (workshop) {
-    var workshopFound = await Workshop.findOne({ workshopID: workshop.workshopID })
-      .catch(err => {
-        console.log(err);
-        payload.success = false;
-        payload.message = "Something went wrong.";
-        res.status(200).render("users/workshopNew", payload);
-      });
+    var workshopFound = await Workshop.findOne({
+      workshopID: workshop.workshopID,
+    }).catch((err) => {
+      console.log(err);
+      payload.success = false;
+      payload.message = "Something went wrong.";
+      res.status(200).render("users/workshopNew", payload);
+    });
 
     if (workshopFound == null) {
-      Workshop.create(workshop)
-        .then(workshop => {
-          payload = {
-            success: true,
-            message: `New Workshop successfully added.`,
-            userLoggedIn: req.session.user
-          }
-          res.status(200).render("users/workshopNew", payload);
-        });
+      Workshop.create(workshop).then((workshop) => {
+        payload = {
+          success: true,
+          message: `New Workshop successfully added.`,
+          userLoggedIn: req.session.user,
+        };
+        res.status(200).render("users/workshopNew", payload);
+      });
     } else {
       payload.success = false;
       payload.message = `Workshop with id #${workshop.workshopID} already exists.`;
@@ -100,9 +100,9 @@ router.post("/info/:workshopID", async (req, res, next) => {
     comments: req.body.comments.trim(),
     numAttendees: req.body.numAttendees.trim(),
     avgRating: req.body.avgRating.trim(),
-  }
+  };
 
-  if (workshop.workshopRequest == "on"){
+  if (workshop.workshopRequest == "on") {
     workshop.workshopRequest = true;
     workshop.requestProgram = req.body.requestProgram.trim();
     workshop.requestSchool = req.body.requestProgram.trim();
@@ -116,11 +116,14 @@ router.post("/info/:workshopID", async (req, res, next) => {
 
   var payload = await getPayload(req.params.workshopID);
 
-  var workshopUpdated = await Workshop.findOneAndUpdate({workshopID: req.params.workshopID}, {$set: workshop}, {new: true})
-  .catch(error => {
-      console.log(error);
-      res.sendStatus(400);
-  })
+  var workshopUpdated = await Workshop.findOneAndUpdate(
+    { workshopID: req.params.workshopID },
+    { $set: workshop },
+    { new: true }
+  ).catch((error) => {
+    console.log(error);
+    res.sendStatus(400);
+  });
 
   payload.pageTitle = "Workshop Information";
   payload.workshopID = req.params.workshopID;
@@ -131,16 +134,16 @@ router.post("/info/:workshopID", async (req, res, next) => {
   res.status(200).render("users/workshopInfo", payload);
 });
 
-async function getPayload(workshopID){
+async function getPayload(workshopID) {
   var workshop = await Workshop.findOne({ workshopID: workshopID });
 
-  if(workshop == null) {
-      return {};
+  if (workshop == null) {
+    return {};
   }
 
   return {
-      workshopInfo: workshop
-  }
+    workshopInfo: workshop,
+  };
 }
 
 module.exports = router;
