@@ -14,5 +14,12 @@ router.get("/", (req, res, next) => {
     res.status(200).render("users/adminRequest", payload);
 });
 
+router.get("/backup", (req, res, next) => {
+    var payload = {
+        userLoggedIn: req.session.user
+    };
+    res.status(200).render("users/adminBackup", payload);
+});
+
 
 module.exports = router;

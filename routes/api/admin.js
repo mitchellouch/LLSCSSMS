@@ -4,6 +4,8 @@ const router = express.Router();
 const bodyParser = require("body-parser");
 const User = require("../../models/userSchema");
 
+const MongoSnapshot = require("mongodb-snapshot");
+
 app.use(bodyParser.urlencoded({ extended: false }));
 
 router.get("/", (req, res, next) => {
@@ -48,7 +50,56 @@ router.get("/request/decline/:saitId", (req, res, next) => {
             console.log(error);
             res.sendStatus(400);
         })
-
 });
+
+router.get("/backup/:collection", async (req, res, next) => {
+    console.log("backup requests: "+req.params.collection);
+    const collection = req.params.collection;
+
+    if(collection == 'test') {
+        console.log(__dirname);
+    }
+    else {
+        await mongoSnap('');    //backup
+    }
+
+    res.redirect("/admin/backup");
+});
+
+router.get("/restore/:collection", async (req, res, next) => {
+    console.log("restore requests: "+req.params.collection);
+    const collection = req.params.collection;
+    
+    if(collection == 'test') {
+    }
+    else {
+        await mongoSnap('', true);    //restore
+    }
+
+    res.redirect("/admin/backup");
+});
+
+async function mongoSnap(path, restore = false) {
+    const mongo_connector = new MongoSnapshot.MongoDBDuplexConnector({
+        connection: {
+            uri: process.env.DB_CONNECTION,
+            dbname: 'LLSCSSMS'
+        }
+    });
+
+    const localfile_connector = new MongoSnapshot.LocalFileSystemDuplexConnector({
+        connection: {
+            path: './backups/backup.tar'
+        }
+    });
+
+    const transferer = restore ? 
+        new MongoSnapshot.MongoTransferer({ source: localfile_connector, targets: [mongo_connector] }) : 
+        new MongoSnapshot.MongoTransferer({ source: mongo_connector, targets: [localfile_connector] }) ;
+
+    for await (const { total, write } of transferer) {
+        console.log(`remaining bytes to write: ${total - write}`);
+    }
+}
 
 module.exports = router;

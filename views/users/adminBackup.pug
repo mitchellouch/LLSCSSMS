@@ -1,0 +1,38 @@
+extends layouts/main-layout.pug
+
+block content 
+  .row
+    nav.col-lg-2
+      .submenuHeading Sub Menu
+      a(href=`/admin`) Sign-up Requests
+      a(href=`/admin/backup`) Backup and Restoration
+
+    .mainSectionContainer.col-lg-10
+      .studentInfoWrapper 
+        h1.heading.left3rem  Admin Page - Backup and Restoration
+        
+        a(href="/api/admin/backup/test") Test link 
+
+        h2.subHeading Backup
+        a(href="/api/admin/backup/all") Backup All 
+        a(href="/api/admin/backup/saitprograms") Backup SAIT programs 
+        a(href="/api/admin/backup/students") Backup students
+        a(href="/api/admin/backup/users") Backup users
+        a(href="/api/admin/backup/appointments") Backup appointments
+        a(href="/api/admin/backup/workshops") Backup workshops
+
+        br
+
+        h2.subHeading Restoration
+        a(href="/api/admin/restore/all") restore All
+        a(href="/api/admin/restore/saitprograms") restore SAIT programs 
+        a(href="/api/admin/restore/students") restore students
+        a(href="/api/admin/restore/users") restore users
+        a(href="/api/admin/restore/appointments") restore appointments
+        a(href="/api/admin/restore/workshops") restore workshops
+
+
+
+    
+block scripts
+    script(src="/js/admin.js")
