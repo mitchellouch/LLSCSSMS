@@ -8,7 +8,7 @@ block content
     p.successMessage #{successMessage}
 
     form(method='POST', action="/login")
-      input#logId.form-control(type='text' placeholder='Enter SAIT ID' name='logId' value="000987654")
-      input#logPassword.form-control(type='password' placeholder='Enter Password' name='logPassword' value="123456")
+      input#logId.form-control(type='text' placeholder='Enter SAIT ID' name='logId')
+      input#logPassword.form-control(type='password' placeholder='Enter Password' name='logPassword')
       input(type='submit' value='Login')
     a(href='/register') Need an account? Register here.
