@@ -46,7 +46,6 @@ const saitProgramsApiRoute = require("./routes/api/saitPrograms");
 const appointmentsApiRoute = require("./routes/api/appointments");
 const workshopsApiRoute = require("./routes/api/workshops");
 const adminApiRoute = require("./routes/api/admin");
-const { normalize } = require("node:path");
 
 app.use("/login", loginRoute);
 app.use("/register", registerRoute);
@@ -64,13 +63,12 @@ app.use("/api/workshops", middleware.requireLogin, workshopsApiRoute);
 app.use("/api/admin", middleware.requireAdmin, adminApiRoute);
 
 //start listening & setup route
-var port = normalizePort(process.env.PORT || "8081");
-
+const port = process.env.PORT || 8081;
 app.listen(port, () => {
   console.log("Server listening on port " + port);
 });
 
-//localhost:8081
+//localhost:3000
 app.get("/", middleware.requireLogin, (req, res, next) => {
   var payload = {
     pageTitle: "Main Page",
