@@ -8,9 +8,7 @@ const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
 const mongoose = require("./database");
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
+require("dotenv/config");
 const middleware = require("./middleware/auth");
 const session = require("express-session");
 
