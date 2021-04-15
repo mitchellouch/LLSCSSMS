@@ -2,12 +2,15 @@
   "name": "llscssms",
   "version": "1.0.0",
   "description": "student services management system",
+  "engines": {
+    "node": "15.x"
+  },
   "main": "index.js",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
