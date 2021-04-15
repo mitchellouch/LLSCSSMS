@@ -64,7 +64,7 @@ app.use("/api/admin", middleware.requireAdmin, adminApiRoute);
 
 //start listening & setup route
 const port = 3000;
-app.listen(port, () => {
+app.listen(port || process.env.PORT, () => {
   console.log("Server listening on port " + port);
 });
 
