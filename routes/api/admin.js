@@ -5,14 +5,6 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const User = require("../../models/userSchema");
 
-// const multer = require("multer");
-// const upload = multer({ dest: "backups/" });
-// const fs = require("fs");
-
-// const MongoSnapshot = require("mongodb-snapshot");
-
-// const MongoClient = require("mongodb").MongoClient;
-// const client = new MongoClient('mongodb+srv://LLSC_Admin2:SSMS-2021@llscssms.oves7.mongodb.net', { useUnifiedTopology: true });
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -63,6 +55,17 @@ router.get("/request/decline/:saitId", (req, res, next) => {
 
 /*  <Below code is for testing free version but failed, upgrade plan of MongoDB cluster provides automatic backup and restoration functionality>
 //backup plan, module has some malfunction, need to wait bug fix
+
+
+// const multer = require("multer");
+// const upload = multer({ dest: "backups/" });
+// const fs = require("fs");
+
+// const MongoSnapshot = require("mongodb-snapshot");
+
+// const MongoClient = require("mongodb").MongoClient;
+// const client = new MongoClient(process.env.DB_CONNECTION, { useUnifiedTopology: true });
+
 router.get("/backup/:collection", async (req, res, next) => {
     console.log("backup requests: "+req.params.collection);
     const collection = req.params.collection;
