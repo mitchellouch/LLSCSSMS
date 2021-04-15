@@ -1,10 +1,18 @@
 extends layouts/main-layout.pug
 
 block content 
-  .studentInfoWrapper 
-    h1.heading  Admin Page
-      
-    .resultsContainer
+  .row
+    nav.col-lg-2
+      .submenuHeading Sub Menu
+      a(href=`/admin`) Sign-up Requests
+      a(href=`/admin/backup`) Backup and Restoration
+
+    .mainSectionContainer.col-lg-10
+      .studentInfoWrapper 
+        h1.heading.left3rem  Admin Page - Sign up Requests
+        h1.subHeading List
+
+        .resultsContainer
     
 block scripts
     script(src="/js/admin.js")
