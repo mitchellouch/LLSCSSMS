@@ -9,14 +9,17 @@ class Database {
   }
 
   connect() {
-    mongoose
-      .connect(process.env.DB_CONNECTION)
-      .then(() => {
-        console.log("# database connection successful");
-      })
-      .catch((err) => {
-        console.log("# database connection error", err);
-      });
+    mongoose;
+    "mongodb+srv://LLSC_Admin:" +
+      process.env.DB_PASS +
+      "@llscssms.oves7.mongodb.net/LLSCSSMS?retryWrites=true&w=majority"
+        .connect()
+        .then(() => {
+          console.log("# database connection successful");
+        })
+        .catch((err) => {
+          console.log("# database connection error", err);
+        });
   }
 }
 
