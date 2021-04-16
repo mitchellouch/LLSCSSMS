@@ -3,7 +3,7 @@ extends layouts/main-layout.pug
 block content 
     .wrapper
         .row
-            .mainSectionContainer.col-10
+            .mainSectionContainer.col-12
                 form.studentInfoWrapper(action=`/appointment/info/${apptId}`, method="POST") 
                     h1.heading.left3rem  #{pageTitle}
                     //h1.subHeading  #{appointmentInfo ? `${appointmentInfo.firstName} ${profileStudent.lastName}` : "Appointment not found."}
