@@ -85,8 +85,6 @@ router.get("/info/:workshopID", async (req, res, next) => {
   payload.workshopID = req.params.workshopID;
   payload.userLoggedIn = req.session.user;
 
-  console.log(payload);
-
   res.status(200).render("users/workshopInfo", payload);
 });
 

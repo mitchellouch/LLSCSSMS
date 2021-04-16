@@ -1,5 +1,24 @@
 var timer;
 
+$("#resetButton").click((event) => {
+    $("[name=workshopID]").attr("value", null);
+    $("[name=workshopType]").attr("value", null);
+    $("[name=WorkshopDesc]").attr("value", null);
+    $("[name=workshopDate]").attr("value", null);
+    $("[name=workshopFacilitator]").attr("value", null);
+    $("[name=workshopRequest]").attr("value", null);
+    $("[name=requestProgram]").attr("value", null);
+    $("[name=requestSchool]").attr("value", null);
+    $("[name=requestContact]").attr("value", null);
+    $("[name=numAttendees]").attr("value", null);
+    $("[name=workshopLength]").attr("value", null);
+    $("[name=avgRating]").attr("value", null);
+    $("[name=comments]").val(null);
+    $("[name=requestProgram]").attr("disabled", 'disabled');
+    $("[name=requestSchool]").attr("disabled", 'disabled');
+    $("[name=requestContact]").attr("disabled", 'disabled');
+})
+
 $(document).ready(() => {
     if($(".resultsContainer").length >= 1)
         outputAllWorkshops();
