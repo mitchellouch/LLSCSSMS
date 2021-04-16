@@ -33,9 +33,9 @@ block content
                                 .rowContainer
                                     span.label Meeting Type:
                                     select.form-select.form-control(name="meetingType" value=appointmentInfo.meetingType)
-                                        option(selected= appointmentInfo.apptType==="Academic") Academic
-                                        option(selected= appointmentInfo.apptType==="Personal") Personal 
-                                        option(selected= appointmentInfo.apptType==="Financial") Financial      
+                                        option(selected= appointmentInfo.meetingType==="Academic") Academic
+                                        option(selected= appointmentInfo.meetingType==="Personal") Personal 
+                                        option(selected= appointmentInfo.meetingType==="Financial") Financial      
                                 .rowContainer
                                     span.label Start Date:
                                     input.form-control(type="datetime-local" name="startDate" id="dt" value=appointmentInfo.startDate.toJSON().slice(0,19), required)

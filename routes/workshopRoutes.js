@@ -39,7 +39,7 @@ router.post("/workshopNew", async (req, res, next) => {
   if (workshop.workshopRequest == "on") {
     workshop.workshopRequest = true;
     workshop.requestProgram = req.body.requestProgram.trim();
-    workshop.requestSchool = req.body.requestProgram.trim();
+    workshop.requestSchool = req.body.requestSchool.trim();
     workshop.requestContact = req.body.requestContact.trim();
   } else {
     workshop.workshopRequest = false;
@@ -84,6 +84,9 @@ router.get("/info/:workshopID", async (req, res, next) => {
   payload.pageTitle = "Workshop Information";
   payload.workshopID = req.params.workshopID;
   payload.userLoggedIn = req.session.user;
+
+  console.log(payload);
+
   res.status(200).render("users/workshopInfo", payload);
 });
 
@@ -105,7 +108,7 @@ router.post("/info/:workshopID", async (req, res, next) => {
   if (workshop.workshopRequest == "on") {
     workshop.workshopRequest = true;
     workshop.requestProgram = req.body.requestProgram.trim();
-    workshop.requestSchool = req.body.requestProgram.trim();
+    workshop.requestSchool = req.body.requestSchool.trim();
     workshop.requestContact = req.body.requestContact.trim();
   } else {
     workshop.workshopRequest = false;
